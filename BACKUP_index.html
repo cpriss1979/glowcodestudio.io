@@ -1,0 +1,2014 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Glow Code Studio</title>
+  <meta name="description"
+    content="Glow Code Studio builds wellness apps, meaningful websites, and indie games. Home of Three Sides." />
+  <meta name="theme-color" content="#8357ff" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Glow Code Studio — Three Sides & more" />
+  <meta property="og:description"
+    content="Wellness apps & helpful tools. Three Sides is in Google Play closed testing; iOS coming soon." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://example.com/" />
+
+  <style>
+    :root {
+      /* base */
+      --bg: #0b0b12;
+      --text: #f3f5fa;
+      --muted: #9aa0b3;
+      --brand: #8357ff;
+      --brand-2: #2dd4bf;
+      --ring: rgba(131, 87, 255, .35);
+      --shadow: 0 10px 30px rgba(0, 0, 0, .30);
+      --radius: 18px;
+      --maxw: 1080px;
+
+      /* section bands */
+      --surface-dark: #0e0e17;
+      /* dark band */
+      --surface-light: #32325b;
+      /* light band */
+
+      /* unified card color (solid so it matches on both bands) */
+      --card-solid: #241b4a;
+      /* tweak later; consistent everywhere */
+      --card-border: rgba(255, 255, 255, .08);
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    html,
+    body {
+      margin: 0;
+      height: 100%;
+      background:
+        radial-gradient(1200px 800px at 10% -10%, rgba(131, 87, 255, .15), transparent 60%),
+        radial-gradient(1000px 700px at 120% 0%, rgba(45, 212, 191, .10), transparent 55%),
+        var(--bg);
+      color: var(--text);
+      font: 500 16px/1.55 system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+    }
+
+    a {
+      color: var(--brand-2);
+      text-decoration: none
+    }
+
+    a:hover {
+      text-decoration: underline
+    }
+
+    /* layout */
+    .container {
+      max-width: var(--maxw);
+      margin-inline: auto;
+      padding: 22px
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: saturate(140%) blur(8px);
+      background: rgba(54, 14, 115, .6);
+      border-bottom: 1px solid rgba(255, 255, 255, .06);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px
+    }
+
+    .logo {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      box-shadow: var(--shadow)
+    }
+
+    .brand h1 {
+      font-size: 18px;
+      margin: 0;
+      letter-spacing: .3px
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      align-items: center
+    }
+
+    .nav-links a {
+      color: var(--text);
+      opacity: .8
+    }
+
+    .nav-links a.active,
+    .nav-links a:hover {
+      opacity: 1
+    }
+
+    /* ctas */
+    .cta {
+      display: inline-flex;
+      gap: 10px;
+      align-items: center;
+      background: linear-gradient(135deg, var(--brand), #6ea8ff);
+      color: #fff;
+      padding: 12px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, .10);
+      box-shadow: var(--shadow);
+      font-weight: 700;
+    }
+
+    .cta.secondary {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, .18)
+    }
+
+    .cta.small {
+      padding: 9px 12px;
+      font-weight: 600
+    }
+
+    .cta .tag {
+      background: rgba(255, 255, 255, .12);
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 12px
+    }
+
+    /* sections */
+    .section {
+      padding: 48px 0
+    }
+
+    .section>*:first-child {
+      margin-top: 0
+    }
+
+    .section>*+* {
+      margin-top: 16px
+    }
+
+    .section--dark {
+      background: var(--surface-dark)
+    }
+
+    .section--light {
+      background: var(--surface-light)
+    }
+
+    .badge {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      color: var(--muted);
+      font-size: 14px
+    }
+
+    .title {
+      font-size: 38px;
+      line-height: 1.1;
+      margin: 6px 0 14px
+    }
+
+    .muted {
+      color: var(--muted)
+    }
+
+    /* cards (same look on both bands) */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 24px;
+    }
+
+    .card {
+      background: var(--card-solid);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .card h3 {
+      margin: 0 0 8px;
+      font-size: 18px
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted)
+    }
+
+    .list {
+      display: grid;
+      gap: 10px;
+      margin: 10px 0 0;
+      padding: 0;
+      list-style: none
+    }
+
+    .list li {
+      display: flex;
+      gap: 10px;
+      align-items: start;
+      color: var(--muted)
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--brand-2);
+      margin-top: 8px
+    }
+
+    /* hero bits */
+    h1 {
+      text-align: center;
+      font-weight: 800;
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+    }
+
+    .hero-media {
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    .gc-wrap {
+      width: clamp(260px, 36vw, 420px);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      overflow: hidden;
+      margin: 0 auto;
+      box-shadow: 0 18px 48px rgba(0, 0, 0, .45), 0 0 0 1px rgba(255, 255, 255, .06) inset;
+      background: transparent;
+    }
+
+    #gcHero {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block
+    }
+
+    /* status line + cta row */
+    .btn-row {
+      width: 100%;
+      display: flex;
+      justify-content: center
+    }
+
+    .post-cta-note {
+      margin: 10px auto 0;
+      max-width: 560px;
+      padding-inline: clamp(12px, 4vw, 24px);
+      color: var(--muted);
+      text-align: left;
+    }
+
+    .btnrow {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      width: 100%;
+      max-width: 560px;
+      margin: 12px auto 0;
+      padding-inline: clamp(12px, 4vw, 24px);
+      justify-content: flex-start;
+      /* change to center if you want */
+    }
+
+    /* forms */
+    .field {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap
+    }
+
+    input[type="email"] {
+      background: #0f0f19;
+      border: 1px solid rgba(255, 255, 255, .14);
+      color: var(--text);
+      padding: 12px 14px;
+      border-radius: 12px;
+      outline: 2px solid transparent;
+      outline-offset: 2px;
+      width: 280px;
+    }
+
+    input[type="email"]:focus {
+      outline-color: var(--ring)
+    }
+
+    /* footer */
+    footer {
+      border-top: 1px solid rgba(255, 255, 255, .06);
+      color: var(--muted)
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 18px
+    }
+
+    .foot-links {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap
+    }
+
+    /* responsive */
+    @media (max-width:980px) {
+      .cards {
+        grid-template-columns: 1fr;
+        gap: 16px
+      }
+
+      .title {
+        font-size: 32px
+      }
+
+      .nav-links {
+        display: none
+      }
+
+      .menu-btn {
+        display: inline-flex
+      }
+    }
+
+    @media (min-width:981px) {
+      .menu-btn {
+        display: none
+      }
+    }
+
+    /* simple mobile sheet */
+    .sheet {
+      position: fixed;
+      inset: auto 0 0 0;
+      background: rgba(11, 11, 18, .95);
+      translate: 0 100%;
+      transition: translate .26s ease;
+      border-top: 1px solid rgba(255, 255, 255, .08);
+      padding: 18px;
+      z-index: 50;
+    }
+
+    .sheet.open {
+      translate: 0 0
+    }
+
+    .sheet a {
+      display: block;
+      padding: 12px 2px;
+      color: var(--text)
+    }
+
+    .sheet .close {
+      position: absolute;
+      right: 12px;
+      top: 10px;
+      font-size: 24px;
+      line-height: 1
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0
+    }
+
+    [id] {
+      scroll-margin-top: 88px
+    }
+
+    /* === Section spacing: tighten globally, then fine-tune per section === */
+    /* Global baseline */
+    :root {
+      --pad-desktop: 40px;
+      /* was 48 */
+      --pad-mobile: 28px;
+      /* was 48 everywhere on mobile */
+      --gap-md: 14px;
+      /* internal vertical rhythm baseline */
+      --gap-lg: 18px;
+    }
+
+    .section {
+      padding-block: var(--pad-desktop) !important;
+    }
+
+    .section .container>*+* {
+      margin-top: var(--gap-md) !important;
+    }
+
+    /* Mobile: shrink a bit more */
+    @media (max-width: 700px) {
+      .section {
+        padding-block: var(--pad-mobile) !important;
+      }
+    }
+
+    /* Hero & “Get in touch” are where most of the extra space lives */
+    #app-features.section.section--light {
+      /* the GC logo + CTAs band */
+      padding-block: 28px !important;
+      /* was big; this feels snappy */
+    }
+
+    #three-sides.section.section--dark {
+      /* Get in touch band */
+      padding-block: 28px !important;
+    }
+
+    /* Top creator-bio line shouldn’t be so tall by itself */
+    #intro.section.section--dark {
+      padding-block: 24px !important;
+    }
+
+    /* Space before/after card grids */
+    .cards {
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    /* was 18/24 */
+
+    /* Remove tail-space at the end of each section */
+    .section .container>*:last-child {
+      margin-bottom: 0 !important;
+    }
+
+    /* Headlines to copy gap (a hair tighter) */
+    .title {
+      margin-bottom: 8px !important;
+    }
+
+    .muted {
+      margin-top: 0 !important;
+    }
+
+    /* Make the CTA row tuck closer to the status line */
+    .btnrow {
+      margin-top: 10px;
+    }
+
+    /* Optional: make the circular logo block not add phantom space */
+    .gc-wrap {
+      margin: 2px auto 8px;
+      /* tighter */
+    }
+
+    /* Footer: less top padding so it hugs the contact section */
+    footer .container {
+      padding-block: 16px;
+    }
+
+    /* anchor targets clear sticky header */
+
+    /* --- tighten the seam between the creator-bio (dark) and hero (light) --- */
+    /* remove the global "extra top padding for every next section" just for this pair */
+    #intro+#app-features {
+      padding-top: 0 !important;
+    }
+
+    /* bring the two bands closer together evenly */
+    #intro.section--dark {
+      padding-bottom: 14px !important;
+    }
+
+    #app-features.section--light {
+      padding-top: 14px !important;
+    }
+
+    /* kill any first-child margin inside the hero container */
+    #app-features .container>*:first-child {
+      margin-top: 0 !important;
+    }
+
+    /* make sure the big title itself doesn’t add any space */
+    #app-features h1 {
+      margin: 0 !important;
+      line-height: 1.05;
+    }
+
+    /* slightly tighten the vertical rhythm inside the hero only */
+    #app-features .container>*+* {
+      margin-top: 12px !important;
+    }
+
+    /* keep the status line and buttons tucked in */
+    #app-features .btn-row {
+      margin-top: 10px !important;
+    }
+
+    #app-features .btnrow {
+      margin-top: 10px !important;
+    }
+
+    /* ——— tighten the seam between creator-bio (dark) and hero (light) ——— */
+
+    /* make the two bands meet tighter */
+    #intro.section.section--dark {
+      padding-bottom: 12px !important;
+    }
+
+    #three-sides.section.section--light {
+      padding-top: 12px !important;
+    }
+
+    /* kill any first-child margins inside the hero container */
+    #three-sides .container>*:first-child {
+      margin-top: 0 !important;
+    }
+
+    /* title shouldn’t add any extra top space */
+    #three-sides h1 {
+      margin: 0 0 8px !important;
+      line-height: 1.06;
+    }
+
+    /* slightly tighter vertical rhythm only inside the hero */
+    #three-sides .container>*+* {
+      margin-top: 12px !important;
+    }
+
+    /* keep the status line + buttons tucked in */
+    #three-sides .btn-row {
+      margin-top: 8px !important;
+    }
+
+    #three-sides .btnrow {
+      margin-top: 10px !important;
+    }
+
+    /* prevent the circular logo from adding phantom gap */
+    #three-sides .gc-wrap {
+      margin-block: 6px !important;
+    }
+
+    /* optional: overall band padding for the hero */
+    #three-sides.section.section--light {
+      padding-bottom: 28px !important;
+    }
+
+    /* ensure the “Early Projects” heading doesn’t drift up after the hero */
+    #early.section.section--dark {
+      padding-top: 28px !important;
+    }
+
+    /* global: ensure there’s no stray bottom margin at section ends */
+    .section .container>*:last-child {
+      margin-bottom: 0 !important;
+    }
+
+    /* === Equal-width CTA buttons === */
+    .btnrow {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      width: 100%;
+      max-width: 560px;
+      margin: 12px auto 0;
+      padding-inline: clamp(12px, 4vw, 24px);
+    }
+
+    /* Make BOTH buttons take the same width regardless of text length */
+    .btnrow .cta {
+      flex: 1 1 0;
+      /* equal halves */
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      /* label left, tag right */
+      min-height: 44px;
+      /* consistent height */
+    }
+
+    /* tiny phones: stack full-width */
+    @media (max-width: 460px) {
+      .btnrow {
+        flex-direction: column;
+      }
+
+      .btnrow .cta {
+        width: 100%;
+      }
+    }
+
+    /* === Compact CTA row (smaller, same-width buttons) === */
+    .btnrow.compact {
+      max-width: 420px;
+      /* was 560px */
+      gap: 10px;
+      margin-top: 10px;
+      padding-inline: clamp(10px, 4vw, 18px);
+    }
+
+    .btnrow.compact .cta {
+      flex: 1 1 0;
+      /* equal halves */
+      min-height: 40px;
+      /* was 44px */
+      padding: 8px 12px;
+      /* was 12px 16px */
+      font-size: 14px;
+      /* a bit smaller */
+      line-height: 1.1;
+    }
+
+    .btnrow.compact .cta .tag {
+      font-size: 11px;
+      /* scale tag down a touch */
+      padding: 1px 7px;
+    }
+
+    /* tiny phones: still stack full width */
+    @media (max-width: 460px) {
+      .btnrow.compact {
+        flex-direction: column;
+      }
+
+      .btnrow.compact .cta {
+        width: 100%;
+      }
+    }
+
+    /* === Extra-small CTA pills (content-sized) === */
+    .btnrow.compact.shrink {
+      max-width: 270px;
+      /* tighter row */
+      gap: 8px;
+      margin-top: 8px;
+      padding-inline: clamp(8px, 4vw, 16px);
+      justify-content: flex-start;
+      /* or center, if you prefer */
+    }
+
+    .btnrow.compact.shrink .cta {
+      flex: 0 0 auto;
+      /* STOP filling the row */
+      min-height: 40px;
+      /* a bit shorter */
+      padding: 10px 12px;
+      /* slimmer pill */
+      font-size: 14.5px;
+    }
+
+    .btnrow.compact.shrink .tag {
+      font-size: 10.5px;
+      padding: 1px 6px;
+    }
+
+    /* keep header items on one line and centered */
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: nowrap;
+      /* don't wrap to a new line */
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .brand h1 {
+      font-size: 18px;
+      margin: 0;
+      letter-spacing: .3px;
+      white-space: nowrap;
+      /* prevent wrap on small widths */
+    }
+
+    /* circular header logo image */
+    .logo-img {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      /* <- circle */
+      object-fit: cover;
+      display: block;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255, 255, 255, .08);
+      background: #121212;
+      /* fallback behind transparent PNGs */
+    }
+
+    /* show menu button on mobile, hide on desktop (you already had this) */
+    @media (max-width:980px) {
+      .nav-links {
+        display: none;
+      }
+
+      .menu-btn {
+        display: inline-flex;
+        margin-left: auto;
+      }
+
+      /* push it to far-right */
+    }
+
+    @media (min-width:981px) {
+      .menu-btn {
+        display: none;
+      }
+    }
+
+    /* hero logo size (a little smaller) */
+    .gc-wrap {
+      width: clamp(220px, 30vw, 360px);
+      /* was clamp(260px, 36vw, 420px) */
+      aspect-ratio: 1;
+      border-radius: 50%;
+      overflow: hidden;
+      margin: 6px auto;
+      /* was 0 or larger */
+      box-shadow: 0 14px 32px rgba(0, 0, 0, .38), 0 0 0 1px rgba(255, 255, 255, .04) inset;
+      background: transparent;
+    }
+
+    /* extra small phones: nudge smaller again */
+    @media (max-width: 380px) {
+      .gc-wrap {
+        width: 200px;
+      }
+    }
+
+    /* desktop: still prominent but not oversized */
+    @media (min-width: 1000px) {
+      .gc-wrap {
+        width: 320px;
+      }
+
+      /* was up to 420px */
+    }
+
+    /* hero wrapper only (leave header logo alone) */
+    .gc-wrap {
+      border-radius: 50%;
+      overflow: hidden;
+    }
+
+    /* this is for the BIG hero logo */
+    .logo-img {
+      border-radius: 12px !important;
+      display: block;
+    }
+
+    .logo-img {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(145deg, #cbb7ff, #9ddaff);
+      padding: 3px;
+    }
+
+    .logo-ring {
+      width: 38px;
+      height: 38px;
+      padding: 3px;
+      /* ring thickness */
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(145deg, #cbb7ff, #9ddaff);
+    }
+
+    .logo-ring .logo-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+    }
+
+    /* ===== THEME SWITCHER ===== */
+    :root {
+      --brand: #8357ff;
+      --brand-2: #2dd4bf;
+      --text: #f3f5fa;
+      --muted: #9aa0b3;
+      --card-solid: #241b4a;
+      --card-border: rgba(255, 255, 255, .08);
+    }
+
+    /* base hook vars the site already uses */
+    :root,
+    body {
+      --bg: #0b0b12;
+      /* page background */
+      --surface-dark: #0e0e17;
+      /* dark band */
+      --surface-light: #32325b;
+      /* light band */
+      --header: rgba(54, 14, 115, .6);
+      /* header glass tint */
+    }
+
+    /* Aurora Glow */
+    .theme-aurora {
+      --bg: #0b0b12;
+      --surface-dark: #0e0e17;
+      --surface-light: #3A2E74;
+      --header: #2A155A;
+    }
+
+    /* Seafoam Noir */
+    .theme-seafoam {
+      --bg: #0B1114;
+      --surface-dark: #0B1114;
+      --surface-light: #123A45;
+      --header: #002B36;
+    }
+
+    /* Sunset Ink */
+    .theme-sunset {
+      --bg: #0E0A12;
+      --surface-dark: #0E0A12;
+      --surface-light: #44234D;
+      --header: #2B0F2F;
+    }
+
+    /* make header actually use the header var */
+    header {
+      background: color-mix(in hsl, var(--header) 85%, transparent);
+      backdrop-filter: saturate(140%) blur(8px);
+      border-bottom: 1px solid rgba(255, 255, 255, .06);
+    }
+
+    /* bands use your existing variables — no markup changes */
+    .section--dark {
+      background: var(--surface-dark);
+    }
+
+    .section--light {
+      background: var(--surface-light);
+    }
+
+    /* === Sunset-violet theme tune-up === */
+    :root {
+      --header: #2B0DF2;
+      --surface-dark: #0D0A1A;
+      --surface-light: #3F2A77;
+      --card-solid: #241B4A;
+      --card-border: rgba(255, 255, 255, .08);
+      --text: #F3F5FA;
+      --muted: #9AA0B3;
+    }
+
+    header {
+      background: color-mix(in hsl, var(--header) 85%, transparent);
+      backdrop-filter: saturate(140%) blur(8px);
+      border-bottom: 1px solid rgba(255, 255, 255, .06);
+    }
+
+    .section--dark {
+      background: var(--surface-dark);
+    }
+
+    .section--light {
+      background: var(--surface-light);
+    }
+
+    .card {
+      background: var(--card-solid);
+      border: 1px solid var(--card-border);
+      color: var(--text);
+    }
+
+    .card p {
+      color: var(--muted);
+    }
+
+    /* CTA buttons stay bright but on-brand */
+    .cta {
+      background: linear-gradient(135deg, #8357FF, #6EA8FF);
+      border: 1px solid rgba(255, 255, 255, .10);
+    }
+
+    .cta.secondary {
+      background: transparent;
+      border-color: rgba(255, 255, 255, .18);
+    }
+
+    /* Circle header logo with subtle ring */
+    .logo-ring {
+      width: 38px;
+      height: 38px;
+      padding: 3px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(145deg, #cbb7ff, #9ddaff);
+    }
+
+    .logo-ring .logo-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: #121212;
+      display: block;
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, .06) inset, 0 6px 16px rgba(0, 0, 0, .35);
+    }
+
+    /* Hero circle keeps that nice lift */
+    .gc-wrap {
+      box-shadow: 0 18px 48px rgba(0, 0, 0, .45),
+        0 0 0 1px rgba(255, 255, 255, .06) inset;
+    }
+
+    /* ==== Card refresh (velvet panel look) ==== */
+
+    /* (A) Make sure the card colors are defined */
+    :root {
+      --card-solid: #2e1f52;
+      /* deep berry-indigo base (fallback) */
+      --card-border: rgba(255, 255, 255, .10);
+      --card-title: #F4F6FB;
+      --card-text: #D7CFF6;
+      /* soft lilac body text */
+    }
+
+    /* (B) Override the old card styling with higher specificity */
+    .cards .card {
+      position: relative;
+      background: linear-gradient(145deg, #3A2A63 0%, #261946 100%) !important;
+      border: 1px solid var(--card-border) !important;
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow:
+        0 8px 20px rgba(0, 0, 0, .32),
+        inset 0 0 0 1px rgba(255, 255, 255, .04);
+    }
+
+    /* (C) Clear, cozy text */
+    .cards .card h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+      color: var(--card-title) !important;
+    }
+
+    .cards .card p {
+      margin: 0;
+      color: var(--card-text) !important;
+    }
+
+    /* (D) Optional soft inner glow for dimension */
+    .cards .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      box-shadow: inset 0 0 60px rgba(131, 87, 255, .08);
+    }
+
+    /* ===== Smooth-flow cards (plum glass) ===== */
+
+    /* Harmonize section hues */
+    :root {
+      --surface-dark: #0f0b17;
+      /* deep eggplant (footer / dark bands) */
+      --surface-light: #3b2a57;
+      /* plum for light bands (what your hero sits on) */
+
+      /* Card palette tuned to those bands */
+      --card-bg: rgba(38, 28, 64, .55);
+      /* translucent plum glass */
+      --card-border: rgba(255, 255, 255, .10);
+      --card-title: #f4f6fb;
+      --card-text: #d7cff6;
+      --card-glow: rgba(170, 120, 255, .14);
+    }
+
+    /* slightly brighter */
+
+    /* Make the bands actually use the vars (no markup changes needed) */
+    .section--dark {
+      background: var(--surface-dark);
+    }
+
+    .section--light {
+      background: var(--surface-light);
+    }
+
+    /* ONE authoritative card rule – wins by specificity + being last */
+    .cards .card {
+      position: relative;
+      background: var(--card-bg) !important;
+      /* translucent glass */
+      border: 1px solid var(--card-border) !important;
+      border-radius: 16px;
+      padding: 16px;
+      /* lighter, wider shadow so it feels airy, not heavy */
+      box-shadow:
+        0 10px 24px rgba(0, 0, 0, .28),
+        inset 0 0 0 1px rgba(255, 255, 255, .04);
+      backdrop-filter: saturate(135%) blur(8px);
+      /* glass flow */
+      -webkit-backdrop-filter: saturate(135%) blur(8px);
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+    }
+
+    /* tiny lift on hover (desktop only) */
+    @media (hover:hover) {
+      .cards .card:hover {
+        transform: translateY(-2px);
+        box-shadow:
+          0 14px 30px rgba(0, 0, 0, .30),
+          inset 0 0 0 1px rgba(255, 255, 255, .05);
+      }
+    }
+
+    /* Soft inner glow that matches the section hue so it “melts in” */
+    .cards .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      box-shadow: inset 0 0 60px var(--card-glow);
+    }
+
+    /* Clear, cozy type */
+    .cards .card h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+      color: var(--card-title) !important;
+    }
+
+    .cards .card p {
+      margin: 0;
+      color: var(--card-text) !important;
+    }
+
+    /* Tighten card grid rhythm a smidge so the flow feels intentional */
+    .cards {
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    /* === Unified card look everywhere === */
+    :root {
+      /* choose your panel purple once */
+      --panel-purple: #3f2a6a;
+      /* tweak if you want a different shade */
+      --panel-border: rgba(255, 255, 255, .10);
+      --panel-title: #f5f7ff;
+      --panel-text: #dcd5ff;
+    }
+
+    /* make ALL .card elements identical (grid or single) */
+    .card {
+      position: relative;
+      background: var(--panel-purple) !important;
+      border: 1px solid var(--panel-border) !important;
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, .28);
+      backdrop-filter: none !important;
+      /* kill glass so color doesn’t shift */
+      -webkit-backdrop-filter: none !important;
+    }
+
+    .card h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+      color: var(--panel-title) !important;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--panel-text) !important;
+    }
+
+    /* optional soft sheen so panels don’t look flat */
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      background: linear-gradient(180deg, rgba(255, 255, 255, .05), transparent 40%);
+    }
+
+    /* === Unified card look everywhere (exact same color + mirror) === */
+
+    :root {
+      /* pick a single purple you love */
+      --card-bg: #3f2a72;
+      /* base card color */
+      --card-border: rgba(255, 255, 255, .10);
+      --card-title: #f5e9ff;
+      --card-text: #d9d2ff;
+      --card-sheen: rgba(255, 255, 255, .10);
+      /* sheen strength */
+      --card-inset: rgba(0, 0, 0, .22);
+      /* inner shadow depth */
+      --card-radius: 18px;
+      --card-shadow: 0 20px 28px rgba(0, 0, 0, .32);
+    }
+
+    /* One rule that ALL cards use (feature cards and the standalone ones) */
+    .card {
+      position: relative;
+      overflow: hidden;
+      background: var(--card-bg) !important;
+      /* force same bg */
+      border: 1px solid var(--card-border) !important;
+      border-radius: var(--card-radius);
+      box-shadow: var(--card-shadow), inset 0 0 1px rgba(255, 255, 255, .05);
+      padding: 18px;
+    }
+
+    /* Clean, consistent type */
+    .card h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+      color: var(--card-title) !important;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--card-text) !important;
+    }
+
+    /* Mirror/gloss effect – same on every card */
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      /* subtle top gloss + soft spotlight */
+      background:
+        linear-gradient(180deg, var(--card-sheen), transparent 38%),
+        radial-gradient(70% 50% at 20% -15%, rgba(255, 255, 255, .14), transparent 60%);
+      /* gentle inner fade so it “melts” into the section */
+      box-shadow: inset 0 60px 80px var(--card-inset);
+      mix-blend-mode: screen;
+      /* keeps it light without changing base color */
+    }
+
+    /* Grid wrapper can keep spacing, but no color here! */
+    .cards {
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    /* Safety: neutralize any older competing rules */
+    .cards .card,
+    .cards .card h3,
+    .cards .card p,
+    .cards .card::before {
+      all: revert-layer;
+      /* if your editor supports cascade layers */
+    }
+
+    /* If revert-layer isn’t supported, these ensure our values win */
+    .cards .card {
+      background: var(--card-bg) !important;
+      border: 1px solid var(--card-border) !important;
+    }
+
+    .cards .card h3 {
+      color: var(--card-title) !important;
+    }
+
+    .cards .card p {
+      color: var(--card-text) !important;
+    }
+
+    .cards .card::before {
+      background:
+        linear-gradient(180deg, var(--card-sheen), transparent 38%),
+        radial-gradient(70% 50% at 20% -15%, rgba(255, 255, 255, .14), transparent 60%);
+      box-shadow: inset 0 60px 80px var(--card-inset);
+      mix-blend-mode: screen;
+    }
+
+    /* =========================
+   CARD SYSTEM — FINAL OVERRIDES
+   Put this at the VERY END of <style>
+   ========================= */
+
+    /* 1) Design tokens (one intentional purple across the site) */
+    :root {
+      --card-bg: #3a2768;
+      /* base purple for ALL cards */
+      --card-border: rgba(255, 255, 255, .10);
+      --card-title: #f2eaff;
+      --card-text: #d7cff7;
+      --card-radius: 16px;
+      --card-shadow: 0 12px 28px rgba(0, 0, 0, .35);
+      --card-sheen: linear-gradient(180deg, rgba(255, 255, 255, .06), rgba(255, 255, 255, 0) 38%);
+    }
+
+    /* 2) One rule to rule them all: every .card looks identical */
+    .cards .card,
+    .section .card,
+    .card {
+      position: relative;
+      overflow: hidden;
+      background: var(--card-bg) !important;
+      /* force same bg */
+      border: 1px solid var(--card-border) !important;
+      border-radius: var(--card-radius) !important;
+      /* fix “square” corners */
+      box-shadow: var(--card-shadow) !important;
+      padding: 18px;
+    }
+
+    /* 3) Text colors inside cards */
+    .cards .card h3,
+    .section .card h3,
+    .card h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+      color: var(--card-title) !important;
+    }
+
+    .cards .card p,
+    .section .card p,
+    .card p {
+      margin: 0;
+      color: var(--card-text) !important;
+    }
+
+    /* 4) Soft sheen (mirror) layer on every card */
+    .cards .card::before,
+    .section .card::before,
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      background: var(--card-sheen);
+    }
+
+    /* 5) Grid rhythm stays tidy */
+    .cards {
+      gap: 14px !important;
+      margin-top: 14px !important;
+    }
+
+    /* --- Websites I've built: responsive 2-col grid --- */
+.grid-2{
+  display:grid;
+  grid-template-columns: 1fr;       /* 1 col on phones */
+  gap:14px;                          /* match your card rhythm */
+  margin-top:14px;
+}
+
+/* 2 columns on tablets/desktop */
+@media (min-width: 820px){
+  .grid-2{ grid-template-columns: 1fr 1fr; }
+}
+
+/* make lists inside project cards breathe the same as elsewhere */
+.grid-2 .list{ 
+  display:grid; 
+  gap:10px; 
+  margin:10px 0 0; 
+  padding:0; 
+  list-style:none;
+}
+.grid-2 .list li{ 
+  display:flex; 
+  gap:10px; 
+  align-items:flex-start; 
+  color:var(--muted);
+}
+.grid-2 .dot{ 
+  width:8px; height:8px; border-radius:50%; 
+  background:var(--brand-2); margin-top:8px;
+}
+
+/* ==== COLOR INTENT OVERRIDES (place at end of <style>) ==== */
+
+/* Project lists: make bullets/text PURE white */
+#early .grid-2 .list li,
+#early .grid-2 .list li span { color: var(--text) !important; }
+
+/* First description paragraph in each project card = off-white (muted) */
+
+/* “Note” lines (Original build…, Negative-calorie note, etc.) = off-white + small */
+.card .note { 
+  color: var(--muted) !important; 
+  font-size: 12px !important; 
+  margin-top: 6px !important;
+}
+
+/* Early Projects section subtitle (the tiny *Early project…*) already uses .muted — keep it off-white */
+#three-sides.section.section--dark .muted { color: var(--muted) !important; }
+
+/* About section body copy should be WHITE, not muted */
+#about .muted, 
+#about p { color: var(--text) !important; }
+
+/* Make “View site ↗” look the same everywhere (link, not pill) */
+#early .card p a,
+#games .card p a {
+  color: var(--brand-2) !important;
+  font-weight: 600;
+  text-decoration: none;
+}
+#early .card p a:hover,
+#games .card p a:hover { text-decoration: underline; }
+
+/* If any “View site” kept the .cta classes, strip the button look inside cards */
+#early .card .cta.small.secondary,
+#games .card .cta.small.secondary {
+  background: transparent !important;
+  border: 0 !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  color: var(--brand-2) !important;
+}
+
+/* soft-white tokens (optional but handy) */
+:root{
+  --ink-soft: #cdd3e3;  /* darker white */
+}
+
+/* notes/footnotes = darker white */
+.note{
+  color: var(--ink-soft) !important;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* ========== Darker-white text targets (drop-in patch) ========== */
+
+/* token */
+:root { --ink-soft: #cdd3e3; }  /* “darker white” */
+
+/* 1) All little note lines (both of yours already use .note) */
+.note{
+  color: var(--ink-soft) !important;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* 2) Games → Indie Games card: the description line */
+#games .card > p:first-of-type{
+  color: var(--ink-soft) !important;
+}
+
+/* 3) Early Projects → Rick & Crystal card: the description line */
+#early .card h3 + p,
+#three-sides.section--dark .card h3 + p{
+  color: var(--ink-soft) !important;
+}
+
+/* --- Force “darker white” on note lines inside cards --- */
+:root { --ink-soft: #cdd3e3; } /* darker white token */
+
+.card p.note,
+.card .note{
+  color: var(--ink-soft) !important;  /* beats .card p !important */
+  font-size: 12px !important;
+  line-height: 1.5;
+}
+
+/* Make note lines match normal card body color (same as .card p) */
+.cards .card p.note,
+.section .card p.note,
+.card p.note{
+  color: var(--card-text) !important;  /* identical tone as regular body copy */
+  font-size: 12px;                     /* keep your smaller size */
+  line-height: 1.5;
+}
+
+/* ==== FINAL TEXT COLOR FIXES (place last) ==== */
+/* Make both notes and the first description line in Games
+   match normal card body copy (same as Countdown calculators). */
+#early .card .note,
+#early .card p.note,
+#games .card > p:first-of-type {
+  color: var(--card-text) !important;
+}
+
+/* ============================== color for cards (darker text)======================= */
+/* === FINAL: unify description text color in all cards === */
+:root { --card-text: #a59ccd; } /* this is the lilac/grey you're seeing elsewhere */
+
+.card p,
+.card > p:first-of-type,
+#early .card > p:first-of-type,
+#games .card > p:first-of-type {
+  color: var(--card-text) !important;
+}
+
+/* ====================== play & ios buttons =================== */
+/* === CTA buttons — final colors & states === */
+.cta{
+  /* Primary (Android) */
+  --c1:#6CA8FF;   /* sky blue */
+  --c2:#8CD0FF;   /* light aqua blue */
+background: linear-gradient(135deg,
+#6CA8FF 0%,
+#8CD0FF 60%,
+#C5E2FF 100%
+);  color:#0a0f1a;                    /* dark ink for contrast */
+  border:1px solid rgba(255,255,255,.10);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.06) inset,
+    0 8px 24px rgba(108,168,255,.35);
+  transition: transform .15s ease, box-shadow .15s ease, filter .15s ease;
+}
+.cta:hover{ 
+  transform: translateY(-1px);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.08) inset,
+    0 10px 28px rgba(108,168,255,.45);
+  filter: saturate(1.05);
+}
+.cta:focus-visible{
+  outline: 2px solid rgba(140,208,255,.9);
+  outline-offset: 2px;
+}
+
+/* Tag pill inside CTAs */
+.cta .tag{
+  background: rgba(255,255,255,.88);
+  color:#0a0f1a;
+  border-radius: 999px;
+}
+
+/* Secondary (iOS Coming Soon) */
+.cta.secondary{
+  --c1:#D8A5FF;   /* lavender */
+  --c2:#F4CFFF;   /* soft pink-lavender */
+  background: linear-gradient(135deg, var(--c1), var(--c2));
+  color:#0a0f1a;
+  border:1px solid rgba(255,255,255,.14);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.05) inset,
+    0 8px 22px rgba(216,165,255,.28);
+}
+.cta.secondary:hover{
+  transform: translateY(-1px);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.08) inset,
+    0 10px 28px rgba(216,165,255,.38);
+  filter: saturate(1.05);
+}
+.cta.secondary .tag{
+  background: rgba(255,255,255,.88);
+  color:#0a0f1a;
+}
+
+/* HERO APP LOGO — a bit smaller, app-icon shape */
+  #three-sides .gc-wrap{
+    width: clamp(180px, 26vw, 300px);   /* was ~360–420px */
+    aspect-ratio: 1;
+    border-radius: 22px;                /* rounded-square */
+    overflow: hidden;
+    box-shadow: 0 14px 34px rgba(0,0,0,.38), 0 0 0 1px rgba(255,255,255,.05) inset;
+    margin: 8px auto 12px;
+  }
+  #three-sides #gcHero{ border-radius: inherit; display:block; width:100%; height:100%; object-fit:cover; }
+
+  /* Title + spacing tighten */
+  #three-sides h1{ margin: 0 0 8px !important; }
+
+  /* Smaller on tiny phones */
+  @media (max-width: 430px){
+    #three-sides .gc-wrap{ width: 64vw; } /* keeps it cozy on iPhone */
+  }
+
+  /* HEADER LOGO — keep small and crisp */
+  .brand .brand-logo{
+    width: clamp(28px, 2.6vw, 34px);
+    height: clamp(28px, 2.6vw, 34px);
+    border-radius: 50%;
+    display:inline-block;
+  }
+
+#three-sides .gc-wrap{
+  width: clamp(180px, 26vw, 300px) !important;
+  border-radius: 22px !important;
+}
+
+/* Three Sides app-icon block */
+#three-sides .gc-wrap{
+  width: clamp(180px, 24vw, 280px);   /* was 26vw/300px – a touch smaller */
+  aspect-ratio: 1;
+  border-radius: 24px;                /* was 22px – matches your card feel */
+  overflow: hidden;
+
+  /* softer, longer shadow + faint inner line for crisp edge */
+  box-shadow:
+    0 18px 34px rgba(0,0,0,.32),
+    0 2px 0 rgba(0,0,0,.18) inset,
+    0 0 0 1px rgba(255,255,255,.06) inset;
+
+  margin: 10px auto 14px;
+  background:
+    radial-gradient(120% 120% at 50% 10%, rgba(255,255,255,.06), transparent 60%),
+    linear-gradient(145deg, #4a2fb4, #2a1b48); /* same family as your cards */
+}
+
+#three-sides #gcHero{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  border-radius:inherit;
+}
+
+/* tighten title and icon spacing */
+#three-sides h1{ margin: 0 0 8px !important; }
+
+/* tiny phones: keep it cozy */
+@media (max-width: 430px){
+  #three-sides .gc-wrap{ width: 62vw; }
+}
+
+/* micro tracking so THEE S I D E S doesn’t feel airy */
+#three-sides h1 { letter-spacing: -0.01em; }
+
+/* --- iOS safe-area fix so the footer never gets clipped --- */
+:root{
+  /* fallbacks first param keep things OK on non-iPhone browsers */
+  --safe-bottom: max(16px, env(safe-area-inset-bottom, 0px));
+}
+
+/* Give the footer a little extra breathing room on devices with a home indicator */
+footer .container{
+  padding-bottom: calc(16px + var(--safe-bottom)) !important;
+}
+
+/* Your bottom sheet menu is fixed to the bottom—pad it too when open */
+.sheet{
+  padding-bottom: calc(18px + var(--safe-bottom));
+}
+
+/* Optional: make sure the very last content block can scroll fully clear */
+.section:last-of-type .container{
+  padding-bottom: calc(var(--pad-mobile, 28px) + var(--safe-bottom));
+}
+
+</style>
+
+</head>
+
+<body class="theme-sunset">
+  <!-- change to theme-seafoam or theme-sunset to preview -->
+
+  <!-- ======= Header ======= -->
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <img class="brand-logo" src="GC.png" alt="Glow Code Studio" decoding="async">
+        <h1>Glow Code Studio</h1>
+      </div>
+      
+      <nav class="nav-links">
+        <a href="#intro" class="active">Intro</a>
+        <a href="#three-sides">Three Sides</a>
+        <a href="#early">Early Projects</a>
+        <a href="#games">Games</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <button class="cta small menu-btn" id="menuBtn" aria-haspopup="true" aria-controls="menuSheet">Menu</button>
+    </div>
+  </header>
+
+  <!-- Mobile menu sheet -->
+  <div class="sheet" id="menuSheet" aria-hidden="true">
+    <button class="close cta small secondary" id="closeMenu" aria-label="Close menu">✕</button>
+    <nav>
+      <a href="#intro">Intro</a>
+      <a href="#three-sides">Three Sides</a>
+      <a href="#early">Early Projects</a>
+      <a href="#games">Games</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+
+  <main>
+    <!-- 1) Top creator bio — DARK -->
+
+    <div class="container">
+      <div class="badge">
+        Creator Bio:
+<br>
+          Glow Code Studio is an independent developer creating wellness apps,
+          meaningful websites, and Unreal Engine games. Home of Three Sides and future digital projects
+          designed to support real life, real emotions, and growth. Three Sides is in Google Play closed testing; iOS
+          coming soon.
+        </div>
+      </div>
+    </section>
+
+    <section id="three-sides" class="section section--light">
+      <div class="container">
+        <h1 style="color:#e7b5ea;margin:0;">Amygdala</h1>
+
+        <!-- round logo -> app icon -->
+        <div class="hero-media">
+          <div class="gc-wrap" style="
+                         width:clamp(220px,32vw,360px);
+                         aspect-ratio:1/1;
+                         border-radius:28px;            /* <- rounded square */
+                         overflow:hidden;
+                         box-shadow:0 14px 32px rgba(0,0,0,.38),
+                                    0 0 0 1px rgba(255,255,255,.08) inset;
+                         background:
+                            radial-gradient(120% 120% at 50% 10%, rgba(255,255,255,.06), transparent 60%),
+                            linear-gradient(145deg, #3b2a57, #2a1b48); /* subtle panel */
+                       ">
+            <img id="gcHero" src="amygdala.png" alt="Three Sides app icon"
+              style="width:100%;height:100%;object-fit:cover;display:block;border-radius:inherit;">
+          </div>
+</div>
+
+<p>Amygdala is your personal anxiety companion designed to make difficult moments feel more manageable. Instead of
+overwhelming you with information, it offers calming tools, guided exercises, journaling, and personalized coping
+strategies that are there whenever you need them.</p>
+
+        <!-- feature cards (full container width) -->
+        <div class="cards" aria-label="App features">
+          <div class="card">
+            <h3>Emergency Contact</h3>
+            <p>Quickly reach trusted friends, family, or crisis resources when you need support the most.</p>
+          </div>
+          <div class="card">
+            <h3>Grounding Exercises</h3>
+            <p>Interactive activities designed to help calm racing thoughts and bring your focus back to the present moment.</p>
+          </div>
+          <div class="card">
+            <h3>Breathing Exercises</h3>
+            <p>Simple guided breathing sessions that help reduce stress and ease physical symptoms of anxiety.</p>
+          </div>
+          <div class="card">
+            <h3>Anxiety Toolkit</h3>
+            <p>Create a personalized collection of coping skills, reminders, comforting photos, music, and techniques that work
+            specifically for you.</p>
+        </div>
+      </div>
+
+      <!-- status line -->
+      <p style="max-width:560px;margin:14px auto 10px;padding:0 16px;
+                      color:var(--muted);text-align:center;">
+                      <p>Anxiety doesn't have to control your day. Amygdala combines journaling, coping tools, grounding exercises, and positive
+                      habit building into one calming companion designed to help you feel more in control—one small step at a time.</p>
+      
+      <!-- CTAs (centered, equal width, mobile-friendly) -->
+      <div style="max-width:520px;margin:0 auto;display:flex;flex-wrap:wrap;gap:12px;
+                        justify-content:center;padding:0 16px;">
+        <a class="cta" href="    https://cpriss1979.github.io/amygdala.io/
+        " target="_blank" rel="noopener"
+          style="flex:1 1 240px;min-height:44px;display:inline-flex;
+                        align-items:center;justify-content:space-between;">
+
+          <span>Amygdala</span>
+          <span class="tag">Application</span>
+        </a>
+        <p>Coming soon to Google Play and iOS </p>
+
+      </div>
+
+
+      <!-- ========================
+ ===================================
+ Three Sides
+ =====================-->
+<section id="three-sides" class="section section--light">
+  <div class="container">
+    <h1 style="color:#e7b5ea;margin:0;">THREE SIDES</h1>
+
+    <!-- round logo -> app icon -->
+    <div class="hero-media">
+      <div class="gc-wrap" style="
+                     width:clamp(220px,32vw,360px);
+                     aspect-ratio:1/1;
+                     border-radius:28px;            /* <- rounded square */
+                     overflow:hidden;
+                     box-shadow:0 14px 32px rgba(0,0,0,.38),
+                                0 0 0 1px rgba(255,255,255,.08) inset;
+                     background:
+                        radial-gradient(120% 120% at 50% 10%, rgba(255,255,255,.06), transparent 60%),
+                        linear-gradient(145deg, #3b2a57, #2a1b48); /* subtle panel */
+                   ">
+        <img id="gcHero" src="icon.png" alt="Three Sides app icon"
+          style="width:100%;height:100%;object-fit:cover;display:block;border-radius:inherit;">
+      </div>
+    </div>
+    <br>
+
+    <!-- feature cards (full container width) -->
+    <div class="cards" aria-label="App features">
+      <div class="card">
+        <h3>Theme</h3>
+        <p>Pick your favorite color scheme to make the app your own.</p>
+      </div>
+      <div class="card">
+        <h3>Daily Journal</h3>
+        <p>Quick entries and mood tracking that unlocks feeding your pet each day.</p>
+      </div>
+      <div class="card">
+        <h3>Coping Tools</h3>
+        <p>Personalized actions that actually help — saved for when you need them most.</p>
+      </div>
+      <div class="card">
+        <h3>Virtual Pet Motivation</h3>
+        <p>Care for your little buddy as you care for yourself — build streaks and earn badges.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- status line -->
+  <p style="max-width:560px;margin:14px auto 10px;padding:0 16px;
+                  color:var(--muted);text-align:center;">
+    iOS release is in progress.
+  </p>
+
+  <!-- CTAs (centered, equal width, mobile-friendly) -->
+  <div style="max-width:520px;margin:0 auto;display:flex;flex-wrap:wrap;gap:12px;
+                    justify-content:center;padding:0 16px;">
+        <a class="cta" href="https://play.google.com/store/apps/details?id=io.github.cpriss1979.twa&hl=en_US" target="_blank"
+          rel="noopener"
+        style="flex:1 1 240px;min-height:44px;display:inline-flex;
+                    align-items:center;justify-content:space-between;">
+      <span>Three Sides</span>
+      <span class="tag">Android</span>
+    </a>
+
+    <a class="cta secondary" href="#contact" id="iosBtn" style="flex:1 1 240px;min-height:44px;display:inline-flex;
+                    align-items:center;justify-content:space-between;">
+      <span>iOS Coming Soon</span>
+      <span class="tag">Get Notified</span>
+    </a>
+  </div>
+
+
+    </section>
+
+    <!-- Website PROJECTS -->
+    <!-- 3) Early Projects — DARK -->
+    <section id="early" class="section section--dark">
+          <div class="container">
+        <h2 class="title" style="font-size:28px;">Websites I've built</h2>
+        <p class="muted">A few highlights from my client &amp; personal work.</p>
+    
+        <div class="grid-2">
+          <div class="card">
+            <h3>Viki Scherer (Professional Author &amp; Speaker)</h3>
+            <p>WordPress site with speaking pages, products, testimonies and a polished brand system.</p>
+            <ul class="list">
+              <li><span class="dot"></span><span>Clean navigation &amp; mobile-first design</span></li>
+              <li><span class="dot"></span><span>Speaking event call-to-actions</span></li>
+            </ul>
+            <p style="margin-top:10px;">
+              <a href="https://vikischerer.com/" target="_blank" rel="noopener">View site ↗</a>
+            </p>
+          </div>
+    
+          <div class="card">
+            <h3>Harvest Christian Center (Church Website)</h3>
+            <p>WordPress site focusing on beliefs, sermons &amp; online tithing with a welcoming layout and simple editing
+              for staff.</p>
+            <ul class="list">
+              <li><span class="dot"></span><span>Fast, accessible, mobile-first</span></li>
+              <li><span class="dot"></span><span>Service times &amp; location front and center</span></li>
+            </ul>
+            <p class="note" style="margin-top:6px; color:#777488 !important;">
+              Original build (since redesigned by the church team).</p>
+          </div>
+    
+          <!-- ============= personal website projects ============= -->
+          <div class="card">
+            <h3>Fit to Fab</h3>
+            <p>A lightweight, mobile-first wellness mini-app to explore smart food choices, track simple workouts, and log
+              your progress — fast and private.</p>
+            <ul class="list">
+              <li><span class="dot"></span><span>Sections: Low-Calorie Foods, so-called "Negative-Calorie" Foods*,
+                  Exercises, Calorie Calculator, Personal Progress</span></li>
+              <li><span class="dot"></span><span>Calorie Calculator in pure JS — no sign-in, no backend</span></li>
+              <li><span class="dot"></span><span>Mobile-first layout with an accessible drop-down menu</span></li>
+              <li><span class="dot"></span><span>Personal Progress saved locally for privacy (no data leaves your
+                  device)</span></li>
+            </ul>
+            <p style="margin-top:10px;">
+              <a href="https://cpriss1979.github.io/fittofab.io/" target="_blank" rel="noopener"
+                aria-label="Open Fit to Fab website">View site ↗</a>
+            </p>
+            
+            <p class="note" style="margin-top:6px; color:#777488 !important;">
+              *"Negative-calorie" foods are better described as low-energy-density foods. They don’t literally burn more
+              calories than they contain, but they can support fullness with fewer calories.
+            </p>
+          </div>
+    
+          <div class="card">
+            <h3>Countdown calculators</h3>
+            <p>I’ve built dozens of personalized countdown calculators — simple, joyful tools that help my family track
+              everything from big events to everyday moments they’re excited for.</p>
+          </div>
+        </div> <!-- /grid-2 -->
+      </div> <!-- /container -->
+    </section>
+
+    <!-- 4) Game Development (to “View archived site”) — LIGHT -->
+    <section id="games" class="section section--light">
+      <div class="container">
+        <h2 class="title" style="font-size:24px;">Game Development</h2>
+        <p class="muted">I’ve released 2 small games on itch.io — exploring focus, interaction, and play.</p>
+    
+        <div class="card">
+          <h3>Indie Games - Unreal Engine</h3>
+          <p>Downloads available at Itch.io</p>
+          <p style="margin-top:10px;">
+            <a href="https://cpriss.itch.io/" target="_blank" rel="noopener">View Archived Site ↗</a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3) Early Projects (through “I’ve built several…”) — DARK -->
+    <section id="three-sides" class="section section--dark">
+      <div class="container">
+        <h2 class="title" style="font-size:24px;">Earlier Projects</h2>
+        <p class="muted" style="margin-top:6px; font-size:12px;">My first live website — built for our YouTube channel.
+          Simple, but it taught me the foundations of web layout and
+          hosting.
+    <!-- 3) Early Projects (through “I’ve built several…”) — DARK -->
+
+    <!-- feature cards (full container width) -->
+    <div class="cards" aria-label="App features">
+      <div class="card">
+        <p>My first live website — built for our YouTube channel. Simple, but it taught me the foundations of web layout and
+        hosting.</p>
+
+        <p style="margin-top:10px;">
+          <a href="https://cpriss1979.github.io/rickandcrystalshow.io/" target="_blank" rel="noopener">View Archived
+            Site ↗</a>
+        </p>
+        </div>
+      </div>
+
+      <!-- feature cards (full container width) -->
+      <div class="cards" aria-label="App features">
+        <div class="card">
+          
+         <p> I’ve built several other projects —</p>
+          <a href="https://github.com/cpriss1979?tab=repositories" target="_blank" rel="noopener">View GitHub ↗</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- 5) About Glow Code — DARK -->
+    <section id="about" class="section section--light">
+      <div class="container">
+        <h2 class="title" style="font-size:28px;">About Glow Code Studio</h2>
+        <p class="muted">
+          ⭐️ I build wellness apps like <strong>Three Sides</strong> — based on the highs, lows &amp; balance of bipolar
+          life. It’s currently in Google Play closed testing, with iOS coming next.
+          <br><br>
+          ⭐️ I’ve built several websites (including one for a church and one for a professional author/speaker).
+          <br><br>
+          ⭐️ I’ve also built personal projects and released 2 indie games in Unreal Engine on itch.io.
+          <br><br>
+          ⭐️ More helpful applications are on the way.
+        </p>
+      </div>
+    </section>
+
+    <!-- 6) Get in touch — LIGHT -->
+    <section id="contact" class="section section--dark">
+      <div class="container">
+        <h2 class="title" style="font-size:28px;">Get in touch</h2>
+        <p class="muted">Have feedback, want to test, or just say hi? I’d love to hear from you.</p>
+        <div class="field" id="notify">
+          <label class="sr-only" for="email">Email</label>
+          <input id="email" name="email" type="email" placeholder="you@example.com" autocomplete="email" />
+          <button class="cta small" id="notifyBtn">Notify me about iOS</button>
+          <a class="cta small secondary" href="mailto:@gmail.com">Email me</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-grid">
+      <div class="kudos">© <span id="year"></span> GCS</div>
+      <div class="foot-links">
+        <a href="privacy.html" class="muted">Privacy</a>
+        <a href="terms.html" class="muted">Terms</a>
+        <a href="#intro" class="muted">Back to top ↑</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // helpers
+    const $ = (s, r = document) => r.querySelector(s);
+    const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+
+    // year
+    (() => { const y = $('#year'); if (y) y.textContent = String(new Date().getFullYear()); })();
+
+    // mobile menu sheet
+    (() => {
+      const sheet = $('#menuSheet'), openBtn = $('#menuBtn'), closeBtn = $('#closeMenu');
+      if (!sheet || !openBtn) return;
+      const open = () => { sheet.classList.add('open'); sheet.setAttribute('aria-hidden', 'false'); };
+      const close = () => { sheet.classList.remove('open'); sheet.setAttribute('aria-hidden', 'true'); };
+      openBtn.addEventListener('click', open);
+      closeBtn?.addEventListener('click', close);
+      sheet.addEventListener('click', e => { if (e.target.matches('a')) close(); });
+      document.addEventListener('keydown', e => { if (e.key === 'Escape' && sheet.classList.contains('open')) close(); });
+    })();
+
+    // smooth anchor scroll
+    (() => {
+      document.addEventListener('click', e => {
+        const a = e.target.closest('a[href^="#"]'); if (!a) return;
+        const id = a.getAttribute('href'); if (!id || id.length <= 1) return;
+        const target = document.querySelector(id); if (!target) return;
+        e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        history.replaceState(null, '', id);
+      });
+    })();
+
+    // Notify button (mailto prefill)
+    (() => {
+      const btn = $('#notifyBtn'); if (!btn) return;
+      btn.addEventListener('click', () => {
+        const email = $('#email')?.value.trim() || '';
+        const subject = encodeURIComponent('Notify me about Three Sides on iOS');
+        if (!email) {
+          const body = encodeURIComponent(`Hi Crystal,
+
+Please let me know when the iOS version is ready.
+
+Thanks!`);
+          window.location.href = `mailto:@gmail.com?subject=${subject}&body=${body}`;
+          return;
+        }
+        const body = encodeURIComponent(`Hi Crystal,
+
+Please notify me when the iOS version of Three Sides is ready.
+
+My email: ${email}
+
+Thank you!`);
+        window.location.href = `mailto:hello@@gmail.com?subject=${subject}&body=${body}`; // replace with your real address
+      });
+    })();
+
+    // external link safety (fallback)
+    (() => {
+      $$('a[href^="http"]').forEach(a => {
+        if (!a.hasAttribute('target')) a.setAttribute('target', '_blank');
+        if (!a.hasAttribute('rel')) a.setAttribute('rel', 'noopener');
+      });
+    })();
+  </script>
+</body>
+
+</html>

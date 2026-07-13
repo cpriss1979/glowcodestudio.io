@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Glow Code Studio — Terms of Use</title>
+    <meta name="description" content="Terms of Use for glowcodestudio.com and small, client-side tools on this site." />
+    <meta name="theme-color" content="#8357ff" />
+
+    <style>
+        :root {
+            /* page + brand (identical to privacy.html) */
+            --page-bg: #0f172a;
+            /* dark blue page background */
+            --header-bg: #0e0e17;
+            /* almost black — matches footer */
+            --footer-bg: #0e0e17;
+            --text: #e5e7eb;
+            --muted: #9aa0b3;
+            --accent: #2dd4bf;
+
+            /* layout */
+            --maxw: 1080px;
+            --gap: 14px;
+            --safe-bottom: max(16px, env(safe-area-inset-bottom, 0px));
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        html,
+        body {
+            height: 100%;
+            margin: 0
+        }
+
+        body {
+            min-height: 100svh;
+            display: flex;
+            flex-direction: column;
+            background: var(--page-bg);
+            color: var(--text);
+            font: 500 16px/1.55 system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans";
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none
+        }
+
+        a:hover {
+            text-decoration: underline
+        }
+
+        /* ===== Header (almost black, left-aligned links) ===== */
+        .header-band {
+            background: var(--header-bg)
+        }
+
+        .header-inner {
+            max-width: var(--maxw);
+            margin: 0 auto;
+            padding: 14px 22px;
+        }
+
+        nav.top {
+            display: flex;
+            gap: 18px;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        nav.top a {
+            color: var(--text);
+            font: 600 16px/1.55 system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans";
+            text-decoration: none;
+        }
+
+        /* ===== Content: sections with full-bleed divider lines ===== */
+        .content {
+            flex: 1
+        }
+
+        .panel {
+            max-width: var(--maxw);
+            margin: 0 auto;
+            padding: 0 22px
+        }
+
+        .section {
+            padding: 18px 0
+        }
+
+        .section+.section {
+            position: relative
+        }
+
+        .section+.section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 100vw;
+            transform: translateX(-50%);
+            height: 1px;
+            background: rgba(255, 255, 255, .10);
+        }
+
+        /* typography + blue dots */
+        h1 {
+            margin: 0 0 10px;
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: .2px
+        }
+
+        .section-title {
+            margin: 0;
+            font-size: 20px;
+            font-weight: 700
+        }
+
+        p {
+            margin: 6px 0
+        }
+
+        ul {
+            margin: 8px 0 0
+        }
+
+        .row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 8px 0 6px
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 3px;
+            background: #4da3ff;
+            display: inline-block
+        }
+
+        .note {
+            font-size: 13px;
+            color: var(--muted)
+        }
+
+        /* ===== Footer (matches header) ===== */
+        footer {
+            background: var(--footer-bg);
+            border-top: 1px solid rgba(255, 255, 255, .06);
+            color: var(--muted);
+        }
+
+        .footer-inner {
+            max-width: var(--maxw);
+            margin: 0 auto;
+            padding: 14px 22px;
+            padding-bottom: calc(var(--gap) + var(--safe-bottom));
+            display: grid;
+            grid-template-columns: 1fr auto;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .foot-right {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+            flex-wrap: wrap
+        }
+
+        .back-link {
+            color: var(--accent);
+            font-weight: 700
+        }
+
+        .small {
+            font-size: 14px
+        }
+
+        .muted {
+            color: var(--muted)
+        }
+
+        @media (max-width:700px) {
+            .footer-inner {
+                grid-template-columns: 1fr;
+                gap: 10px
+            }
+
+            .foot-right {
+                justify-content: space-between
+            }
+        }
+
+        /* Stack footer content so Back to Home sits UNDER the help line */
+.footer-inner{
+  display: flex;
+  flex-direction: column;   /* stack */
+  align-items: flex-start;
+  gap: 8px;                 /* tight vertical spacing */
+}
+
+/* Tighten spacing between "Need help?" and email, allow wrapping nicely */
+.foot-right{
+  display: flex;
+  gap: 8px;                 /* was 14px — bring closer */
+  align-items: center;
+  flex-wrap: wrap;          /* wrap on small screens without huge gaps */
+}
+
+/* On mobile, make sure they don't spread apart */
+@media (max-width:700px){
+  .foot-right{
+    justify-content: flex-start !important; /* override any space-between */
+    gap: 6px;                                /* a touch tighter on small screens */
+  }
+}
+    </style>
+</head>
+
+<body>
+    <!-- Header (left-aligned, almost black) -->
+    <div class="header-band">
+        <div class="header-inner">
+            <nav class="top">
+                <a href="/">Home</a>
+                <a href="/privacy.html">Privacy</a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Content -->
+    <main class="content">
+        <div class="panel">
+            <section class="section">
+                <h1>Terms of Use</h1>
+                <p>These Terms apply to <strong>glowcodestudio.com</strong> and any small client-side tools hosted on
+                    this site (the “Site”). By using the Site, you agree to these Terms. If you don’t agree, please
+                    don’t use the Site.</p>
+                <p class="note">Plain English: simple house rules for browsing our site and using our tiny tools.</p>
+            </section>
+
+            <section class="section">
+                <div class="row"><span class="dot" aria-hidden="true"></span>
+                    <h2 class="section-title">Owner</h2>
+                </div>
+                <p>Glow Code Studio (“we”, “us”).</p>
+            </section>
+
+            <section class="section">
+                <div class="row"><span class="dot" aria-hidden="true"></span>
+                    <h2 class="section-title">Contact</h2>
+                </div>
+                <p><a href="mailto:glowcodestudio@gmail.com">glowcodestudio@gmail.com</a></p>
+            </section>
+
+            <section class="section">
+                <div class="row"><span class="dot" aria-hidden="true"></span>
+                    <h2 class="section-title">Scope</h2>
+                </div>
+                <ul>
+                    <li><strong>This Site only.</strong> These Terms cover pages and mini-tools hosted under this
+                        domain.</li>
+                    <li><strong>Not included.</strong> Third-party sites we link to (e.g., GitHub, Google Play,
+                        itch.io). Check their policies.</li>
+                    <li><strong>Three Sides app.</strong> Has its <em>own</em> store policy and terms.</li>
+                </ul>
+            </section>
+
+            <section class="section">
+                <div class="row"><span class="dot" aria-hidden="true"></span>
+                    <h2 class="section-title">Accepting the Terms</h2>
+                </div>
+                <p>By accessing or using the Site, you confirm that you’re at least 13 years old and legally able to
+                    enter into these Terms, or you have a parent/guardian’s consent.</p>
+                <p class="note">Plain English: using the Site = agreement to these rules.</p>
+            </section>
+
+            <section class="section">
+                <div class="row"><span class="dot" aria-hidden="true"></span>
+                    <h2 class="section-title">What you can do</h2>
+                </div>
+                <ul>
+                    <li>View pages, read content, and use our simple client-side tools for personal, non-commercial use.
+                    </li>
+                    <li>Link to the Site in a fair and non-misleading way.</li>
+                    <li>Download any files we clearly publish for download (e.g., PDFs) and keep copyright notices
+                        intact.</li>
+                </ul>
+            </section>
+
+            <section class="section">
+                <div class="row"><span class="dot" aria-hidden="true"></span>
+                    <h2 class="section-title">What you can’t do</h2>
+                </div>
+                <ul>
+                    <li>Copy significant portions of content, design, or code and re-publish as your own.</li>
+                    <li>Use the Site to break the law, harass others, or attempt to hack/disable services.</li>
+                    <li>Use automated scraping that degrades performance or bypasses reasonable protections.</li>
+                </ul>
+            </section>
+
+            <section class="section">
+                <div class="row"><span class="dot" aria-hidden="true"></span>
+                    <h2 class="section-title">Content & Ownership</h2>
+                </div>
+                <p>Unless stated otherwise, the Site’s content (text, visuals, and code) is owned by Glow Code Studio
+                    and protected by applicable laws. You may not use our trademarks or logos without permission.</p>
+            </section>
+
+            <section class="section">
+                <div class="row"><span class="dot" aria-hidden="true"></span>
+                    <h2 class="section-title">Availability & Changes</h2>
+                </div>
+                <p>We may update, pause, or discontinue parts of the Site at any time. We may also update these Terms;
+                    when we do, we’ll change the “Last updated” date below.</p>
+            </section>
+
+            <section class="section">
+                <div class="row"><span class="dot" aria-hidden="true"></span>
+                    <h2 class="section-title">Third-Party Links</h2>
+                </div>
+                <p>The Site may link to third-party websites (e.g., GitHub, Google Play, itch.io). We don’t control
+                    those sites and aren’t responsible for their content or policies.</p>
+            </section>
+
+            <section class="section">
+                <div class="row"><span class="dot" aria-hidden="true"></span>
+                    <h2 class="section-title">Disclaimers</h2>
+                </div>
+                <ul>
+                    <li>The Site is provided “as is” without warranties of any kind.</li>
+                    <li>No medical or mental-health advice is provided on this Site. For personal care, talk to a
+                        qualified professional.</li>
+                </ul>
+            </section>
+
+            <section class="section">
+                <div class="row"><span class="dot" aria-hidden="true"></span>
+                    <h2 class="section-title">Limitation of Liability</h2>
+                </div>
+                <p>To the fullest extent permitted by law, Glow Code Studio won’t be liable for any indirect,
+                    incidental, special, or consequential damages arising from your use of the Site.</p>
+                <p class="note">Last updated: <span id="updated">2025-11-04</span></p>
+            </section>
+
+            <section class="section">
+                <div class="row"><span class="dot" aria-hidden="true"></span>
+                    <h2 class="section-title">Contact</h2>
+                </div>
+                <p>Questions about these Terms? Email: <a
+                        href="mailto:glowcodestudio@gmail.com">glowcodestudio@gmail.com</a>.</p>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-inner">
+          
+            <a class="back-link" href="/" aria-label="Back to Home">← Back to Home</a>
+        </div>
+    </footer>      
+
+    <script>
+        // To auto-stamp today:
+        // document.getElementById('updated').textContent = new Date().toISOString().slice(0,10);
+    </script>
+</body>
+
+</html>
