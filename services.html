@@ -1,2649 +1,898 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>Services | Glow Code Studio</title>
-    <meta name="description"
-        content="Services and pricing for websites, web tools/apps, and IT support by Glow Code Studio." />
-    <meta name="theme-color" content="#8357ff" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-    <style>
-        :root {
-            --bg: #0b0b12;
-            --text: #f3f5fa;
-            --muted: #9aa0b3;
-            --brand: #8357ff;
-            --brand2: #2dd4bf;
-            --shadow: 0 18px 46px rgba(0, 0, 0, .38);
-            --maxw: 1080px;
-            --radius: 18px;
-            --header-h: 74px;
-            --surface-dark: #0f0b17;
-            --surface-light: #33264F;
-            --ink-soft: #cdd3e3;
-            --line: rgba(255, 255, 255, .10);
-            --chip: rgba(0, 0, 0, .22);
-            --header: #2B0F2F;  /* same “sunset” header tint */
-        }
+  <title>Services | Glow Code Studio</title>
 
-        * {
-            box-sizing: border-box;
-        }
+  <meta name="description"
+    content="Website development, custom web tools, app development, and IT support from Glow Code Studio.">
+  <meta name="theme-color" content="#2b165d">
 
-        html,
-        body {
-            margin: 0;
-            background:
-                radial-gradient(1200px 800px at 10% -10%, rgba(131, 87, 255, .18), transparent 60%),
-                radial-gradient(1000px 700px at 120% 0%, rgba(45, 212, 191, .12), transparent 55%),
-                var(--bg);
-            color: var(--text);
-            font: 500 16px/1.55 system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
-        }
+  <style>
+    :root {
+      --bg: #0d0a1a;
+      --surface: #171022;
+      --surface-soft: #261a3d;
+      --panel: #34235c;
+      --panel-hover: #3d296a;
 
-        a {
-            color: var(--brand2);
-            text-decoration: none;
-        }
+      --text: #f4f1fb;
+      --muted: #b8afcc;
+      --soft: #d8d1e7;
 
-        a:hover {
-            text-decoration: underline;
-        }
+      --brand: #a987ff;
+      --brand-soft: #e6c8ff;
+      --accent: #f0b9e9;
 
-        .container {
-            max-width: var(--maxw);
-            margin-inline: auto;
-            padding: 10px;
-        }
+      --line: rgba(255, 255, 255, 0.10);
+      --shadow: 0 18px 44px rgba(0, 0, 0, 0.34);
 
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 9999;
-            background: white;
-            backdrop-filter: saturate(140%) blur(8px);
-            border-bottom: 1px solid rgba(255, 255, 255, .06);
-        }
+      --radius: 20px;
+      --max-width: 1120px;
+      --header-height: 74px;
+      --safe-bottom: max(16px, env(safe-area-inset-bottom, 0px));
+    }
 
-        body {
-            padding-top: var(--header-h);
-        }
+    * {
+      box-sizing: border-box;
+    }
 
-        .nav {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 14px;
-            flex-wrap: nowrap;
-        }
+    html {
+      scroll-behavior: smooth;
+    }
 
-        .brandRow {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            min-width: 0;
-        }
-
-        .brand-logo {
-            width: 34px;
-            height: 34px;
-            border-radius: 50%;
-            display: block;
-        }
-
-        .brandRow h1 {
-            margin: 0;
-            font-size: 18px;
-            letter-spacing: .3px;
-            white-space: nowrap;
-        }
-
-        .cta {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            border-radius: 999px;
-            padding: 12px 16px;
-            font-weight: 700;
-            border: 1px solid rgba(255, 255, 255, .12);
-            background: linear-gradient(135deg, rgba(140, 208, 255, .95), rgba(197, 226, 255, .95));
-            color: #0b0b12;
-            box-shadow: 0 10px 24px rgba(108, 168, 255, .30);
-            text-decoration: none;
-            transition: transform .15s ease, filter .15s ease;
-        }
-
-        .cta:hover {
-            transform: translateY(-1px);
-            filter: brightness(1.03);
-            text-decoration: none;
-        }
-
-        .cta.secondary {
-            background: rgba(0, 0, 0, .22);
-            color: var(--text);
-            border: 1px solid rgba(255, 255, 255, .18);
-            box-shadow: none;
-        }
-
-        .section {
-            padding: 54px 0;
-        }
-
-        .section--dark {
-            background: var(--surface-dark);
-        }
-
-        .title {
-            font-size: clamp(28px, 3vw, 40px);
-            line-height: 1.1;
-            margin: 0 0 10px;
-        }
-
-        .muted {
-            color: var(--muted);
-        }
-
-        .soft {
-            color: var(--ink-soft);
-        }
-
-        .chip {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 7px 10px;
-            border-radius: 999px;
-            font-weight: 800;
-            font-size: 12px;
-            border: 1px solid rgba(255, 255, 255, .14);
-            background: var(--chip);
-            color: var(--text);
-            white-space: nowrap;
-        }
-
-        .frame {
-            position: relative;
-            border-radius: 22px;
-            padding: 22px;
-            border: 1px solid rgba(255, 255, 255, .10);
-            background: rgba(15, 11, 23, .35);
-            backdrop-filter: blur(10px);
-            box-shadow: var(--shadow);
-            overflow: hidden;
-        }
-
-        .frame::before {
-            content: "";
-            position: absolute;
-            inset: -1px;
-            border-radius: 22px;
-            padding: 1px;
-            background: linear-gradient(135deg,
-                    rgba(140, 208, 255, .70),
-                    rgba(216, 165, 255, .70),
-                    rgba(131, 87, 255, .70));
-
-            /* Safari / Chrome */
-            -webkit-mask:
-                linear-gradient(#000 0 0) content-box,
-                linear-gradient(#000 0 0);
-            -webkit-mask-composite: xor;
-
-            /* Standard */
-            mask:
-                linear-gradient(#000 0 0) content-box,
-                linear-gradient(#000 0 0);
-            mask-composite: exclude;
-
-            pointer-events: none;
-            opacity: .75;
-        }
-
-        .topRow {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-            margin-bottom: 10px;
-        }
-
-        .tagRow {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 10px;
-        }
-
-        .divider {
-            height: 1px;
-            background: rgba(255, 255, 255, .08);
-            margin: 18px 0;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            gap: 14px;
-            margin-top: 16px;
-            position: relative;
-        }
-
-        .tile {
-            grid-column: span 4;
-            border-radius: 18px;
-            padding: 16px;
-            border: 1px solid rgba(255, 255, 255, .12);
-            background: rgba(63, 42, 114, .35);
-            box-shadow: 0 14px 30px rgba(0, 0, 0, .28);
-            backdrop-filter: blur(10px);
-            transition: transform .18s ease, box-shadow .18s ease;
-        }
-
-        @media (hover:hover) {
-            .tile:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 18px 38px rgba(0, 0, 0, .32);
-            }
-        }
-
-        .tile h3 {
-            margin: 0 0 6px;
-            font-size: 18px;
-            display: flex;
-            align-items: baseline;
-            justify-content: space-between;
-            gap: 10px;
-        }
-
-        .tile p {
-            margin: 0 0 10px;
-            color: var(--ink-soft);
-            line-height: 1.4;
-        }
-
-        .tile ul {
-            margin: 0;
-            padding-left: 18px;
-            color: var(--ink-soft);
-        }
-
-        .tile li {
-            margin: 6px 0;
-        }
-
-        .price {
-            display: flex;
-            align-items: baseline;
-            justify-content: space-between;
-            gap: 10px;
-            margin: 10px 0 12px;
-            padding: 10px 12px;
-            border-radius: 14px;
-            background: rgba(0, 0, 0, .18);
-            border: 1px solid rgba(255, 255, 255, .10);
-        }
-
-        .price b {
-            font-size: 18px;
-        }
-
-        .price span {
-            color: var(--muted);
-            font-size: 13px;
-        }
-
-        .note {
-            margin: 12px 0 0;
-            padding: 12px 14px;
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, .10);
-            background: rgba(0, 0, 0, .14);
-            color: var(--ink-soft);
-        }
-
-        .row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 16px;
-        }
-
-        details {
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, .10);
-            background: rgba(0, 0, 0, .16);
-            padding: 12px 14px;
-        }
-
-        summary {
-            cursor: pointer;
-            font-weight: 800;
-        }
-
-        details p {
-            margin: 10px 0 0;
-            color: var(--ink-soft);
-        }
-
-        @media (max-width: 980px) {
-            .tile {
-                grid-column: span 6;
-            }
-        }
-
-        @media (max-width: 640px) {
-            .tile {
-                grid-column: span 12;
-            }
-        }
-
-        footer {
-            border-top: 1px solid rgba(255, 255, 255, .06);
-            color: var(--muted);
-        }
-
-        .footer-grid {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 14px;
-            flex-wrap: wrap;
-        }
-
-.note2{
-    color: var(--card-text) !important;  /* identical tone as regular body copy */
-  font-size: 12px;                     /* keep your smaller size */
-  line-height: 1.5;
-}
-
-/* ===================== logo to home =============== */
-.brand{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  min-width:0;
-  text-decoration:none;
-  color: var(--text);
-}
-
-.brand:hover{
-  text-decoration:none;
-  filter: brightness(1.05);
-}
-
-.brand:focus-visible{
-  outline: 3px solid rgba(140, 208, 255, .55);
-  outline-offset: 4px;
-  border-radius: 12px;
-}
-
-  /* HEADER LOGO — keep small and crisp */
-  .brand .brand-logo{
-    width: clamp(28px, 2.6vw, 34px);
-    height: clamp(28px, 2.6vw, 34px);
-    border-radius: 50%;
-    display:inline-block;
-  }
-
-  /* ======== header ============== */
-  header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 9999;
-
-  /* MATCH index.html glass header */
-  background: color-mix(in hsl, var(--header) 85%, transparent);
-  backdrop-filter: saturate(140%) blur(8px);
-  -webkit-backdrop-filter: saturate(140%) blur(8px);
-
-  border-bottom: 1px solid rgba(255, 255, 255, .06);
-}
-
-
-
-
-
-
-html,
     body {
       margin: 0;
-      height: 100%;
+      min-height: 100%;
+      padding-top: var(--header-height);
       background:
-        radial-gradient(1200px 800px at 10% -10%, rgba(131, 87, 255, .15), transparent 60%),
-        radial-gradient(1000px 700px at 120% 0%, rgba(45, 212, 191, .10), transparent 55%),
+        radial-gradient(900px 560px at 8% -10%, rgba(169, 135, 255, 0.15), transparent 60%),
+        radial-gradient(760px 500px at 100% 0%, rgba(240, 185, 233, 0.10), transparent 58%),
         var(--bg);
       color: var(--text);
-      font: 500 16px/1.55 system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+      font: 500 16px/1.6 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
     }
 
     a {
-      color: var(--brand-2);
-      text-decoration: none
+      color: var(--brand-soft);
+      text-decoration: none;
     }
 
     a:hover {
-      text-decoration: underline
+      text-decoration: underline;
     }
 
-    /* layout */
+    button {
+      font: inherit;
+    }
+
     .container {
-      max-width: var(--maxw);
+      width: min(100% - 32px, var(--max-width));
       margin-inline: auto;
-      padding: 22px
     }
 
+    /* Header */
     header {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      backdrop-filter: saturate(140%) blur(8px);
-      background: rgba(54, 14, 115, .6);
-      border-bottom: 1px solid rgba(255, 255, 255, .06);
-    }
-
-    .nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px
-    }
-
-    .logo {
-      width: 38px;
-      height: 38px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, var(--brand), var(--brand-2));
-      box-shadow: var(--shadow)
-    }
-
-    .brand h1 {
-      font-size: 18px;
-      margin: 0;
-      letter-spacing: .3px
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 18px;
-      align-items: center
-    }
-
-    .nav-links a {
-      color: var(--text);
-      opacity: .8
-    }
-
-    .nav-links a.active,
-    .nav-links a:hover {
-      opacity: 1
-    }
-
-    /* ctas */
-    .cta {
-      display: inline-flex;
-      gap: 10px;
-      align-items: center;
-      background: linear-gradient(135deg, var(--brand), #6ea8ff);
-      color: #fff;
-      padding: 12px 16px;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, .10);
-      box-shadow: var(--shadow);
-      font-weight: 700;
-    }
-
-    .cta.secondary {
-      background: transparent;
-      border: 1px solid rgba(255, 255, 255, .18)
-    }
-
-    .cta.small {
-      padding: 9px 12px;
-      font-weight: 600
-    }
-
-    .cta .tag {
-      background: rgba(255, 255, 255, .12);
-      padding: 2px 8px;
-      border-radius: 999px;
-      font-size: 12px
-    }
-
-    /* sections */
-    .section {
-      padding: 48px 0
-    }
-
-    .section>*:first-child {
-      margin-top: 0
-    }
-
-    .section>*+* {
-      margin-top: 16px
-    }
-
-    .section--dark {
-      background: var(--surface-dark)
-    }
-
-    .section--light {
-      background: var(--surface-light)
-    }
-
-    .badge {
-      display: inline-flex;
-      gap: 8px;
-      align-items: center;
-      color: var(--muted);
-      font-size: 14px
-    }
-
-    .title {
-      font-size: 38px;
-      line-height: 1.1;
-      margin: 6px 0 14px
-    }
-
-    .muted {
-      color: var(--muted)
-    }
-
-    /* cards (same look on both bands) */
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-      margin-top: 24px;
-    }
-
-    .card {
-      background: var(--card-solid);
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius);
-      padding: 18px;
-      box-shadow: var(--shadow);
-    }
-
-    .card h3 {
-      margin: 0 0 8px;
-      font-size: 18px
-    }
-
-    .card p {
-      margin: 0;
-      color: var(--muted)
-    }
-
-    .list {
-      display: grid;
-      gap: 10px;
-      margin: 10px 0 0;
-      padding: 0;
-      list-style: none
-    }
-
-    .list li {
-      display: flex;
-      gap: 10px;
-      align-items: start;
-      color: var(--muted)
-    }
-
-    .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--brand-2);
-      margin-top: 8px
-    }
-
-    /* hero bits */
-    h1 {
-      text-align: center;
-      font-weight: 800;
-      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
-    }
-
-    .hero-media {
-      display: flex;
-      align-items: center;
-      justify-content: center
-    }
-
-    .gc-wrap {
-      width: clamp(260px, 36vw, 420px);
-      aspect-ratio: 1;
-      border-radius: 50%;
-      overflow: hidden;
-      margin: 0 auto;
-      box-shadow: 0 18px 48px rgba(0, 0, 0, .45), 0 0 0 1px rgba(255, 255, 255, .06) inset;
-      background: transparent;
-    }
-
-    #gcHero {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block
-    }
-
-    /* status line + cta row */
-    .btn-row {
-      width: 100%;
-      display: flex;
-      justify-content: center
-    }
-
-    .post-cta-note {
-      margin: 10px auto 0;
-      max-width: 560px;
-      padding-inline: clamp(12px, 4vw, 24px);
-      color: var(--muted);
-      text-align: left;
-    }
-
-    .btnrow {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      width: 100%;
-      max-width: 560px;
-      margin: 12px auto 0;
-      padding-inline: clamp(12px, 4vw, 24px);
-      justify-content: flex-start;
-      /* change to center if you want */
-    }
-
-    /* forms */
-    .field {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap
-    }
-
-    input[type="email"] {
-      background: #0f0f19;
-      border: 1px solid rgba(255, 255, 255, .14);
-      color: var(--text);
-      padding: 12px 14px;
-      border-radius: 12px;
-      outline: 2px solid transparent;
-      outline-offset: 2px;
-      width: 280px;
-    }
-
-    input[type="email"]:focus {
-      outline-color: var(--ring)
-    }
-
-    /* footer */
-    footer {
-      border-top: 1px solid rgba(255, 255, 255, .06);
-      color: var(--muted)
-    }
-
-    .footer-grid {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      align-items: center;
-      gap: 18px
-    }
-
-    .foot-links {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap
-    }
-
-    /* responsive */
-    @media (max-width:980px) {
-      .cards {
-        grid-template-columns: 1fr;
-        gap: 16px
-      }
-
-      .title {
-        font-size: 32px
-      }
-
-      .nav-links {
-        display: none
-      }
-
-      .menu-btn {
-        display: inline-flex
-      }
-    }
-
-    @media (min-width:981px) {
-      .menu-btn {
-        display: none
-      }
-    }
-
-    /* simple mobile sheet */
-    .sheet {
       position: fixed;
-      inset: auto 0 0 0;
-      background: rgba(11, 11, 18, .95);
-      translate: 0 100%;
-      transition: translate .26s ease;
-      border-top: 1px solid rgba(255, 255, 255, .08);
-      padding: 18px;
-      z-index: 50;
+      inset: 0 0 auto;
+      z-index: 1000;
+      background: rgba(43, 22, 93, 0.90);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(14px) saturate(135%);
+      -webkit-backdrop-filter: blur(14px) saturate(135%);
     }
 
-    .sheet.open {
-      translate: 0 0
-    }
-
-    .sheet a {
-      display: block;
-      padding: 12px 2px;
-      color: var(--text)
-    }
-
-    .sheet .close {
-      position: absolute;
-      right: 12px;
-      top: 10px;
-      font-size: 24px;
-      line-height: 1
-    }
-
-    .sr-only {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap;
-      border: 0
-    }
-
-    [id] {
-      scroll-margin-top: 88px
-    }
-
-    /* === Section spacing: tighten globally, then fine-tune per section === */
-    /* Global baseline */
-    :root {
-      --pad-desktop: 40px;
-      /* was 48 */
-      --pad-mobile: 28px;
-      /* was 48 everywhere on mobile */
-      --gap-md: 14px;
-      /* internal vertical rhythm baseline */
-      --gap-lg: 18px;
-    }
-
-    .section {
-      padding-block: var(--pad-desktop) !important;
-    }
-
-    .section .container>*+* {
-      margin-top: var(--gap-md) !important;
-    }
-
-    /* Mobile: shrink a bit more */
-    @media (max-width: 700px) {
-      .section {
-        padding-block: var(--pad-mobile) !important;
-      }
-    }
-
-    /* Hero & “Get in touch” are where most of the extra space lives */
-    #app-features.section.section--light {
-      /* the GC logo + CTAs band */
-      padding-block: 28px !important;
-      /* was big; this feels snappy */
-    }
-
-    #three-sides.section.section--dark {
-      /* Get in touch band */
-      padding-block: 28px !important;
-    }
-
-    /* Top creator-bio line shouldn’t be so tall by itself */
-    #intro.section.section--dark {
-      padding-block: 24px !important;
-    }
-
-    /* Space before/after card grids */
-    .cards {
-      gap: 14px;
-      margin-top: 14px;
-    }
-
-    /* was 18/24 */
-
-    /* Remove tail-space at the end of each section */
-    .section .container>*:last-child {
-      margin-bottom: 0 !important;
-    }
-
-    /* Headlines to copy gap (a hair tighter) */
-    .title {
-      margin-bottom: 8px !important;
-    }
-
-    .muted {
-      margin-top: 0 !important;
-    }
-
-    /* Make the CTA row tuck closer to the status line */
-    .btnrow {
-      margin-top: 10px;
-    }
-
-    /* Optional: make the circular logo block not add phantom space */
-    .gc-wrap {
-      margin: 2px auto 8px;
-      /* tighter */
-    }
-
-    /* Footer: less top padding so it hugs the contact section */
-    footer .container {
-      padding-block: 16px;
-    }
-
-    /* anchor targets clear sticky header */
-
-    /* --- tighten the seam between the creator-bio (dark) and hero (light) --- */
-    /* remove the global "extra top padding for every next section" just for this pair */
-    #intro+#app-features {
-      padding-top: 0 !important;
-    }
-
-    /* bring the two bands closer together evenly */
-    #intro.section--dark {
-      padding-bottom: 14px !important;
-    }
-
-    #app-features.section--light {
-      padding-top: 14px !important;
-    }
-
-    /* kill any first-child margin inside the hero container */
-    #app-features .container>*:first-child {
-      margin-top: 0 !important;
-    }
-
-    /* make sure the big title itself doesn’t add any space */
-    #app-features h1 {
-      margin: 0 !important;
-      line-height: 1.05;
-    }
-
-    /* slightly tighten the vertical rhythm inside the hero only */
-    #app-features .container>*+* {
-      margin-top: 12px !important;
-    }
-
-    /* keep the status line and buttons tucked in */
-    #app-features .btn-row {
-      margin-top: 10px !important;
-    }
-
-    #app-features .btnrow {
-      margin-top: 10px !important;
-    }
-
-    /* ——— tighten the seam between creator-bio (dark) and hero (light) ——— */
-
-    /* make the two bands meet tighter */
-    #intro.section.section--dark {
-      padding-bottom: 12px !important;
-    }
-
-    #three-sides.section.section--light {
-      padding-top: 12px !important;
-    }
-
-    /* kill any first-child margins inside the hero container */
-    #three-sides .container>*:first-child {
-      margin-top: 0 !important;
-    }
-
-    /* title shouldn’t add any extra top space */
-    #three-sides h1 {
-      margin: 0 0 8px !important;
-      line-height: 1.06;
-    }
-
-    /* slightly tighter vertical rhythm only inside the hero */
-    #three-sides .container>*+* {
-      margin-top: 12px !important;
-    }
-
-    /* keep the status line + buttons tucked in */
-    #three-sides .btn-row {
-      margin-top: 8px !important;
-    }
-
-    #three-sides .btnrow {
-      margin-top: 10px !important;
-    }
-
-    /* prevent the circular logo from adding phantom gap */
-    #three-sides .gc-wrap {
-      margin-block: 6px !important;
-    }
-
-    /* optional: overall band padding for the hero */
-    #three-sides.section.section--light {
-      padding-bottom: 28px !important;
-    }
-
-    /* ensure the “Early Projects” heading doesn’t drift up after the hero */
-    #early.section.section--dark {
-      padding-top: 28px !important;
-    }
-
-    /* global: ensure there’s no stray bottom margin at section ends */
-    .section .container>*:last-child {
-      margin-bottom: 0 !important;
-    }
-
-    /* === Equal-width CTA buttons === */
-    .btnrow {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      width: 100%;
-      max-width: 560px;
-      margin: 12px auto 0;
-      padding-inline: clamp(12px, 4vw, 24px);
-    }
-
-    /* Make BOTH buttons take the same width regardless of text length */
-    .btnrow .cta {
-      flex: 1 1 0;
-      /* equal halves */
-      display: inline-flex;
-      align-items: center;
-      justify-content: space-between;
-      /* label left, tag right */
-      min-height: 44px;
-      /* consistent height */
-    }
-
-    /* tiny phones: stack full-width */
-    @media (max-width: 460px) {
-      .btnrow {
-        flex-direction: column;
-      }
-
-      .btnrow .cta {
-        width: 100%;
-      }
-    }
-
-    /* === Compact CTA row (smaller, same-width buttons) === */
-    .btnrow.compact {
-      max-width: 420px;
-      /* was 560px */
-      gap: 10px;
-      margin-top: 10px;
-      padding-inline: clamp(10px, 4vw, 18px);
-    }
-
-    .btnrow.compact .cta {
-      flex: 1 1 0;
-      /* equal halves */
-      min-height: 40px;
-      /* was 44px */
-      padding: 8px 12px;
-      /* was 12px 16px */
-      font-size: 14px;
-      /* a bit smaller */
-      line-height: 1.1;
-    }
-
-    .btnrow.compact .cta .tag {
-      font-size: 11px;
-      /* scale tag down a touch */
-      padding: 1px 7px;
-    }
-
-    /* tiny phones: still stack full width */
-    @media (max-width: 460px) {
-      .btnrow.compact {
-        flex-direction: column;
-      }
-
-      .btnrow.compact .cta {
-        width: 100%;
-      }
-    }
-
-    /* === Extra-small CTA pills (content-sized) === */
-    .btnrow.compact.shrink {
-      max-width: 270px;
-      /* tighter row */
-      gap: 8px;
-      margin-top: 8px;
-      padding-inline: clamp(8px, 4vw, 16px);
-      justify-content: flex-start;
-      /* or center, if you prefer */
-    }
-
-    .btnrow.compact.shrink .cta {
-      flex: 0 0 auto;
-      /* STOP filling the row */
-      min-height: 40px;
-      /* a bit shorter */
-      padding: 10px 12px;
-      /* slimmer pill */
-      font-size: 14.5px;
-    }
-
-    .btnrow.compact.shrink .tag {
-      font-size: 10.5px;
-      padding: 1px 6px;
-    }
-
-    /* keep header items on one line and centered */
     .nav {
+      min-height: var(--header-height);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 14px;
-      flex-wrap: nowrap;
-      /* don't wrap to a new line */
+      gap: 18px;
     }
 
     .brand {
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      gap: 12px;
+      gap: 11px;
+      color: var(--text);
+      text-decoration: none;
       min-width: 0;
     }
 
-    .brand h1 {
-      font-size: 18px;
-      margin: 0;
-      letter-spacing: .3px;
-      white-space: nowrap;
-      /* prevent wrap on small widths */
+    .brand:hover {
+      text-decoration: none;
     }
 
-    /* circular header logo image */
-    .logo-img {
-      width: 38px;
-      height: 38px;
+    .brand-logo {
+      width: 34px;
+      height: 34px;
+      flex: 0 0 auto;
       border-radius: 50%;
-      /* <- circle */
       object-fit: cover;
-      display: block;
-      box-shadow: var(--shadow);
-      border: 1px solid rgba(255, 255, 255, .08);
-      background: #121212;
-      /* fallback behind transparent PNGs */
     }
 
-    /* show menu button on mobile, hide on desktop (you already had this) */
-    @media (max-width:980px) {
-      .nav-links {
-        display: none;
-      }
-
-      .menu-btn {
-        display: inline-flex;
-        margin-left: auto;
-      }
-
-      /* push it to far-right */
+    .brand h1 {
+      margin: 0;
+      font-size: 18px;
+      letter-spacing: 0.2px;
+      white-space: nowrap;
     }
 
-    @media (min-width:981px) {
-      .menu-btn {
-        display: none;
-      }
-    }
-
-    /* hero logo size (a little smaller) */
-    .gc-wrap {
-      width: clamp(220px, 30vw, 360px);
-      /* was clamp(260px, 36vw, 420px) */
-      aspect-ratio: 1;
-      border-radius: 50%;
-      overflow: hidden;
-      margin: 6px auto;
-      /* was 0 or larger */
-      box-shadow: 0 14px 32px rgba(0, 0, 0, .38), 0 0 0 1px rgba(255, 255, 255, .04) inset;
-      background: transparent;
-    }
-
-    /* extra small phones: nudge smaller again */
-    @media (max-width: 380px) {
-      .gc-wrap {
-        width: 200px;
-      }
-    }
-
-    /* desktop: still prominent but not oversized */
-    @media (min-width: 1000px) {
-      .gc-wrap {
-        width: 320px;
-      }
-
-      /* was up to 420px */
-    }
-
-    /* hero wrapper only (leave header logo alone) */
-    .gc-wrap {
-      border-radius: 50%;
-      overflow: hidden;
-    }
-
-    /* this is for the BIG hero logo */
-    .logo-img {
-      border-radius: 12px !important;
-      display: block;
-    }
-
-    .logo-img {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: linear-gradient(145deg, #cbb7ff, #9ddaff);
-      padding: 3px;
-    }
-
-    .logo-ring {
-      width: 38px;
-      height: 38px;
-      padding: 3px;
-      /* ring thickness */
-      border-radius: 50%;
+    .header-home {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      background: linear-gradient(145deg, #cbb7ff, #9ddaff);
-    }
-
-    .logo-ring .logo-img {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-    }
-
-    /* ===== THEME SWITCHER ===== */
-    :root {
-      --brand: #8357ff;
-      --brand-2: #2dd4bf;
-      --text: #f3f5fa;
-      --muted: #9aa0b3;
-      --card-solid: #241b4a;
-      --card-border: rgba(255, 255, 255, .08);
-    }
-
-    /* base hook vars the site already uses */
-    :root,
-    body {
-      --bg: #0b0b12;
-      /* page background */
-      --surface-dark: #0e0e17;
-      /* dark band */
-      --surface-light: #32325b;
-      /* light band */
-      --header: rgba(54, 14, 115, .6);
-      /* header glass tint */
-    }
-
-    /* Aurora Glow */
-    .theme-aurora {
-      --bg: #0b0b12;
-      --surface-dark: #0e0e17;
-      --surface-light: #3A2E74;
-      --header: #2A155A;
-    }
-
-    /* Seafoam Noir */
-    .theme-seafoam {
-      --bg: #0B1114;
-      --surface-dark: #0B1114;
-      --surface-light: #123A45;
-      --header: #002B36;
-    }
-
-    /* Sunset Ink */
-    .theme-sunset {
-      --bg: #0E0A12;
-      --surface-dark: #0E0A12;
-      --surface-light: #33264F;
-      --header: #2B0F2F;
-    }
-
-    /* make header actually use the header var */
-    header {
-      background: color-mix(in hsl, var(--header) 85%, transparent);
-      backdrop-filter: saturate(140%) blur(8px);
-      border-bottom: 1px solid rgba(255, 255, 255, .06);
-    }
-
-    /* bands use your existing variables — no markup changes */
-    .section--dark {
-      background: var(--surface-dark);
-    }
-
-    .section--light {
-      background: var(--surface-light);
-    }
-
-    /* === Sunset-violet theme tune-up === */
-    :root {
-      --header: #2B0DF2;
-      --surface-dark: #0D0A1A;
-      --surface-light: #33264F;
-      --card-solid: #241B4A;
-      --card-border: rgba(255, 255, 255, .08);
-      --text: #F3F5FA;
-      --muted: #9AA0B3;
-    }
-
-    header {
-      background: color-mix(in hsl, var(--header) 85%, transparent);
-      backdrop-filter: saturate(140%) blur(8px);
-      border-bottom: 1px solid rgba(255, 255, 255, .06);
-    }
-
-    .section--dark {
-      background: var(--surface-dark);
-    }
-
-    .section--light {
-      background: var(--surface-light);
-    }
-
-    .card {
-      background: var(--card-solid);
-      border: 1px solid var(--card-border);
+      min-height: 40px;
+      padding: 9px 15px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
       color: var(--text);
+      font-weight: 750;
+      text-decoration: none;
     }
 
-    .card p {
+    .header-home:hover {
+      background: rgba(255, 255, 255, 0.13);
+      text-decoration: none;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 64px 0 34px;
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .hero h2 {
+      max-width: 760px;
+      margin: 0;
+      font-size: clamp(2.35rem, 6vw, 4.6rem);
+      line-height: 0.98;
+      letter-spacing: -0.045em;
+    }
+
+    .hero-copy {
+      max-width: 720px;
+      margin: 20px 0 0;
+      color: var(--muted);
+      font-size: clamp(1rem, 2vw, 1.15rem);
+    }
+
+    .platform-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 22px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--soft);
+      font-size: 12px;
+      font-weight: 750;
+    }
+
+    /* Sections */
+    .section {
+      padding: 32px 0 58px;
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 20px;
+    }
+
+    .section-heading h2 {
+      margin: 0;
+      font-size: clamp(1.7rem, 3vw, 2.35rem);
+      line-height: 1.1;
+    }
+
+    .section-heading p {
+      max-width: 620px;
+      margin: 0;
       color: var(--muted);
     }
 
-    /* CTA buttons stay bright but on-brand */
-    .cta {
-      background: linear-gradient(135deg, #8357FF, #6EA8FF);
-      border: 1px solid rgba(255, 255, 255, .10);
+    /* Services */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
     }
 
-    .cta.secondary {
-      background: transparent;
-      border-color: rgba(255, 255, 255, .18);
-    }
-
-    /* Circle header logo with subtle ring */
-    .logo-ring {
-      width: 38px;
-      height: 38px;
-      padding: 3px;
-      border-radius: 50%;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(145deg, #cbb7ff, #9ddaff);
-    }
-
-    .logo-ring .logo-img {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      background: #121212;
-      display: block;
-      box-shadow: 0 0 0 1px rgba(255, 255, 255, .06) inset, 0 6px 16px rgba(0, 0, 0, .35);
-    }
-
-    /* Hero circle keeps that nice lift */
-    .gc-wrap {
-      box-shadow: 0 18px 48px rgba(0, 0, 0, .45),
-        0 0 0 1px rgba(255, 255, 255, .06) inset;
-    }
-
-    /* ==== Card refresh (velvet panel look) ==== */
-
-    /* (A) Make sure the card colors are defined */
-    :root {
-      --card-solid: #2e1f52;
-      /* deep berry-indigo base (fallback) */
-      --card-border: rgba(255, 255, 255, .10);
-      --card-title: #F4F6FB;
-      --card-text: #D7CFF6;
-      /* soft lilac body text */
-    }
-
-    /* (B) Override the old card styling with higher specificity */
-    .cards .card {
+    .service-card {
       position: relative;
-      background: linear-gradient(145deg, #3A2A63 0%, #261946 100%) !important;
-      border: 1px solid var(--card-border) !important;
+      overflow: hidden;
+      padding: 22px;
+      border: 1px solid var(--line);
       border-radius: var(--radius);
-      padding: 18px;
-      box-shadow:
-        0 8px 20px rgba(0, 0, 0, .32),
-        inset 0 0 0 1px rgba(255, 255, 255, .04);
+      background: var(--panel);
+      box-shadow: var(--shadow);
+      transition: transform 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
     }
 
-    /* (C) Clear, cozy text */
-    .cards .card h3 {
-      margin: 0 0 8px;
-      font-size: 18px;
-      color: var(--card-title) !important;
-    }
-
-    .cards .card p {
-      margin: 0;
-      color: var(--card-text) !important;
-    }
-
-    /* (D) Optional soft inner glow for dimension */
-    .cards .card::before {
+    .service-card::before {
       content: "";
       position: absolute;
       inset: 0;
-      border-radius: inherit;
       pointer-events: none;
-      box-shadow: inset 0 0 60px rgba(131, 87, 255, .08);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.055), transparent 38%);
     }
 
-    /* ===== Smooth-flow cards (plum glass) ===== */
-
-    /* Harmonize section hues */
-    :root {
-      --surface-dark: #0f0b17;
-      /* deep eggplant (footer / dark bands) */
-      --surface-light: #33264F;
-      /* plum for light bands (what your hero sits on) */
-
-      /* Card palette tuned to those bands */
-      --card-bg: rgba(38, 28, 64, .55);
-      /* translucent plum glass */
-      --card-border: rgba(255, 255, 255, .10);
-      --card-title: #f4f6fb;
-      --card-text: #d7cff6;
-      --card-glow: rgba(170, 120, 255, .14);
+    .service-card:hover {
+      transform: translateY(-2px);
+      background: var(--panel-hover);
+      box-shadow: 0 22px 52px rgba(0, 0, 0, 0.38);
     }
 
-    /* slightly brighter */
-
-    /* Make the bands actually use the vars (no markup changes needed) */
-    .section--dark {
-      background: var(--surface-dark);
-    }
-
-    .section--light {
-      background: var(--surface-light);
-    }
-
-    /* ONE authoritative card rule – wins by specificity + being last */
-    .cards .card {
+    .service-card>* {
       position: relative;
-      background: var(--card-bg) !important;
-      /* translucent glass */
-      border: 1px solid var(--card-border) !important;
-      border-radius: 16px;
-      padding: 16px;
-      /* lighter, wider shadow so it feels airy, not heavy */
-      box-shadow:
-        0 10px 24px rgba(0, 0, 0, .28),
-        inset 0 0 0 1px rgba(255, 255, 255, .04);
-      backdrop-filter: saturate(135%) blur(8px);
-      /* glass flow */
-      -webkit-backdrop-filter: saturate(135%) blur(8px);
-      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
     }
 
-    /* tiny lift on hover (desktop only) */
-    @media (hover:hover) {
-      .cards .card:hover {
-        transform: translateY(-2px);
-        box-shadow:
-          0 14px 30px rgba(0, 0, 0, .30),
-          inset 0 0 0 1px rgba(255, 255, 255, .05);
-      }
-    }
-
-    /* Soft inner glow that matches the section hue so it “melts in” */
-    .cards .card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      border-radius: inherit;
-      pointer-events: none;
-      box-shadow: inset 0 0 60px var(--card-glow);
-    }
-
-    /* Clear, cozy type */
-    .cards .card h3 {
-      margin: 0 0 8px;
-      font-size: 18px;
-      color: var(--card-title) !important;
-    }
-
-    .cards .card p {
-      margin: 0;
-      color: var(--card-text) !important;
-    }
-
-    /* Tighten card grid rhythm a smidge so the flow feels intentional */
-    .cards {
+    .service-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
       gap: 14px;
-      margin-top: 14px;
     }
 
-    /* === Unified card look everywhere === */
-    :root {
-      /* choose your panel purple once */
-      --panel-purple: #3f2a6a;
-      /* tweak if you want a different shade */
-      --panel-border: rgba(255, 255, 255, .10);
-      --panel-title: #f5f7ff;
-      --panel-text: #dcd5ff;
-    }
-
-    /* make ALL .card elements identical (grid or single) */
-    .card {
-      position: relative;
-      background: var(--panel-purple) !important;
-      border: 1px solid var(--panel-border) !important;
-      border-radius: 16px;
-      padding: 16px;
-      box-shadow: 0 12px 28px rgba(0, 0, 0, .28);
-      backdrop-filter: none !important;
-      /* kill glass so color doesn’t shift */
-      -webkit-backdrop-filter: none !important;
-    }
-
-    .card h3 {
-      margin: 0 0 8px;
-      font-size: 18px;
-      color: var(--panel-title) !important;
-    }
-
-    .card p {
+    .service-card h3 {
       margin: 0;
-      color: var(--panel-text) !important;
+      font-size: 20px;
     }
 
-    /* optional soft sheen so panels don’t look flat */
-    .card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      border-radius: inherit;
-      pointer-events: none;
-      background: linear-gradient(180deg, rgba(255, 255, 255, .05), transparent 40%);
-    }
-
-    /* === Unified card look everywhere (exact same color + mirror) === */
-
-    :root {
-      /* pick a single purple you love */
-      --card-bg: #3f2a72;
-      /* base card color */
-      --card-border: rgba(255, 255, 255, .10);
-      --card-title: #f5e9ff;
-      --card-text: #d9d2ff;
-      --card-sheen: rgba(255, 255, 255, .10);
-      /* sheen strength */
-      --card-inset: rgba(0, 0, 0, .22);
-      /* inner shadow depth */
-      --card-radius: 18px;
-      --card-shadow: 0 20px 28px rgba(0, 0, 0, .32);
-    }
-
-    /* One rule that ALL cards use (feature cards and the standalone ones) */
-    .card {
-      position: relative;
-      overflow: hidden;
-      background: var(--card-bg) !important;
-      /* force same bg */
-      border: 1px solid var(--card-border) !important;
-      border-radius: var(--card-radius);
-      box-shadow: var(--card-shadow), inset 0 0 1px rgba(255, 255, 255, .05);
-      padding: 18px;
-    }
-
-    /* Clean, consistent type */
-    .card h3 {
-      margin: 0 0 8px;
-      font-size: 18px;
-      color: var(--card-title) !important;
-    }
-
-    .card p {
-      margin: 0;
-      color: var(--card-text) !important;
-    }
-
-    /* Mirror/gloss effect – same on every card */
-    .card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      /* subtle top gloss + soft spotlight */
-      background:
-        linear-gradient(180deg, var(--card-sheen), transparent 38%),
-        radial-gradient(70% 50% at 20% -15%, rgba(255, 255, 255, .14), transparent 60%);
-      /* gentle inner fade so it “melts” into the section */
-      box-shadow: inset 0 60px 80px var(--card-inset);
-      mix-blend-mode: screen;
-      /* keeps it light without changing base color */
-    }
-
-    /* Grid wrapper can keep spacing, but no color here! */
-    .cards {
-      gap: 14px;
-      margin-top: 14px;
-    }
-
-    /* Safety: neutralize any older competing rules */
-    .cards .card,
-    .cards .card h3,
-    .cards .card p,
-    .cards .card::before {
-      all: revert-layer;
-      /* if your editor supports cascade layers */
-    }
-
-    /* If revert-layer isn’t supported, these ensure our values win */
-    .cards .card {
-      background: var(--card-bg) !important;
-      border: 1px solid var(--card-border) !important;
-    }
-
-    .cards .card h3 {
-      color: var(--card-title) !important;
-    }
-
-    .cards .card p {
-      color: var(--card-text) !important;
-    }
-
-    .cards .card::before {
-      background:
-        linear-gradient(180deg, var(--card-sheen), transparent 38%),
-        radial-gradient(70% 50% at 20% -15%, rgba(255, 255, 255, .14), transparent 60%);
-      box-shadow: inset 0 60px 80px var(--card-inset);
-      mix-blend-mode: screen;
-    }
-
-    /* =========================
-   CARD SYSTEM — FINAL OVERRIDES
-   Put this at the VERY END of <style>
-   ========================= */
-
-    /* 1) Design tokens (one intentional purple across the site) */
-    :root {
-      --card-bg: #3a2768;
-      /* base purple for ALL cards */
-      --card-border: rgba(255, 255, 255, .10);
-      --card-title: #f2eaff;
-      --card-text: #d7cff7;
-      --card-radius: 16px;
-      --card-shadow: 0 12px 28px rgba(0, 0, 0, .35);
-      --card-sheen: linear-gradient(180deg, rgba(255, 255, 255, .06), rgba(255, 255, 255, 0) 38%);
-    }
-
-    /* 2) One rule to rule them all: every .card looks identical */
-    .cards .card,
-    .section .card,
-    .card {
-      position: relative;
-      overflow: hidden;
-      background: var(--card-bg) !important;
-      /* force same bg */
-      border: 1px solid var(--card-border) !important;
-      border-radius: var(--card-radius) !important;
-      /* fix “square” corners */
-      box-shadow: var(--card-shadow) !important;
-      padding: 18px;
-    }
-
-    /* 3) Text colors inside cards */
-    .cards .card h3,
-    .section .card h3,
-    .card h3 {
-      margin: 0 0 8px;
-      font-size: 18px;
-      color: var(--card-title) !important;
-    }
-
-    .cards .card p,
-    .section .card p,
-    .card p {
-      margin: 0;
-      color: var(--card-text) !important;
-    }
-
-    /* 4) Soft sheen (mirror) layer on every card */
-    .cards .card::before,
-    .section .card::before,
-    .card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      border-radius: inherit;
-      pointer-events: none;
-      background: var(--card-sheen);
-    }
-
-    /* 5) Grid rhythm stays tidy */
-    .cards {
-      gap: 14px !important;
-      margin-top: 14px !important;
-    }
-
-    /* --- Websites I've built: responsive 2-col grid --- */
-    .grid-2 {
-      display: grid;
-      grid-template-columns: 1fr;
-      /* 1 col on phones */
-      gap: 14px;
-      /* match your card rhythm */
-      margin-top: 14px;
-    }
-
-    /* 2 columns on tablets/desktop */
-    @media (min-width: 820px) {
-      .grid-2 {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-
-    /* make lists inside project cards breathe the same as elsewhere */
-    .grid-2 .list {
-      display: grid;
-      gap: 10px;
+    .service-card p {
       margin: 10px 0 0;
+      color: var(--soft);
+    }
+
+    .service-card ul {
+      display: grid;
+      gap: 8px;
+      margin: 16px 0 0;
       padding: 0;
       list-style: none;
     }
 
-    .grid-2 .list li {
-      display: flex;
-      gap: 10px;
-      align-items: flex-start;
+    .service-card li {
+      position: relative;
+      padding-left: 18px;
       color: var(--muted);
     }
 
-    .grid-2 .dot {
-      width: 8px;
-      height: 8px;
+    .service-card li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.72em;
+      width: 7px;
+      height: 7px;
       border-radius: 50%;
-      background: var(--brand-2);
-      margin-top: 8px;
+      background: var(--brand);
+      transform: translateY(-50%);
     }
 
-    /* ==== COLOR INTENT OVERRIDES (place at end of <style>) ==== */
-
-    /* Project lists: make bullets/text PURE white */
-    #early .grid-2 .list li,
-    #early .grid-2 .list li span {
-      color: var(--text) !important;
+    /* Pricing */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
     }
 
-    /* First description paragraph in each project card = off-white (muted) */
-
-    /* “Note” lines (Original build…, Negative-calorie note, etc.) = off-white + small */
-    .card .note {
-      color: var(--muted) !important;
-      font-size: 12px !important;
-      margin-top: 6px !important;
+    .price-card {
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface-soft);
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.26);
     }
 
-    /* Early Projects section subtitle (the tiny *Early project…*) already uses .muted — keep it off-white */
-    #three-sides.section.section--dark .muted {
-      color: var(--muted) !important;
+    .price-card h3 {
+      margin: 0;
+      font-size: 20px;
     }
 
-    /* About section body copy should be WHITE, not muted */
-    #about .muted,
-    #about p {
-      color: var(--text) !important;
+    .price-main {
+      margin: 14px 0 5px;
+      color: var(--brand-soft);
+      font-size: 28px;
+      font-weight: 850;
+      line-height: 1.1;
     }
 
-    /* Make “View site ↗” look the same everywhere (link, not pill) */
-    #early .card p a,
-    #games .card p a {
-      color: var(--brand-2) !important;
-      font-weight: 600;
+    .price-label {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .price-card ul {
+      display: grid;
+      gap: 8px;
+      margin: 18px 0 0;
+      padding-left: 18px;
+      color: var(--soft);
+    }
+
+    .quote-note {
+      margin: 18px 0 0;
+      padding: 15px 17px;
+      border-left: 4px solid var(--brand);
+      border-radius: 0 14px 14px 0;
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--soft);
+    }
+
+    /* Process */
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .process-step {
+      padding: 18px;
+      border: 1px dashed rgba(255, 255, 255, 0.16);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.035);
+    }
+
+    .step-number {
+      display: inline-flex;
+      width: 30px;
+      height: 30px;
+      margin-bottom: 10px;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: var(--brand);
+      color: #120d1e;
+      font-weight: 900;
+    }
+
+    .process-step h3 {
+      margin: 0 0 6px;
+      font-size: 17px;
+    }
+
+    .process-step p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    /* FAQ */
+    .faq-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    details {
+      padding: 15px 17px;
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 800;
+    }
+
+    details p {
+      margin: 10px 0 0;
+      color: var(--muted);
+    }
+
+    /* CTA */
+    .cta-panel {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 26px;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background:
+        linear-gradient(135deg, rgba(169, 135, 255, 0.18), rgba(240, 185, 233, 0.10)),
+        var(--surface-soft);
+      box-shadow: var(--shadow);
+    }
+
+    .cta-panel h2 {
+      margin: 0 0 7px;
+    }
+
+    .cta-panel p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 11px 17px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 999px;
+      font-weight: 800;
+      text-decoration: none;
+      transition: transform 0.16s ease, filter 0.16s ease, background 0.16s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-1px);
       text-decoration: none;
     }
 
-    #early .card p a:hover,
-    #games .card p a:hover {
-      text-decoration: underline;
+    .button.primary {
+      background: linear-gradient(135deg, #cbb7ff, #e7c8ff);
+      color: #15101f;
+      box-shadow: 0 10px 24px rgba(169, 135, 255, 0.24);
     }
 
-    /* If any “View site” kept the .cta classes, strip the button look inside cards */
-    #early .card .cta.small.secondary,
-    #games .card .cta.small.secondary {
-      background: transparent !important;
-      border: 0 !important;
-      padding: 0 !important;
-      box-shadow: none !important;
-      border-radius: 0 !important;
-      color: var(--brand-2) !important;
+    .button.secondary {
+      background: rgba(255, 255, 255, 0.07);
+      color: var(--text);
     }
 
-    /* soft-white tokens (optional but handy) */
-    :root {
-      --ink-soft: #cdd3e3;
-      /* darker white */
+    .button.secondary:hover {
+      background: rgba(255, 255, 255, 0.11);
     }
 
-    /* notes/footnotes = darker white */
-    .note {
-      color: var(--ink-soft) !important;
-      font-size: 12px;
-      line-height: 1.5;
+    /* Footer */
+    footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+      background: #0a0710;
+      color: var(--muted);
     }
 
-    /* ========== Darker-white text targets (drop-in patch) ========== */
-
-    /* token */
-    :root {
-      --ink-soft: #cdd3e3;
+    .footer-grid {
+      min-height: 76px;
+      padding-bottom: var(--safe-bottom);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
     }
 
-    /* “darker white” */
-
-    /* 1) All little note lines (both of yours already use .note) */
-    .note {
-      color: var(--ink-soft) !important;
-      font-size: 12px;
-      line-height: 1.5;
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
     }
 
-    /* 2) Games → Indie Games card: the description line */
-    #games .card>p:first-of-type {
-      color: var(--ink-soft) !important;
+    .footer-links a {
+      color: var(--muted);
     }
 
-    /* 3) Early Projects → Rick & Crystal card: the description line */
-    #early .card h3+p,
-    #three-sides.section--dark .card h3+p {
-      color: var(--ink-soft) !important;
-    }
+    @media (max-width: 900px) {
 
-    /* --- Force “darker white” on note lines inside cards --- */
-    :root {
-      --ink-soft: #cdd3e3;
-    }
-
-    /* darker white token */
-
-    .card p.note,
-    .card .note {
-      color: var(--ink-soft) !important;
-      /* beats .card p !important */
-      font-size: 12px !important;
-      line-height: 1.5;
-    }
-
-    /* Make note lines match normal card body color (same as .card p) */
-    .cards .card p.note,
-    .section .card p.note,
-    .card p.note {
-      color: var(--card-text) !important;
-      /* identical tone as regular body copy */
-      font-size: 12px;
-      /* keep your smaller size */
-      line-height: 1.5;
-    }
-
-    /* ==== FINAL TEXT COLOR FIXES (place last) ==== */
-    /* Make both notes and the first description line in Games
-   match normal card body copy (same as Countdown calculators). */
-    #early .card .note,
-    #early .card p.note,
-    #games .card>p:first-of-type {
-      color: var(--card-text) !important;
-    }
-
-    /* ============================== color for cards (darker text)======================= */
-    /* === FINAL: unify description text color in all cards === */
-    :root {
-      --card-text: #a59ccd;
-    }
-
-    /* this is the lilac/grey you're seeing elsewhere */
-
-    .card p,
-    .card>p:first-of-type,
-    #early .card>p:first-of-type,
-    #games .card>p:first-of-type {
-      color: var(--card-text) !important;
-    }
-
-    /* ====================== play =================== */
-    /* === CTA buttons — final colors & states === */
-    .cta {
-      /* Primary (Android) */
-      --c1: #6CA8FF;
-      /* sky blue */
-      --c2: #8CD0FF;
-      /* light aqua blue */
-      background: linear-gradient(135deg,
-          #6CA8FF 0%,
-          #8CD0FF 60%,
-          #C5E2FF 100%);
-      color: #0a0f1a;
-      /* dark ink for contrast */
-      border: 1px solid rgba(255, 255, 255, .10);
-      box-shadow:
-        0 0 0 1px rgba(255, 255, 255, .06) inset,
-        0 8px 24px rgba(108, 168, 255, .35);
-      transition: transform .15s ease, box-shadow .15s ease, filter .15s ease;
-    }
-
-    .cta:hover {
-      transform: translateY(-1px);
-      box-shadow:
-        0 0 0 1px rgba(255, 255, 255, .08) inset,
-        0 10px 28px rgba(108, 168, 255, .45);
-      filter: saturate(1.05);
-    }
-
-    .cta:focus-visible {
-      outline: 2px solid rgba(140, 208, 255, .9);
-      outline-offset: 2px;
-    }
-
-    /* Tag pill inside CTAs */
-    .cta .tag {
-      background: rgba(255, 255, 255, .88);
-      color: #0a0f1a;
-      border-radius: 999px;
-    }
-
-    /* Secondary (iOS Coming Soon) */
-    .cta.secondary {
-      --c1: #D8A5FF;
-      /* lavender */
-      --c2: #F4CFFF;
-      /* soft pink-lavender */
-      background: linear-gradient(135deg, var(--c1), var(--c2));
-      color: #0a0f1a;
-      border: 1px solid rgba(255, 255, 255, .14);
-      box-shadow:
-        0 0 0 1px rgba(255, 255, 255, .05) inset,
-        0 8px 22px rgba(216, 165, 255, .28);
-    }
-
-    .cta.secondary:hover {
-      transform: translateY(-1px);
-      box-shadow:
-        0 0 0 1px rgba(255, 255, 255, .08) inset,
-        0 10px 28px rgba(216, 165, 255, .38);
-      filter: saturate(1.05);
-    }
-
-    .cta.secondary .tag {
-      background: rgba(255, 255, 255, .88);
-      color: #0a0f1a;
-    }
-
-    /* HERO APP LOGO — a bit smaller, app-icon shape */
-    #three-sides .gc-wrap {
-      width: clamp(180px, 26vw, 300px);
-      /* was ~360–420px */
-      aspect-ratio: 1;
-      border-radius: 22px;
-      /* rounded-square */
-      overflow: hidden;
-      box-shadow: 0 14px 34px rgba(0, 0, 0, .38), 0 0 0 1px rgba(255, 255, 255, .05) inset;
-      margin: 8px auto 12px;
-    }
-
-    #three-sides #gcHero {
-      border-radius: inherit;
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    /* Title + spacing tighten */
-    #three-sides h1 {
-      margin: 0 0 8px !important;
-    }
-
-    /* Smaller on tiny phones */
-    @media (max-width: 430px) {
-      #three-sides .gc-wrap {
-        width: 64vw;
+      .pricing-grid,
+      .process-grid {
+        grid-template-columns: 1fr;
       }
 
-      /* keeps it cozy on iPhone */
-    }
-
-    /* HEADER LOGO — keep small and crisp */
-    .brand .brand-logo {
-      width: clamp(28px, 2.6vw, 34px);
-      height: clamp(28px, 2.6vw, 34px);
-      border-radius: 50%;
-      display: inline-block;
-    }
-
-    #three-sides .gc-wrap {
-      width: clamp(180px, 26vw, 300px) !important;
-      border-radius: 22px !important;
-    }
-
-    /* Three Sides app-icon block */
-    #three-sides .gc-wrap {
-      width: clamp(180px, 24vw, 280px);
-      /* was 26vw/300px – a touch smaller */
-      aspect-ratio: 1;
-      border-radius: 24px;
-      /* was 22px – matches your card feel */
-      overflow: hidden;
-
-      /* softer, longer shadow + faint inner line for crisp edge */
-      box-shadow:
-        0 18px 34px rgba(0, 0, 0, .32),
-        0 2px 0 rgba(0, 0, 0, .18) inset,
-        0 0 0 1px rgba(255, 255, 255, .06) inset;
-
-      margin: 10px auto 14px;
-      background:
-        radial-gradient(120% 120% at 50% 10%, rgba(255, 255, 255, .06), transparent 60%),
-        linear-gradient(145deg, #4a2fb4, #2a1b48);
-      /* same family as your cards */
-    }
-
-    #three-sides #gcHero {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: inherit;
-    }
-
-    /* tighten title and icon spacing */
-    #three-sides h1 {
-      margin: 0 0 8px !important;
-    }
-
-    /* tiny phones: keep it cozy */
-    @media (max-width: 430px) {
-      #three-sides .gc-wrap {
-        width: 62vw;
+      .section-heading,
+      .cta-panel {
+        align-items: flex-start;
+        flex-direction: column;
       }
     }
 
-    /* micro tracking so THEE S I D E S doesn’t feel airy */
-    #three-sides h1 {
-      letter-spacing: -0.01em;
+    @media (max-width: 720px) {
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 48px;
+      }
+
+      .section {
+        padding-bottom: 44px;
+      }
+
+      .button-row,
+      .button-row .button {
+        width: 100%;
+      }
+
+      .footer-grid {
+        padding: 20px 0 calc(20px + var(--safe-bottom));
+        align-items: flex-start;
+        flex-direction: column;
+      }
     }
 
-    /* --- iOS safe-area fix so the footer never gets clipped --- */
-    :root {
-      /* fallbacks first param keep things OK on non-iPhone browsers */
-      --safe-bottom: max(16px, env(safe-area-inset-bottom, 0px));
+    @media (max-width: 460px) {
+      .container {
+        width: min(100% - 24px, var(--max-width));
+      }
+
+      .brand h1 {
+        font-size: 16px;
+      }
+
+      .service-top {
+        flex-direction: column;
+      }
     }
 
-    /* Give the footer a little extra breathing room on devices with a home indicator */
-    footer .container {
-      padding-bottom: calc(16px + var(--safe-bottom)) !important;
-    }
-
-    /* Your bottom sheet menu is fixed to the bottom—pad it too when open */
-    .sheet {
-      padding-bottom: calc(18px + var(--safe-bottom));
-    }
-
-    /* Optional: make sure the very last content block can scroll fully clear */
-    .section:last-of-type .container {
-      padding-bottom: calc(var(--pad-mobile, 28px) + var(--safe-bottom));
-    }
-
-    /* =========================
-   FIXED HEADER (ALWAYS STAYS ON TOP)
-   Paste at VERY END of <style>
-   ========================= */
-
-    /* adjust this if your header height changes */
-    :root {
-      --header-h: 74px;
-    }
-
-    /* lock the header to the top */
-    header {
-      position: fixed !important;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 9999 !important;
-    }
-
-    /* push the page down so content doesn't hide under the fixed header */
-    body {
-      padding-top: var(--header-h);
-    }
-
-    /* make anchor jumps land correctly under the fixed header */
-    [id] {
-      scroll-margin-top: calc(var(--header-h) + 14px);
-    }
-
-    /* OPTIONAL: on iPhones with a notch, keep header comfy */
     @supports (padding: env(safe-area-inset-top)) {
       header {
         padding-top: env(safe-area-inset-top);
       }
 
       body {
-        padding-top: calc(var(--header-h) + env(safe-area-inset-top));
-      }
-
-      [id] {
-        scroll-margin-top: calc(var(--header-h) + env(safe-area-inset-top) + 14px);
+        padding-top: calc(var(--header-height) + env(safe-area-inset-top));
       }
     }
-
-    /* ============ SERVICES (home preview) ============ */
-    .services-preview {
-      padding: 72px 0;
-    }
-
-    .services-preview .section-title {
-      font-size: clamp(1.8rem, 2.5vw, 2.4rem);
-      margin: 0 0 10px;
-    }
-
-    .services-preview .section-subtitle {
-      opacity: 0.85;
-      margin: 0 0 28px;
-      max-width: 62ch;
-    }
-
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 18px;
-    }
-
-    .service-card {
-      grid-column: span 4;
-      background: rgba(120, 95, 210, 0.18);
-      border: 1px solid rgba(255, 255, 255, 0.10);
-      border-radius: 18px;
-      padding: 18px 18px 16px;
-      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
-      backdrop-filter: blur(10px);
-    }
-
-    .service-card h3 {
-      margin: 0 0 8px;
-      font-size: 1.05rem;
-    }
-
-    .service-card p {
-      margin: 0 0 12px;
-      opacity: 0.88;
-      line-height: 1.4;
-    }
-
-    .service-card ul {
-      margin: 0;
-      padding-left: 18px;
-      opacity: 0.9;
-    }
-
-    .service-card li {
-      margin: 6px 0;
-    }
-
-    .services-cta-row {
-      display: flex;
-      gap: 12px;
-      align-items: center;
-      margin-top: 22px;
-      flex-wrap: wrap;
-    }
-
-    .btn-secondary {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      border-radius: 999px;
-      padding: 12px 18px;
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      background: rgba(0, 0, 0, 0.22);
-      color: #fff;
-      text-decoration: none;
-    }
-
-    .btn-secondary:hover {
-      transform: translateY(-1px);
-      border-color: rgba(255, 255, 255, 0.28);
-    }
-
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      border-radius: 999px;
-      padding: 12px 18px;
-      border: 0;
-      background: rgba(160, 210, 255, 0.9);
-      color: #0b0b12;
-      font-weight: 700;
-      text-decoration: none;
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-1px);
-      filter: brightness(1.03);
-    }
-
-    @media (max-width: 980px) {
-      .service-card {
-        grid-column: span 6;
-      }
-    }
-
-    @media (max-width: 640px) {
-      .service-card {
-        grid-column: span 12;
-      }
-    }
-
-    /* ===================== make services styling special =============== */
-    /* =========================
-   SERVICES — SPECIAL LOOK
-   ========================= */
-
-    /* Section base */
-    #services.services-preview {
-      position: relative;
-      padding: 64px 0;
-      overflow: hidden;
-    }
-
-    /* subtle “special” background glow */
-    #services.services-preview::before {
-      content: "";
-      position: absolute;
-      inset: -120px -80px;
-      background:
-        radial-gradient(700px 420px at 10% 20%, rgba(140, 208, 255, .18), transparent 60%),
-        radial-gradient(600px 380px at 90% 25%, rgba(216, 165, 255, .18), transparent 60%),
-        radial-gradient(900px 500px at 50% 110%, rgba(131, 87, 255, .16), transparent 55%);
-      pointer-events: none;
-      filter: blur(2px);
-    }
-
-    /* Featured frame that makes it “different” from other sections */
-    #services .services-frame {
-      position: relative;
-      border-radius: 22px;
-      padding: 22px;
-      border: 1px solid rgba(255, 255, 255, .10);
-      background: rgba(15, 11, 23, .35);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      box-shadow: 0 18px 46px rgba(0, 0, 0, .38);
-    }
-
-    /* Gradient border glow (special) */
-    #services .services-frame::before {
-      content: "";
-      position: absolute;
-      inset: -1px;
-      border-radius: 22px;
-      padding: 1px;
-      background: linear-gradient(135deg,
-          rgba(140, 208, 255, .70),
-          rgba(216, 165, 255, .70),
-          rgba(131, 87, 255, .70));
-
-      /* WebKit (Safari/Chrome) */
-      -webkit-mask:
-        linear-gradient(#000 0 0) content-box,
-        linear-gradient(#000 0 0);
-      -webkit-mask-composite: xor;
-
-      /* Standard (Firefox + “proper” compatibility) */
-      mask:
-        linear-gradient(#000 0 0) content-box,
-        linear-gradient(#000 0 0);
-      mask-composite: exclude;
-
-      pointer-events: none;
-      opacity: .75;
-    }
-
-    #services .section-title {
-      font-size: clamp(24px, 3vw, 32px);
-      margin: 0 0 8px;
-    }
-
-    #services .section-subtitle {
-      margin: 0 0 18px;
-      max-width: 68ch;
-      color: var(--muted);
-    }
-
-    /* Grid of service tiles (NOT using .card) */
-    #services .services-grid {
-      position: relative;
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 14px;
-      margin-top: 14px;
-    }
-
-    #services .service-tile {
-      grid-column: span 4;
-      border-radius: 18px;
-      padding: 16px;
-      border: 1px solid rgba(255, 255, 255, .12);
-      background: rgba(63, 42, 114, .35);
-      box-shadow: 0 14px 30px rgba(0, 0, 0, .28);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      transition: transform .18s ease, box-shadow .18s ease;
-    }
-
-    @media (hover:hover) {
-      #services .service-tile:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 18px 38px rgba(0, 0, 0, .32);
-      }
-    }
-
-    #services .tile-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 8px;
-    }
-
-    #services .tile-top h3 {
-      margin: 0;
-      font-size: 18px;
-      color: var(--text);
-    }
-
-    #services .chip {
-      font-size: 12px;
-      padding: 4px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, .14);
-      background: rgba(0, 0, 0, .20);
-      color: var(--ink-soft, #cdd3e3);
-      white-space: nowrap;
-    }
-
-    #services .service-tile p {
-      margin: 0 0 10px;
-      color: var(--ink-soft, #cdd3e3);
-      line-height: 1.4;
-    }
-
-    #services .service-tile ul {
-      margin: 0;
-      padding-left: 18px;
-      color: var(--ink-soft, #cdd3e3);
-    }
-
-    #services .service-tile li {
-      margin: 6px 0;
-    }
-
-    /* “How it works” strip */
-    #services .how-row {
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 12px;
-      margin-top: 14px;
-    }
-
-    #services .how {
-      grid-column: span 4;
-      border-radius: 16px;
-      padding: 12px 14px;
-      border: 1px dashed rgba(255, 255, 255, .18);
-      background: rgba(0, 0, 0, .16);
-      color: var(--ink-soft, #cdd3e3);
-    }
-
-    #services .how b {
-      color: var(--text);
-    }
-
-    /* CTAs inside services */
-    #services .services-cta-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 18px;
-    }
-
-    /* reuse your CTA look but allow a darker “secondary” */
-    #services .btn-primary,
-    #services .btn-secondary {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      border-radius: 999px;
-      padding: 12px 16px;
-      text-decoration: none;
-      font-weight: 700;
-      transition: transform .15s ease, filter .15s ease;
-    }
-
-    #services .btn-primary {
-      background: linear-gradient(135deg, rgba(140, 208, 255, .95), rgba(197, 226, 255, .95));
-      color: #0b0b12;
-    }
-
-    #services .btn-secondary {
-      background: rgba(0, 0, 0, .22);
-      border: 1px solid rgba(255, 255, 255, .18);
-      color: var(--text);
-    }
-
-    #services .btn-primary:hover,
-    #services .btn-secondary:hover {
-      transform: translateY(-1px);
-      filter: brightness(1.03);
-    }
-
-    /* Responsive */
-    @media (max-width: 980px) {
-      #services .service-tile {
-        grid-column: span 6;
-      }
-
-      #services .how {
-        grid-column: span 6;
-      }
-    }
-
-    @media (max-width: 640px) {
-      #services .service-tile {
-        grid-column: span 12;
-      }
-
-      #services .how {
-        grid-column: span 12;
-      }
-    }
-</style>
-    </style>
+  </style>
 </head>
 
-<body class="theme-sunset">
-    <header>
-        <div class="container nav">
-            <div class="brandRow">
-                <a class="brand" href="./index.html" aria-label="Go to homepage">
-                    <img class="brand-logo" src="GC.png" alt="Services" decoding="async">                
-                    <h1>Glow Code Studio</h1></div>
-                </a>
-            <div style="display:flex; gap:10px; align-items:center;">
+<body>
+  <header>
+    <div class="container nav">
+      <a class="brand" href="index.html" aria-label="Glow Code Studio home">
+        <img class="brand-logo" src="GC.png" alt="" decoding="async">
+        <h1>Glow Code Studio</h1>
+      </a>
 
-                <a class="cta" href="./index.html#contact">Contact</a>
-            </div>
+      <a class="header-home" href="index.html">Home</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <p class="eyebrow">Glow Code Studio Services</p>
+
+        <h2>Practical digital help, without the mystery.</h2>
+
+        <p class="hero-copy">
+          I build websites, apps, and useful web tools—and help people set up,
+          fix, and understand their technology with clear explanations and honest pricing.
+        </p>
+
+        <div class="platform-row" aria-label="Supported platforms">
+          <span class="chip">Mac</span>
+          <span class="chip">Windows 10/11</span>
+          <span class="chip">iOS</span>
+          <span class="chip">Android</span>
+          <span class="chip">WordPress</span>
+          <span class="chip">HTML / CSS / JavaScript</span>
         </div>
-    </header>
+      </div>
+    </section>
 
-    <main>
-        <section class="section section--dark">
-            <div class="container">
-                <div class="frame">
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">What I Do</p>
+            <h2>Services built around real needs</h2>
+          </div>
 
-                    <div class="topRow">
-                        <div>
-                            <h2 class="title">Services</h2>
-                            <p class="soft" style="max-width:78ch; margin:0;">
-                                I build websites and tools — and help people set up, fix, and understand their tech.
-                            </p>   
-                            <div class="tagRow" aria-label="Platforms supported">
-                                <span class="chip">Mac</span>
-                                <span class="chip">Windows 10/11</span>
-                                <span class="chip">iOS</span>
-                                <span class="chip">Android</span>
-                            </div>
-                        </div>
-
-                        <span class="chip">Clear scope • Clear quote • No mystery</span>
-                    </div>
-
-                    <div class="divider"></div>
-
-                    <!-- ===== SERVICES (what you do) ===== -->
-                    <div class="grid" aria-label="Service categories">
-
-                        <article class="tile">
-                            <h3>
-                                Software & App Development
-                                <span class="chip">Build • Fix • Improve</span>
-                            </h3>
-                            <p>Custom builds and upgrades — from new features to “please save this mess” debugging.</p>
-                            <ul>
-                                <li>Customized web apps & tools</li>
-                                <li>Android apps (single-purpose or feature-based)</li>
-                                <li>Debugging, updates & stability fixes</li>
-                                <li>Feature enhancements & polish</li>
-                            </ul>
-                        </article>
-
-                        <article class="tile">
-                            <h3>
-                                Web Development
-                                <span class="chip">Design • Build</span>
-                            </h3>
-                            <p>Modern sites that look great, load fast, and are easy to maintain.</p>
-                            <ul>
-                                <li>Website design & build</li>
-                                <li>WordPress setup & cleanup</li>
-                                <li>Landing pages & small business sites</li>
-                                <li>Responsive, mobile-first layout</li>
-                            </ul>
-                        </article>
-
-                        <article class="tile">
-                            <h3>
-                                IT Support
-                                <span class="chip">Hardware • Software</span>
-                            </h3>
-                            <p>Setup and support for real life — devices, installs, troubleshooting, and “why won’t it
-                                work.”</p>
-                            <ul>
-                                <li>Hardware & software setup</li>
-                                <li>System troubleshooting</li>
-                                <li>OS updates & optimization</li>
-                                <li>Network setup & security checks</li>
-                            </ul>
-                        </article>
-
-                        <article class="tile">
-                            <h3>
-                                Extras
-                                <span class="chip">Teach • Maintain</span>
-                            </h3>
-                            <p>If you want to understand it (and keep it running), I can help with that too.</p>
-                            <ul>
-                                <li>Tech training / tutorials</li>
-                                <li>Documentation & walkthroughs</li>
-                                <li>Site maintenance plans</li>
-                                <li>Ongoing support & updates</li>
-                            </ul>
-                        </article>
-
-                        <article class="tile">
-                            <h3>
-                                Web Tools (Installable)
-                                <span class="chip">PWA</span>
-                            </h3>
-                            <p>Trackers, planners, utilities — built with intention, not templates.</p>
-                            <ul>
-                                <li>Installable on phone or desktop</li>
-                                <li>Clean UI + simple UX</li>
-                                <li>Optional Firebase login + data</li>
-                                <li>Performance + reliability focus</li>
-                            </ul>
-
-                        </article>
-
-                        <article class="tile">
-                            <h3>
-                                Maintenance & Updates
-                                <span class="chip">Fixes</span>
-                            </h3>
-                            <p>Perfect when you just want it handled and kept up-to-date.</p>
-                            <ul>
-                                <li>Bug fixes & layout repairs</li>
-                                <li>Content updates</li>
-                                <li>Style refresh / branding polish</li>
-                                <li>Small improvements over time</li>
-                            </ul>
-
-                        </article>            
-                    </div>
-
-                    <div class="divider"></div>
-
-                    <!-- ===== PRICING ===== -->
-                    <h3 style="margin:0;">Pricing (starting points)</h3>
-                    <p class="soft" style="max-width:78ch; margin:8px 0 0;">
-                        These are common ranges so you can ballpark things quickly.
-                    </p>
-
-                    <div class="grid" aria-label="Pricing packages" style="margin-top:14px;">
-
-                        <article class="tile">
-                            <h3>
-                                Websites
-                                <span class="chip">Project</span>
-                            </h3>
-                            <div class="price"><b>$300–$800</b><span>typical small sites</span></div>
-                            <ul>
-                                <li>Portfolio / personal site: <b>$300–$600</b></li>
-                                <li>Simple business website: <b>$400–$800</b></li>
-                                <li>Website updates / fixes: <b>$75/hr</b></li>
-                            </ul>
-                        </article>
-
-                        <article class="tile">
-                            <h3>
-                                Apps & Tools
-                                <span class="chip">Build</span>
-                            </h3>
-                            <div class="price"><b>From $1,500</b><span>small Android apps</span></div>
-                            <ul>
-                                <li>Small Android app (single purpose): <b>starting at $1,500</b></li>
-                                <li>Feature additions / bug fixes: <b>$75/hr</b></li>
-                                <li>Optional login + data storage (Firebase): scoped in quote</li>
-                            </ul>
-                        </article>
-
-                        <article class="tile">
-                            <h3>
-                                IT Support
-                                <span class="chip">Remote / On-site</span>
-                            </h3>
-                            <div class="price"><b>$60–$85/hr</b><span>support & troubleshooting</span></div>
-                            <ul>
-                                <li>On-site or remote support: <b>$60–$85/hr</b></li>
-                                <li>Setup / installs: <b>starting at $75</b></li>
-                                <li>Mac + Windows 10/11 support</li>
-                            </ul>
-                        </article>
-
-                    </div>
-
-                    <p class="note2" style="margin-top:6px; color:#777488 !important;">
-                        <b>Final pricing is based on project scope.</b> You’ll receive a clear quote before work begins.
-                    </p>
-
-                    <div class="row">
-                        <a class="cta" href="./contact.html">Ask about a project</a>
-                        <!-- Update this email before publishing -->
-                        <a class="cta secondary" href="mailto:glowcodestudio@gmail.com">Email me</a>
-                    </div>
-
-                    <div style="margin-top:18px; display:grid; gap:12px;">
-                        <h3 style="margin:0;">FAQs</h3>
-
-                        <details>
-                            <summary>What do you need from me to start?</summary>
-                            <p>
-                                Just a short description, any examples you like, your timeline, and what “success” looks
-                                like to you.
-                                If it’s IT support, tell me what devices you’re using and what’s going wrong.
-                            </p>
-                        </details>
-
-                        <details>
-                            <summary>Do you work with WordPress?</summary>
-                            <p>
-                                Yes — WordPress builds, redesigns, cleanups, and fixes. I can also build custom static
-                                sites if you want
-                                speed + simplicity.
-                            </p>
-                        </details>
-
-                        <details>
-                            <summary>Can you help after launch or after setup?</summary>
-                            <p>
-                                Absolutely. I can do ongoing updates, troubleshooting, and improvements so your site or
-                                system stays solid.
-                            </p>
-                        </details>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="container footer-grid">
-            <div>© <span id="year"></span> GCS</div>
-            <div style="display:flex; gap:14px; flex-wrap:wrap;">
-                <a href="./privacy.html" class="muted">Privacy</a>
-                <a href="./terms.html" class="muted">Terms</a>
-            </div>
+          <p>
+            Whether you need something built from scratch, repaired, organized,
+            or simply explained, the goal is the same: make technology useful instead of frustrating.
+          </p>
         </div>
-    </footer>
 
-    <script>
-        document.getElementById('year').textContent = new Date().getFullYear();
-    </script>
+        <div class="services-grid">
+          <article class="service-card">
+            <div class="service-top">
+              <h3>Software &amp; App Development</h3>
+              <span class="chip">Build • Fix • Improve</span>
+            </div>
+
+            <p>
+              Custom builds, feature additions, debugging, and improvements for digital tools and applications.
+            </p>
+
+            <ul>
+              <li>Customized web apps and utilities</li>
+              <li>Small Android apps and focused tools</li>
+              <li>Debugging, updates, and stability repairs</li>
+              <li>Feature improvements and visual polish</li>
+            </ul>
+          </article>
+
+          <article class="service-card">
+            <div class="service-top">
+              <h3>Web Development</h3>
+              <span class="chip">Design • Build</span>
+            </div>
+
+            <p>
+              Modern websites that feel clear, professional, mobile-friendly, and easy to maintain.
+            </p>
+
+            <ul>
+              <li>Personal and small-business websites</li>
+              <li>WordPress setup, redesign, and cleanup</li>
+              <li>Landing pages and portfolio sites</li>
+              <li>Responsive, accessible layouts</li>
+            </ul>
+          </article>
+
+          <article class="service-card">
+            <div class="service-top">
+              <h3>IT Support</h3>
+              <span class="chip">Hardware • Software</span>
+            </div>
+
+            <p>
+              Patient, practical support for devices, software, installations, and everyday technical problems.
+            </p>
+
+            <ul>
+              <li>Hardware and software setup</li>
+              <li>System troubleshooting</li>
+              <li>Operating-system updates and optimization</li>
+              <li>Basic network and security checks</li>
+            </ul>
+          </article>
+
+          <article class="service-card">
+            <div class="service-top">
+              <h3>Web Tools &amp; PWAs</h3>
+              <span class="chip">Installable</span>
+            </div>
+
+            <p>
+              Focused tools such as trackers, planners, calculators, and utilities designed around a specific need.
+            </p>
+
+            <ul>
+              <li>Installable on phones or computers</li>
+              <li>Simple interfaces and clear workflows</li>
+              <li>Optional Firebase login and storage</li>
+              <li>Performance and reliability focused</li>
+            </ul>
+          </article>
+
+          <article class="service-card">
+            <div class="service-top">
+              <h3>Maintenance &amp; Updates</h3>
+              <span class="chip">Ongoing Help</span>
+            </div>
+
+            <p>
+              For people who want their website or tool kept current, repaired, and running smoothly.
+            </p>
+
+            <ul>
+              <li>Bug fixes and layout repairs</li>
+              <li>Content and image updates</li>
+              <li>Style refreshes and branding cleanup</li>
+              <li>Small improvements over time</li>
+            </ul>
+          </article>
+
+          <article class="service-card">
+            <div class="service-top">
+              <h3>Training &amp; Documentation</h3>
+              <span class="chip">Teach • Explain</span>
+            </div>
+
+            <p>
+              Clear instructions for people who want to understand their setup instead of feeling dependent on it.
+            </p>
+
+            <ul>
+              <li>One-on-one walkthroughs</li>
+              <li>Step-by-step documentation</li>
+              <li>Software and website training</li>
+              <li>Ongoing questions and support</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="background: var(--surface);">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Starting Prices</p>
+            <h2>Clear ballpark pricing</h2>
+          </div>
+
+          <p>
+            Final pricing depends on scope, complexity, content, and timeline.
+            You receive a clear quote before work begins.
+          </p>
+        </div>
+
+        <div class="pricing-grid">
+          <article class="price-card">
+            <h3>Websites</h3>
+            <p class="price-main">$300–$800</p>
+            <p class="price-label">Typical small-site range</p>
+
+            <ul>
+              <li>Portfolio or personal site: $300–$600</li>
+              <li>Simple business website: $400–$800</li>
+              <li>Updates and fixes: $75/hour</li>
+            </ul>
+          </article>
+
+          <article class="price-card">
+            <h3>Apps &amp; Tools</h3>
+            <p class="price-main">From $1,500</p>
+            <p class="price-label">Small focused applications</p>
+
+            <ul>
+              <li>Single-purpose Android app: from $1,500</li>
+              <li>Feature additions and bug fixes: $75/hour</li>
+              <li>Firebase login or storage quoted by scope</li>
+            </ul>
+          </article>
+
+          <article class="price-card">
+            <h3>IT Support</h3>
+            <p class="price-main">$60–$85/hr</p>
+            <p class="price-label">Remote or on-site support</p>
+
+            <ul>
+              <li>Setup and installation: from $75</li>
+              <li>Mac and Windows support</li>
+              <li>Device, software, and troubleshooting help</li>
+            </ul>
+          </article>
+        </div>
+
+        <p class="quote-note">
+          <strong>No mystery pricing:</strong>
+          the work, cost, and next steps are explained before the project begins.
+        </p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">How It Works</p>
+            <h2>A simple process</h2>
+          </div>
+        </div>
+
+        <div class="process-grid">
+          <article class="process-step">
+            <span class="step-number">1</span>
+            <h3>Tell me what you need</h3>
+            <p>
+              Share the problem, goal, current setup, examples, and timeline.
+            </p>
+          </article>
+
+          <article class="process-step">
+            <span class="step-number">2</span>
+            <h3>Receive a clear plan</h3>
+            <p>
+              I explain the recommended work, cost, timeline, and next steps.
+            </p>
+          </article>
+
+          <article class="process-step">
+            <span class="step-number">3</span>
+            <h3>Build, fix, and support</h3>
+            <p>
+              I complete the work and help you understand how to use or maintain it.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="background: var(--surface);">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Questions</p>
+            <h2>Frequently asked</h2>
+          </div>
+        </div>
+
+        <div class="faq-list">
+          <details>
+            <summary>What do you need from me to begin?</summary>
+            <p>
+              A short description of what you need, examples you like, your timeline,
+              and what a successful result would look like. For IT support, include the device
+              and a description of what is happening.
+            </p>
+          </details>
+
+          <details>
+            <summary>Do you work with WordPress?</summary>
+            <p>
+              Yes. I can build, redesign, clean up, repair, or maintain WordPress websites.
+              I also build custom static websites when speed and simplicity are the priority.
+            </p>
+          </details>
+
+          <details>
+            <summary>Can you help after launch or setup?</summary>
+            <p>
+              Yes. Ongoing maintenance, updates, troubleshooting, training, and improvements are available.
+            </p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="cta-panel">
+          <div>
+            <h2>Have something in mind?</h2>
+            <p>
+              Tell me what you are trying to build, fix, organize, or understand.
+            </p>
+          </div>
+
+          <div class="button-row">
+            <a class="button primary" href="contact.html">Ask About a Project</a>
+            <a class="button secondary" href="mailto:glowcodestudio@gmail.com">Email Me</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-grid">
+      <div>© <span id="year"></span> Glow Code Studio</div>
+
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="contact.html">Contact</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (() => {
+      const year = document.getElementById("year");
+
+      if (year) {
+        year.textContent = String(new Date().getFullYear());
+      }
+    })();
+  </script>
 </body>
 
 </html>
