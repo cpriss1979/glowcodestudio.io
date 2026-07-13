@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Ask About a Project | Glow Code Studio</title>
+
+    <style>
+        body {
+            margin: 0;
+            background: #0b0b12;
+            color: #f3f5fa;
+            font: 500 16px/1.55 system-ui, -apple-system, Segoe UI, Roboto, Arial;
+        }
+
+        .container {
+            max-width: 780px;
+            margin: auto;
+            padding: 32px 20px;
+        }
+
+        h1 {
+            margin: 0 0 8px;
+            font-size: 34px;
+        }
+
+        .soft {
+            color: #cdd3e3;
+            max-width: 70ch;
+        }
+
+        form {
+            margin-top: 24px;
+            display: grid;
+            gap: 16px;
+        }
+
+        label {
+            display: grid;
+            gap: 6px;
+            font-weight: 700;
+            color: #cdd3e3;
+        }
+
+        input,
+        select,
+        textarea {
+            padding: 12px;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, .15);
+            background: rgba(0, 0, 0, .25);
+            color: #f3f5fa;
+            font-size: 15px;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        @media (max-width: 640px) {
+            .row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .checks {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            padding: 12px;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, .12);
+            background: rgba(0, 0, 0, .18);
+        }
+
+        .checks label {
+            font-weight: 600;
+            gap: 6px;
+            display: flex;
+            align-items: center;
+            color: #f3f5fa;
+        }
+
+        .actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 8px;
+            align-items: center;
+        }
+
+        .btn {
+            border-radius: 999px;
+            padding: 12px 18px;
+            font-weight: 800;
+            border: 1px solid rgba(255, 255, 255, .18);
+            background: linear-gradient(135deg, #8cd0ff, #c5e2ff);
+            color: #0b0b12;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn.secondary {
+            background: rgba(0, 0, 0, .3);
+            color: #f3f5fa;
+        }
+
+        .muted {
+            color: #9aa0b3;
+            font-size: 14px;
+            margin: 0;
+        }
+
+        .status {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #cdd3e3;
+            min-height: 18px;
+        }
+
+        /* simple honeypot (spam bots) */
+        .hp {
+            position: absolute;
+            left: -9999px;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+        }
+
+ /* =============== back button styling ============= */
+ /* =============== back button styling ============= */
+
+.backBtn{
+  position: sticky;
+  top: 12px;
+  z-index: 5;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+margin: 14px 0 0 20px;
+padding: 10px 14px;
+
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.14);
+
+  background: rgba(0,0,0,.25);
+  backdrop-filter: blur(10px);
+
+  color: #cdd3e3;
+  font-weight: 800;
+  font-size: 14px;
+
+  text-decoration: none;
+  cursor: pointer;
+
+  transition: transform .15s ease, filter .15s ease, background .15s ease;
+}
+
+.backBtn:hover{
+  transform: translateY(-1px);
+  filter: brightness(1.05);
+  background: rgba(0,0,0,.35);
+}
+
+.backBtn:active{
+  transform: translateY(0px) scale(.98);
+}
+
+.backBtn:focus-visible{
+  outline: 3px solid rgba(140, 208, 255, .55);
+  outline-offset: 3px;
+}
+
+/* ------------------ back button styling tweaks ----------- */
+.copyWrap{
+  padding: 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, .12);
+  background: rgba(0, 0, 0, .18);
+}
+.copyWrap label{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-weight:700;
+  color:#f3f5fa;
+}
+
+    </style>
+</head>
+
+<body>
+    <a href="./services.html" class="backBtn" aria-label="Back to Services">← Back</a>
+
+    <main class="container">
+        <h1>Ask about a project</h1>
+        <p class="soft">
+            Tell me what you’re trying to do — whether that’s a website, an app, or help setting up and fixing your
+            tech.
+            I’ll reply with a clear plan and next steps.
+        </p>
+
+        <form id="projectForm" novalidate>
+            <!-- Honeypot -->
+            <label class="hp">
+                Leave this blank
+                <input type="text" id="company" autocomplete="off" />
+            </label>
+
+            <div class="row">
+                <label>
+                    Name
+                    <input type="text" id="name" required autocomplete="name" />
+                </label>
+
+                <label>
+                    Email
+                    <input type="email" id="email" required autocomplete="email" />
+                </label>
+            </div>
+
+            <label>
+                What do you need help with?
+                <select id="type" required>
+                    <option value="" disabled selected>Select one</option>
+                    <option value="Website / front-end build">Website / front-end build</option>
+                    <option value="Web app or tool">Web app or tool</option>
+                    <option value="IT setup or troubleshooting">IT setup or troubleshooting</option>
+                    <option value="Not sure yet">Not sure yet</option>
+                </select>
+            </label>
+
+            <label>
+                Timeline
+                <select id="timeline" required>
+                    <option value="" disabled selected>Select one</option>
+                    <option value="This week">This week</option>
+                    <option value="Next 1–2 weeks">Next 1–2 weeks</option>
+                    <option value="This month">This month</option>
+                    <option value="No rush">No rush</option>
+                </select>
+            </label>
+
+            <label>
+                Details
+                <textarea id="details"
+                    placeholder="What’s working, what’s not, and what you want help with."></textarea>
+            </label>
+
+            <label>
+                Devices / OS (optional)
+                <div class="checks">
+                    <label><input type="checkbox" name="devices" value="Mac"> Mac</label>
+                    <label><input type="checkbox" name="devices" value="Windows 10/11"> Windows</label>
+                    <label><input type="checkbox" name="devices" value="iPhone / iPad (iOS)"> iOS</label>
+                    <label><input type="checkbox" name="devices" value="Android"> Android</label>
+                </div>
+            </label>
+            <div class="copyWrap">
+                <label>
+                    <input type="checkbox" id="bccMe">
+                    Send me a copy of this message (BCC)
+                </label>
+            </div>
+              
+            <div class="actions">
+                <button class="btn" id="sendBtn" type="submit">Send message</button>
+                <a class="btn secondary" href="mailto:glowcodestudio@gmail.com">Email me instead</a>
+            </div>
+
+            <p class="muted">You’ll get a reply — not an auto-response.</p>
+            <div class="status" id="status"></div>
+        </form>
+    </main>
+
+    <script>
+        const form = document.getElementById("projectForm");
+
+        form.addEventListener("submit", (e) => {
+            e.preventDefault();
+
+            const fullName = document.getElementById("name").value.trim();
+            const emailAddr = document.getElementById("email").value.trim();
+            const helpWith = document.getElementById("type").value;
+            const timeline = document.getElementById("timeline").value;
+            const details = document.getElementById("details").value.trim();
+            const bccMe = document.getElementById("bccMe").checked;
+
+            const devices = Array.from(
+                document.querySelectorAll('input[name="devices"]:checked')
+            ).map(el => el.value).join(", ") || "Not specified";
+
+            const to = "glowcodestudio@gmail.com";
+
+            // validate email before BCC
+            const looksLikeEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailAddr);
+            const bcc = (bccMe && looksLikeEmail)
+                ? `&bcc=${encodeURIComponent(emailAddr)}`
+                : "";
+
+            const subject = `Project request — ${helpWith} (${timeline})`;
+
+            const body =
+                `Name: ${fullName}
+          Email: ${emailAddr}
+          
+          Need help with: ${helpWith}
+          Timeline: ${timeline}
+          Devices/OS: ${devices}
+          
+          Details:
+          ${details}
+          `;
+
+            const mailto =
+                `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}${bcc}`;
+
+            // ✅ NOW it exists
+            console.log("MAILTO:", mailto);
+
+            window.location.href = mailto;
+        });
+    </script>
+      
+</body>
+
+</html>

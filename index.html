@@ -1,939 +1,1301 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>Glow Code Studio</title>
-    <meta name="description" content="Glow Code Studio builds wellness apps, meaningful websites, and indie games." />
-    <meta name="theme-color" content="#2b0f2f" />
-
-    <style>
-        :root {
-            --bg: #0d0913;
-            --surface-deep: #100b18;
-            --surface-plum: #40264b;
-            --surface-plum-2: #4b2b58;
-            --header: rgba(39, 12, 48, 0.88);
-            --card: #3d2b70;
-            --card-2: #46337d;
-            --text: #f7f4fb;
-            --muted: #c6bbd5;
-            --muted-2: #a99db9;
-            --pink: #efb8f3;
-            --blue: #80c5ff;
-            --aqua: #43e2cf;
-            --border: rgba(255, 255, 255, .10);
-            --shadow: 0 18px 40px rgba(0, 0, 0, .32);
-            --radius: 20px;
-            --max: 1120px;
-            --safe-bottom: max(18px, env(safe-area-inset-bottom, 0px));
-        }
-
-        * {
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            margin: 0;
-            min-height: 100%;
-            color: var(--text);
-            background: var(--bg);
-            font: 500 16px/1.6 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-        }
-
-        img {
-            max-width: 100%;
-        }
-
-        a {
-            color: var(--aqua);
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
-        button,
-        input {
-            font: inherit;
-        }
-
-        .container {
-            width: min(100% - 34px, var(--max));
-            margin-inline: auto;
-        }
-
-        .site-header {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            background: var(--header);
-            backdrop-filter: blur(14px) saturate(135%);
-            border-bottom: 1px solid rgba(255, 255, 255, .08);
-        }
-
-        .nav {
-            min-height: 78px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 18px;
-        }
-
-        .brand {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            min-width: 0;
-            color: var(--text);
-        }
-
-        .brand:hover {
-            text-decoration: none;
-        }
-
-        .brand-logo {
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            object-fit: cover;
-            box-shadow: 0 8px 22px rgba(0, 0, 0, .35);
-            flex: 0 0 auto;
-        }
-
-        .brand-name {
-            font-family: "Trebuchet MS", system-ui, sans-serif;
-            font-weight: 900;
-            letter-spacing: .2px;
-            white-space: nowrap;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 22px;
-        }
-
-        .nav-links a {
-            color: var(--text);
-            opacity: .82;
-            font-weight: 700;
-        }
-
-        .nav-links a:hover {
-            opacity: 1;
-            text-decoration: none;
-        }
-
-        .menu-btn {
-            display: none;
-            border: 0;
-            border-radius: 999px;
-            padding: 10px 15px;
-            font-weight: 800;
-            background: linear-gradient(135deg, #73bcff, #b0e2ff);
-            color: #0c1320;
-            box-shadow: 0 10px 24px rgba(85, 170, 255, .25);
-        }
-
-        .mobile-menu {
-            display: none;
-            position: fixed;
-            inset: 78px 0 auto 0;
-            z-index: 99;
-            padding: 18px;
-            background: rgba(13, 9, 19, .98);
-            border-bottom: 1px solid var(--border);
-            box-shadow: var(--shadow);
-        }
-
-        .mobile-menu.open {
-            display: grid;
-            gap: 8px;
-        }
-
-        .mobile-menu a {
-            padding: 12px 10px;
-            color: var(--text);
-            border-radius: 12px;
-            background: rgba(255, 255, 255, .04);
-            font-weight: 700;
-        }
-
-        .section {
-            padding: 64px 0;
-            scroll-margin-top: 90px;
-        }
-
-        .section-dark {
-            background: var(--surface-deep);
-        }
-
-        .section-plum {
-            background:
-                radial-gradient(900px 480px at 50% -160px, rgba(244, 184, 243, .12), transparent 60%),
-                linear-gradient(180deg, var(--surface-plum-2), var(--surface-plum));
-        }
-
-        .intro {
-            padding: 28px 0;
-            background: linear-gradient(180deg, #120d1c, #0f0b17);
-        }
-
-        .intro-copy {
-            max-width: 820px;
-            color: var(--muted);
-            margin: 0;
-        }
-
-        .intro-copy strong {
-            color: var(--text);
-        }
-
-        .section-heading {
-            margin: 0 0 10px;
-            font-size: clamp(30px, 4vw, 46px);
-            line-height: 1.05;
-            font-weight: 950;
-            letter-spacing: -.02em;
-        }
-
-        .section-heading.center {
-            text-align: center;
-            color: var(--pink);
-        }
-
-        .section-subtitle {
-            margin: 0;
-            color: var(--muted);
-            max-width: 760px;
-        }
-
-        .app-layout {
-            display: grid;
-            grid-template-columns: minmax(250px, 360px) minmax(0, 1fr);
-            gap: clamp(34px, 6vw, 76px);
-            align-items: start;
-        }
-
-        .app-visual {
-            position: sticky;
-            top: 112px;
-            text-align: center;
-        }
-
-        .app-icon {
-            width: min(100%, 320px);
-            aspect-ratio: 1;
-            margin: 22px auto 0;
-            border-radius: 30px;
-            overflow: hidden;
-            background: #271d3d;
-            border: 1px solid rgba(255, 255, 255, .10);
-            box-shadow: 0 24px 44px rgba(0, 0, 0, .38), inset 0 0 0 1px rgba(255, 255, 255, .04);
-        }
-
-        .app-icon img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-
-        .app-kicker {
-            margin: 20px 0 0;
-            color: var(--muted);
-            font-size: 14px;
-        }
-
-        .app-copy {
-            min-width: 0;
-        }
-
-        .app-intro {
-            margin: 0 0 24px;
-            color: var(--text);
-            font-size: 18px;
-            line-height: 1.7;
-        }
-
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 16px;
-        }
-
-        .feature-card,
-        .project-card {
-            position: relative;
-            overflow: hidden;
-            border-radius: var(--radius);
-            border: 1px solid var(--border);
-            background: linear-gradient(145deg, var(--card-2), var(--card));
-            box-shadow: var(--shadow);
-            padding: 20px;
-        }
-
-        .feature-card::before,
-        .project-card::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            pointer-events: none;
-            background: linear-gradient(180deg, rgba(255, 255, 255, .07), transparent 40%);
-        }
-
-        .feature-card h3,
-        .project-card h3 {
-            position: relative;
-            margin: 0 0 4px;
-            font-size: 18px;
-            color: var(--text);
-        }
-
-        .feature-card .micro {
-            position: relative;
-            margin: 0 0 10px;
-            color: #f0d8ff;
-            font-weight: 800;
-        }
-
-        .feature-card p,
-        .project-card p {
-            position: relative;
-            margin: 0;
-            color: var(--muted);
-        }
-
-        .app-summary {
-            margin: 24px 0 0;
-            padding: 18px 20px;
-            border-left: 4px solid var(--pink);
-            border-radius: 0 14px 14px 0;
-            background: rgba(15, 11, 23, .26);
-            color: var(--text);
-        }
-
-        .app-actions {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 12px;
-            margin-top: 18px;
-        }
-
-        .app-actions.single {
-            grid-template-columns: 1fr;
-        }
-
-        .pill {
-            min-height: 48px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 14px;
-            padding: 11px 16px;
-            border-radius: 999px;
-            font-weight: 850;
-            color: #0b1019;
-            background: linear-gradient(135deg, #6ca8ff, #c3e7ff);
-            box-shadow: 0 10px 24px rgba(108, 168, 255, .30);
-            border: 1px solid rgba(255, 255, 255, .22);
-        }
-
-        .pill:hover {
-            text-decoration: none;
-            transform: translateY(-1px);
-        }
-
-        .pill.secondary {
-            background: linear-gradient(135deg, #d9a8ff, #f2d0ff);
-        }
-
-        .pill .tag {
-            background: rgba(255, 255, 255, .88);
-            border-radius: 999px;
-            padding: 2px 8px;
-            font-size: 11px;
-            white-space: nowrap;
-        }
-
-        .two-col {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 16px;
-            margin-top: 24px;
-        }
-
-        .project-card .list {
-            list-style: none;
-            margin: 14px 0 0;
-            padding: 0;
-            display: grid;
-            gap: 9px;
-        }
-
-        .project-card .list li {
-            display: grid;
-            grid-template-columns: 8px 1fr;
-            gap: 10px;
-            color: var(--text);
-        }
-
-        .dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--aqua);
-            margin-top: 9px;
-        }
-
-        .note {
-            font-size: 12px;
-            color: var(--muted-2) !important;
-            margin-top: 8px !important;
-        }
-
-        .inline-link {
-            display: inline-block;
-            margin-top: 12px;
-            font-weight: 800;
-        }
-
-        .about-list {
-            display: grid;
-            gap: 16px;
-            margin-top: 24px;
-        }
-
-        .about-list p {
-            margin: 0;
-            color: var(--text);
-        }
-
-        .contact-grid {
-            display: grid;
-            grid-template-columns: minmax(0, 1fr) auto;
-            gap: 14px;
-            align-items: end;
-            margin-top: 22px;
-        }
-
-        .field-wrap label {
-            display: block;
-            margin-bottom: 8px;
-            color: var(--muted);
-        }
-
-        .field-wrap input {
-            width: 100%;
-            min-height: 48px;
-            border-radius: 14px;
-            border: 1px solid rgba(255, 255, 255, .14);
-            background: #11101a;
-            color: var(--text);
-            padding: 12px 14px;
-            outline: none;
-        }
-
-        .field-wrap input:focus {
-            border-color: var(--blue);
-            box-shadow: 0 0 0 3px rgba(128, 197, 255, .15);
-        }
-
-        .contact-actions {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .small-btn {
-            min-height: 48px;
-            border: 0;
-            border-radius: 999px;
-            padding: 11px 16px;
-            font-weight: 850;
-            color: #0b1019;
-            background: linear-gradient(135deg, #6ca8ff, #c3e7ff);
-            box-shadow: 0 10px 22px rgba(108, 168, 255, .24);
-            cursor: pointer;
-        }
-
-        .small-btn.secondary {
-            background: linear-gradient(135deg, #d9a8ff, #f2d0ff);
-        }
-
-        footer {
-            background: #0a0a10;
-            border-top: 1px solid var(--border);
-            color: var(--muted);
-        }
-
-        .footer-row {
-            min-height: 76px;
-            padding-bottom: var(--safe-bottom);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .foot-links {
-            display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
-
-        .foot-links a {
-            color: var(--muted);
-        }
-
-        @media (max-width: 900px) {
-            .nav-links {
-                display: none;
-            }
-
-            .menu-btn {
-                display: inline-flex;
-            }
-
-            .app-layout {
-                grid-template-columns: 1fr;
-            }
-
-            .app-visual {
-                position: static;
-            }
-
-            .app-icon {
-                width: min(70vw, 300px);
-            }
-        }
-
-        @media (max-width: 700px) {
-            .section {
-                padding: 44px 0;
-            }
-
-            .feature-grid,
-            .two-col,
-            .app-actions,
-            .contact-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .contact-actions {
-                width: 100%;
-            }
-
-            .contact-actions>* {
-                flex: 1 1 100%;
-                text-align: center;
-            }
-
-            .section-heading.center {
-                font-size: 34px;
-            }
-
-            .app-intro {
-                font-size: 16px;
-            }
-
-            .brand-name {
-                font-size: 18px;
-            }
-        }
-
-        @media (max-width: 430px) {
-            .container {
-                width: min(100% - 24px, var(--max));
-            }
-
-            .nav {
-                min-height: 72px;
-            }
-
-            .brand-logo {
-                width: 34px;
-                height: 34px;
-            }
-
-            .brand-name {
-                font-size: 16px;
-            }
-
-            .app-icon {
-                width: 68vw;
-                border-radius: 24px;
-            }
-
-            .feature-card,
-            .project-card {
-                padding: 17px;
-            }
-
-            .pill {
-                font-size: 14px;
-            }
-        }
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Glow Code Studio</title>
+
+  <meta name="description"
+    content="Glow Code Studio creates wellness apps, meaningful websites, custom web tools, IT support, and indie games.">
+  <meta name="theme-color" content="#2b0df2">
+
+  <meta property="og:title" content="Glow Code Studio">
+  <meta property="og:description" content="Wellness apps, websites, custom web tools, IT support, and indie games.">
+  <meta property="og:type" content="website">
+
+  <style>
+    :root {
+      --bg: #0d0a1a;
+      --surface-dark: #0f0b17;
+      --surface-light: #33264f;
+      --surface-mid: #211735;
+
+      --text: #f3f5fa;
+      --muted: #b7afcf;
+      --soft: #d7cff7;
+
+      --brand: #8357ff;
+      --brand-blue: #8cd0ff;
+      --brand-pink: #e7b5ea;
+      --brand-teal: #2dd4bf;
+
+      --card-bg: #3a2768;
+      --card-border: rgba(255, 255, 255, 0.10);
+
+      --header-bg: rgba(43, 13, 242, 0.76);
+      --shadow: 0 14px 34px rgba(0, 0, 0, 0.32);
+      --radius: 18px;
+      --max-width: 1120px;
+      --header-height: 74px;
+      --safe-bottom: max(16px, env(safe-area-inset-bottom, 0px));
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100%;
+      padding-top: var(--header-height);
+      background:
+        radial-gradient(1000px 700px at 10% -10%, rgba(131, 87, 255, 0.16), transparent 60%),
+        radial-gradient(900px 600px at 110% 0%, rgba(45, 212, 191, 0.09), transparent 55%),
+        var(--bg);
+      color: var(--text);
+      font: 500 16px/1.6 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    }
+
+    img {
+      max-width: 100%;
+    }
+
+    a {
+      color: var(--brand-teal);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    [id] {
+      scroll-margin-top: calc(var(--header-height) + 16px);
+    }
+
+    .container {
+      width: min(100% - 32px, var(--max-width));
+      margin-inline: auto;
+    }
+
+    .section {
+      padding: 56px 0;
+    }
+
+    .section--dark {
+      background: var(--surface-dark);
+    }
+
+    .section--light {
+      background: var(--surface-light);
+    }
+
+    .section--mid {
+      background: var(--surface-mid);
+    }
+
+    .section-title {
+      margin: 0 0 10px;
+      font-size: clamp(1.75rem, 3vw, 2.4rem);
+      line-height: 1.15;
+    }
+
+    .section-subtitle {
+      max-width: 70ch;
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 1000;
+      background: var(--header-bg);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(12px) saturate(140%);
+      -webkit-backdrop-filter: blur(12px) saturate(140%);
+    }
+
+    .nav {
+      min-height: var(--header-height);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      min-width: 0;
+    }
+
+    .brand-logo {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex: 0 0 auto;
+    }
+
+    .brand h1 {
+      margin: 0;
+      white-space: nowrap;
+      font-size: 18px;
+      letter-spacing: 0.2px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .nav-links a {
+      color: var(--text);
+      opacity: 0.82;
+      font-size: 14px;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      opacity: 1;
+      text-decoration: none;
+    }
+
+    /* Buttons */
+    .cta,
+    .btn-primary,
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 44px;
+      padding: 11px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      font-weight: 750;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform 0.16s ease, filter 0.16s ease, box-shadow 0.16s ease;
+    }
+
+    .cta,
+    .btn-primary {
+      background: linear-gradient(135deg, #6ca8ff 0%, #8cd0ff 60%, #c5e2ff 100%);
+      color: #0a0f1a;
+      box-shadow: 0 8px 24px rgba(108, 168, 255, 0.30);
+    }
+
+    .cta.secondary,
+    .btn-secondary {
+      background: linear-gradient(135deg, #d8a5ff, #f4cfff);
+      color: #0a0f1a;
+      box-shadow: 0 8px 22px rgba(216, 165, 255, 0.24);
+    }
+
+    .cta:hover,
+    .btn-primary:hover,
+    .btn-secondary:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.03);
+      text-decoration: none;
+    }
+
+    .cta.small {
+      min-height: 38px;
+      padding: 8px 12px;
+      font-size: 14px;
+    }
+
+    .tag {
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.86);
+      color: #0a0f1a;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    /* Mobile menu */
+    .menu-btn {
+      display: none;
+    }
+
+    .sheet {
+      position: fixed;
+      inset: auto 0 0 0;
+      z-index: 1100;
+      padding: 22px 20px calc(22px + var(--safe-bottom));
+      background: rgba(11, 11, 18, 0.98);
+      border-top: 1px solid rgba(255, 255, 255, 0.10);
+      transform: translateY(100%);
+      transition: transform 0.25s ease;
+    }
+
+    .sheet.open {
+      transform: translateY(0);
+    }
+
+    .sheet nav {
+      margin-top: 28px;
+    }
+
+    .sheet nav a {
+      display: block;
+      padding: 12px 2px;
+      color: var(--text);
+    }
+
+    .sheet .close {
+      position: absolute;
+      top: 10px;
+      right: 14px;
+    }
+
+    /* Intro / About */
+    .intro-copy {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .about-list {
+      display: grid;
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .about-item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .about-item span:first-child {
+      flex: 0 0 auto;
+    }
+
+    .about-item p {
+      margin: 0;
+    }
+
+    /* App sections */
+    .app-section {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .app-section::before {
+      content: "";
+      position: absolute;
+      inset: -200px -100px auto;
+      height: 500px;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(140, 208, 255, 0.12), transparent 45%),
+        radial-gradient(circle at 80% 20%, rgba(231, 181, 234, 0.12), transparent 45%);
+    }
+
+    .app-shell {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(260px, 0.8fr) minmax(0, 1.45fr);
+      gap: clamp(28px, 5vw, 64px);
+      align-items: start;
+    }
+
+    .app-identity {
+      position: sticky;
+      top: calc(var(--header-height) + 28px);
+      text-align: center;
+    }
+
+    .app-title {
+      margin: 0 0 18px;
+      color: var(--brand-pink);
+      font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+
+    .app-icon-wrap {
+      width: min(100%, 300px);
+      aspect-ratio: 1;
+      margin: 0 auto;
+      overflow: hidden;
+      border-radius: 28px;
+      background: linear-gradient(145deg, #4a2fb4, #2a1b48);
+      box-shadow:
+        0 18px 34px rgba(0, 0, 0, 0.34),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.07);
+    }
+
+    .app-icon {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .app-kicker {
+      margin: 16px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .app-content>p:first-child {
+      margin-top: 0;
+    }
+
+    .app-description {
+      margin-bottom: 22px;
+      color: var(--soft);
+      font-size: 1.02rem;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .feature-card,
+    .card {
+      position: relative;
+      overflow: hidden;
+      padding: 18px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .feature-card::before,
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), transparent 40%);
+    }
+
+    .feature-card h3,
+    .card h3 {
+      position: relative;
+      margin: 0 0 5px;
+      color: #f4edff;
+      font-size: 18px;
+    }
+
+    .feature-card .feature-lead {
+      position: relative;
+      margin: 0 0 7px;
+      color: #ffffff;
+      font-weight: 750;
+    }
+
+    .feature-card p,
+    .card p {
+      position: relative;
+      margin: 0;
+      color: var(--soft);
+    }
+
+    .app-summary {
+      margin: 22px 0 0;
+      color: var(--muted);
+    }
+
+    .app-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    /* Cards / projects */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .list {
+      display: grid;
+      gap: 9px;
+      margin: 12px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .list li {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      color: var(--text);
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      margin-top: 8px;
+      flex: 0 0 auto;
+      border-radius: 50%;
+      background: var(--brand-teal);
+    }
+
+    .note {
+      margin-top: 8px !important;
+      color: var(--soft) !important;
+      font-size: 12px;
+    }
+
+    /* Services */
+    .services-frame {
+      position: relative;
+      padding: 24px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.10);
+      border-radius: 24px;
+      background: rgba(15, 11, 23, 0.48);
+      box-shadow: 0 18px 46px rgba(0, 0, 0, 0.38);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .services-frame::before {
+      content: "";
+      position: absolute;
+      inset: -120px -80px;
+      pointer-events: none;
+      background:
+        radial-gradient(700px 420px at 10% 20%, rgba(140, 208, 255, 0.16), transparent 60%),
+        radial-gradient(600px 380px at 90% 25%, rgba(216, 165, 255, 0.16), transparent 60%);
+    }
+
+    .services-frame>* {
+      position: relative;
+    }
+
+    .services-grid,
+    .how-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .service-tile {
+      padding: 17px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 18px;
+      background: rgba(63, 42, 114, 0.38);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.28);
+    }
+
+    .tile-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .tile-top h3 {
+      margin: 0;
+      font-size: 18px;
+    }
+
+    .chip {
+      padding: 4px 9px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.20);
+      color: var(--soft);
+      font-size: 11px;
+      white-space: nowrap;
+    }
+
+    .service-tile p {
+      margin: 0 0 10px;
+      color: var(--soft);
+    }
+
+    .service-tile ul {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--soft);
+    }
+
+    .service-tile li {
+      margin: 6px 0;
+    }
+
+    .how {
+      padding: 13px 14px;
+      border: 1px dashed rgba(255, 255, 255, 0.18);
+      border-radius: 16px;
+      background: rgba(0, 0, 0, 0.16);
+      color: var(--soft);
+    }
+
+    .services-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    /* Contact preview */
+    .contact-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 22px;
+      border-radius: 20px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      box-shadow: var(--shadow);
+    }
+
+    .contact-card h2 {
+      margin: 0 0 6px;
+    }
+
+    .contact-card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+      background: var(--bg);
+      color: var(--muted);
+    }
+
+    .footer-grid {
+      min-height: 76px;
+      padding-bottom: var(--safe-bottom);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .foot-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .foot-links a {
+      color: var(--muted);
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @media (max-width: 980px) {
+      .nav-links {
+        display: none;
+      }
+
+      .menu-btn {
+        display: inline-flex;
+      }
+
+      .app-shell {
+        grid-template-columns: 1fr;
+      }
+
+      .app-identity {
+        position: static;
+      }
+
+      .app-icon-wrap {
+        width: min(70vw, 290px);
+      }
+
+      .services-grid,
+      .how-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .section {
+        padding: 40px 0;
+      }
+
+      .feature-grid,
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-card {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .footer-grid {
+        padding: 20px 0 calc(20px + var(--safe-bottom));
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 460px) {
+      .container {
+        width: min(100% - 24px, var(--max-width));
+      }
+
+      .brand h1 {
+        font-size: 16px;
+      }
+
+      .app-actions {
+        flex-direction: column;
+      }
+
+      .app-actions .cta,
+      .services-actions a {
+        width: 100%;
+      }
+    }
+
+    @supports (padding: env(safe-area-inset-top)) {
+      header {
+        padding-top: env(safe-area-inset-top);
+      }
+
+      body {
+        padding-top: calc(var(--header-height) + env(safe-area-inset-top));
+      }
+
+      [id] {
+        scroll-margin-top: calc(var(--header-height) + env(safe-area-inset-top) + 16px);
+      }
+    }
+
+    header{
+    background:#2b165d;
+}
+  </style>
 </head>
 
 <body>
-    <header class="site-header">
-        <div class="container nav">
-            <a class="brand" href="#intro" aria-label="Glow Code Studio home">
-                <img class="brand-logo" src="GC.png" alt="Glow Code Studio logo" />
-                <span class="brand-name">Glow Code Studio</span>
+  <header>
+    <div class="container nav">
+      <a class="brand" href="#intro" aria-label="Glow Code Studio home">
+        <img class="brand-logo" src="GC.png" alt="" decoding="async">
+        <h1>Glow Code Studio</h1>
+      </a>
+
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#about">About</a>
+        <a href="#three-sides">Three Sides</a>
+        <a href="#amygdala">Amygdala</a>
+        <a href="#web">Websites</a>
+        <a href="#services">Services</a>
+        <a href="#games">Games</a>
+        <a href="#early">Earlier Projects</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+
+      <button class="cta small menu-btn" id="menuBtn" type="button" aria-haspopup="true" aria-controls="menuSheet"
+        aria-expanded="false">
+        Menu
+      </button>
+    </div>
+  </header>
+
+  <div class="sheet" id="menuSheet" aria-hidden="true">
+    <button class="cta small secondary close" id="closeMenu" type="button" aria-label="Close menu">✕</button>
+    <nav aria-label="Mobile navigation">
+      <a href="#about">About</a>
+      <a href="#three-sides">Three Sides</a>
+      <a href="#amygdala">Amygdala</a>
+      <a href="#web">Websites</a>
+      <a href="#services">Services</a>
+      <a href="#games">Games</a>
+      <a href="#early">Earlier Projects</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+
+  <main>
+    <section id="intro" class="section section--dark">
+      <div class="container">
+        <p class="intro-copy">
+          <strong>Creator Bio:</strong>
+          Glow Code Studio is an independent developer creating wellness apps,
+          meaningful websites, custom web tools, IT support solutions, and Unreal Engine games.
+          Home of Three Sides, Amygdala, and future digital projects designed to support real life,
+          real emotions, and growth. Three Sides is now available in the Google Play Store.
+        </p>
+      </div>
+    </section>
+
+    <section id="about" class="section section--light">
+      <div class="container">
+        <h2 class="section-title">About Glow Code Studio</h2>
+        <p class="section-subtitle">
+          I build practical, meaningful digital experiences with a focus on clarity, encouragement, and real-world
+          usefulness.
+        </p>
+
+        <div class="about-list">
+          <div class="about-item">
+            <span aria-hidden="true">⭐️</span>
+            <p>
+              I build wellness apps like <strong>Three Sides</strong> and <strong>Amygdala</strong>.
+              Together, they are designed to help people manage stress, anxiety, and difficult emotions with practical
+              tools,
+              motivation, and hope.
+            </p>
+          </div>
+
+          <div class="about-item">
+            <span aria-hidden="true">⭐️</span>
+            <p>
+              I’ve built several websites, including one for a church and one for a professional author and speaker.
+            </p>
+          </div>
+
+          <div class="about-item">
+            <span aria-hidden="true">⭐️</span>
+            <p>
+              I create custom web tools, calculators, trackers, and lightweight applications using HTML, CSS,
+              JavaScript,
+              Firebase, and WordPress.
+            </p>
+          </div>
+
+          <div class="about-item">
+            <span aria-hidden="true">⭐️</span>
+            <p>
+              I’ve also released two small indie games in Unreal Engine, with larger projects such as Wonderlings in
+              development.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="three-sides" class="section section--dark app-section">
+      <div class="container app-shell">
+        <div class="app-identity">
+          <h2 class="app-title">THREE SIDES</h2>
+
+          <div class="app-icon-wrap">
+            <img class="app-icon" src="threeSides.png" alt="Three Sides app icon">
+          </div>
+
+          <p class="app-kicker">Wellness, reflection, and gentle motivation.</p>
+        </div>
+
+        <div class="app-content">
+          <p class="app-description">
+            Three Sides is a wellness companion designed around the highs, lows, and balance of emotional life.
+            It combines journaling, personalized coping tools, and a virtual pet to make self-care feel more
+            encouraging,
+            consistent, and manageable.
+          </p>
+
+          <div class="feature-grid" aria-label="Three Sides features">
+            <article class="feature-card">
+              <h3>Theme</h3>
+              <p class="feature-lead">Choose a space that feels calming.</p>
+              <p>
+                Customize colors and appearance to create an environment that helps you feel safe, relaxed,
+                and comfortable every time you open the app.
+              </p>
+            </article>
+
+            <article class="feature-card">
+              <h3>Daily Journal</h3>
+              <p class="feature-lead">Track thoughts, moods, and progress.</p>
+              <p>
+                Quick journal entries help you recognize patterns, celebrate victories,
+                and better understand what influences your emotions over time.
+              </p>
+            </article>
+
+            <article class="feature-card">
+              <h3>Coping Tools</h3>
+              <p class="feature-lead">Support when you need it most.</p>
+              <p>
+                Save personalized grounding exercises, reminders, calming activities,
+                and coping strategies so they are always easy to find.
+              </p>
+            </article>
+
+            <article class="feature-card">
+              <h3>Virtual Pet Motivation</h3>
+              <p class="feature-lead">Small habits. Big encouragement.</p>
+              <p>
+                Take care of your virtual companion by taking care of yourself.
+                Completing healthy habits helps your pet grow while encouraging consistency through positive
+                reinforcement.
+              </p>
+            </article>
+          </div>
+
+          <p class="app-summary">
+            Three Sides turns small acts of self-care into visible progress, helping users build supportive routines
+            without making wellness feel like another chore.
+          </p>
+
+          <div class="app-actions">
+            <a class="cta"
+              href="https://play.google.com/store/apps/details?id=io.github.cpriss1979.twa&utm_source=na_Med"
+              target="_blank" rel="noopener">
+              <span>Get it on Google Play</span>
+              <span class="tag">Android</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="amygdala" class="section section--light app-section">
+      <div class="container app-shell">
+        <div class="app-identity">
+          <h2 class="app-title">AMYGDALA</h2>
+
+          <div class="app-icon-wrap">
+            <img class="app-icon" src="amygdala.png" alt="Amygdala app icon">
+          </div>
+
+          <p class="app-kicker">Calming support for difficult moments.</p>
+        </div>
+
+        <div class="app-content">
+          <p class="app-description">
+            Amygdala is a personal anxiety companion designed to make overwhelming moments feel more manageable.
+            Instead of burying users in information, it offers focused exercises, calming tools, hope,
+            and practical support that can be reached quickly.
+          </p>
+
+          <div class="feature-grid" aria-label="Amygdala features">
+            <article class="feature-card">
+              <h3>Panicky</h3>
+              <p class="feature-lead">Ground yourself when anxiety spikes.</p>
+              <p>
+                A guided reset exercise helps slow the moment down, reconnect you with your surroundings,
+                and make intense anxiety feel more manageable.
+              </p>
+            </article>
+
+            <article class="feature-card">
+              <h3>Hope</h3>
+              <p class="feature-lead">Encouragement when you feel low or numb.</p>
+              <p>
+                Carefully selected Bible verses offer comfort, reassurance, and a reminder that difficult moments
+                do not last forever.
+              </p>
+            </article>
+
+            <article class="feature-card">
+              <h3>Thoughts</h3>
+              <p class="feature-lead">Create order when your mind feels crowded.</p>
+              <p>
+                A simple organizing exercise helps separate racing thoughts, identify what needs attention,
+                and bring greater clarity to the moment.
+              </p>
+            </article>
+
+            <article class="feature-card">
+              <h3>Breathe</h3>
+              <p class="feature-lead">Slow your breathing and calm your body.</p>
+              <p>
+                Guided breathing helps ease physical tension, settle the nervous system,
+                and return your focus to the present.
+              </p>
+            </article>
+
+            <article class="feature-card">
+              <h3>Coping Tools</h3>
+              <p class="feature-lead">Keep helpful strategies close.</p>
+              <p>
+                Save personal reminders, grounding activities, calming ideas,
+                and techniques that work specifically for you.
+              </p>
+            </article>
+
+            <article class="feature-card">
+              <h3>Emergency Contacts</h3>
+              <p class="feature-lead">Reach support without searching for it.</p>
+              <p>
+                Keep trusted friends, family members, and important support resources ready
+                for the moments when asking for help feels hardest.
+              </p>
+            </article>
+          </div>
+
+          <p class="app-summary">
+            Anxiety does not have to control the entire day. Amygdala brings practical calming tools,
+            grounding exercises, faith-based encouragement, and personal support into one focused companion.
+          </p>
+
+          <div class="app-actions">
+            <a class="cta" href="https://cpriss1979.github.io/amygdala.io/" target="_blank" rel="noopener">
+              <span>Open Amygdala</span>
+              <span class="tag">Web App</span>
             </a>
 
-            <nav class="nav-links" aria-label="Primary navigation">
-                <a href="#intro">Intro</a>
-                <a href="#amygdala">Amygdala</a>
-                <a href="#three-sides">Three Sides</a>
-                <a href="#websites">Websites</a>
-                <a href="#games">Games</a>
-                <a href="#about">About</a>
-                <a href="#contact">Contact</a>
-            </nav>
-
-            <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false"
-                aria-controls="mobileMenu">Menu</button>
+            <span class="cta secondary" aria-label="Amygdala mobile apps coming soon">
+              <span>Mobile Release</span>
+              <span class="tag">Coming Soon</span>
+            </span>
+          </div>
         </div>
-    </header>
+      </div>
+    </section>
 
-    <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation">
-        <a href="#intro">Intro</a>
-        <a href="#amygdala">Amygdala</a>
-        <a href="#three-sides">Three Sides</a>
-        <a href="#websites">Websites</a>
-        <a href="#games">Games</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
-    </nav>
+    <section id="web" class="section section--mid">
+      <div class="container">
+        <h2 class="section-title">Websites I’ve Built</h2>
+        <p class="section-subtitle">A few highlights from client and personal work.</p>
 
-    <main>
-        <section id="intro" class="intro">
-            <div class="container">
-                <p class="intro-copy"><strong>Creator Bio:</strong><br>Glow Code Studio is an independent developer
-                    creating wellness apps, meaningful websites, and Unreal Engine games. Home of Three Sides, Amygdala,
-                    and future digital projects designed to support real life, real emotions, and growth.</p>
-            </div>
-        </section>
+        <div class="grid-2">
+          <article class="card">
+            <h3>Viki Scherer — Professional Author &amp; Speaker</h3>
+            <p>
+              A WordPress site with speaking pages, products, testimonials, and a polished brand system.
+            </p>
+            <ul class="list">
+              <li><span class="dot"></span><span>Clean navigation and mobile-first design</span></li>
+              <li><span class="dot"></span><span>Speaking-event calls to action</span></li>
+            </ul>
+            <p style="margin-top: 12px;">
+              <a href="https://vikischerer.com/" target="_blank" rel="noopener">View site ↗</a>
+            </p>
+          </article>
 
-        <section id="amygdala" class="section section-plum">
-            <div class="container app-layout">
-                <div class="app-visual">
-                    <h1 class="section-heading center">Amygdala</h1>
-                    <div class="app-icon">
-                        <img src="amygdala.png" alt="Amygdala app icon" />
-                    </div>
-                    <p class="app-kicker">An anxiety-support companion built around practical, personalized tools.</p>
-                </div>
+          <article class="card">
+            <h3>Harvest Christian Center</h3>
+            <p>
+              A welcoming WordPress site focused on beliefs, sermons, online giving,
+              and simple content editing for church staff.
+            </p>
+            <ul class="list">
+              <li><span class="dot"></span><span>Fast, accessible, and mobile-first</span></li>
+              <li><span class="dot"></span><span>Service times and location placed front and center</span></li>
+            </ul>
+            <p class="note">The church team has since redesigned the site.</p>
+          </article>
 
-                <div class="app-copy">
-                    <p class="app-intro">Amygdala is your personal anxiety companion designed to make difficult moments
-                        feel more manageable. Instead of overwhelming you with information, it offers calming tools,
-                        guided exercises, journaling, and personalized coping strategies that are there whenever you
-                        need them.</p>
+          <article class="card">
+            <h3>Flab to Fab</h3>
+            <p>
+              A lightweight, mobile-first wellness mini-app for exploring food choices,
+              simple workouts, calorie estimates, and personal progress.
+            </p>
+            <ul class="list">
+              <li><span class="dot"></span><span>Calorie calculator built in JavaScript</span></li>
+              <li><span class="dot"></span><span>Accessible mobile navigation</span></li>
+              <li><span class="dot"></span><span>Progress stored locally for privacy</span></li>
+            </ul>
+            <p style="margin-top: 12px;">
+              <a href="https://cpriss1979.github.io/fittofab.io/" target="_blank" rel="noopener">
+                View site ↗
+              </a>
+            </p>
+            <p class="note">
+              “Negative-calorie” foods are more accurately described as low-energy-density foods.
+            </p>
+          </article>
 
-                    <div class="feature-grid" aria-label="Amygdala features">
-                        <article class="feature-card">
-                            <h3>Emergency Contacts</h3>
-                            <p class="micro">Support is easier to reach.</p>
-                            <p>Quickly reach trusted friends, family, or crisis resources when you need support the
-                                most.</p>
-                        </article>
-                        <article class="feature-card">
-                            <h3>Grounding Exercises</h3>
-                            <p class="micro">Return to the present moment.</p>
-                            <p>Interactive activities help calm racing thoughts and gently bring your attention back to
-                                what is happening right now.</p>
-                        </article>
-                        <article class="feature-card">
-                            <h3>Breathing Exercises</h3>
-                            <p class="micro">Slow your body down.</p>
-                            <p>Simple guided breathing sessions help reduce stress and ease some of the physical
-                                sensations that can come with anxiety.</p>
-                        </article>
-                        <article class="feature-card">
-                            <h3>Anxiety Toolkit</h3>
-                            <p class="micro">Keep what works close by.</p>
-                            <p>Create a personalized collection of coping skills, reminders, comforting photos, music,
-                                and techniques that work specifically for you.</p>
-                        </article>
-                    </div>
-
-                    <p class="app-summary">Anxiety does not have to control your day. Amygdala combines journaling,
-                        coping tools, grounding exercises, and positive habit building into one calming companion
-                        designed to help you feel more in control—one small step at a time.</p>
-
-                    <div class="app-actions single">
-                        <a class="pill" href="https://cpriss1979.github.io/amygdala.io/" target="_blank" rel="noopener">
-                            <span>Open Amygdala</span>
-                            <span class="tag">Application</span>
-                        </a>
-                    </div>
-                    <p class="app-kicker">Coming soon to Google Play and iOS.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="three-sides" class="section section-dark">
-            <div class="container app-layout">
-                <div class="app-visual">
-                    <h1 class="section-heading center">Three Sides</h1>
-                    <div class="app-icon">
-                        <img src="icon.png" alt="Three Sides app icon" />
-                    </div>
-                    <p class="app-kicker">A wellness app inspired by the highs, lows, and balance of bipolar life.</p>
-                </div>
-
-                <div class="app-copy">
-                    <p class="app-intro">Three Sides turns everyday self-care into something gentler and more
-                        encouraging. It helps users notice patterns, save coping strategies, track progress, and care
-                        for a virtual companion while building healthier habits.</p>
-
-                    <div class="feature-grid" aria-label="Three Sides features">
-                        <article class="feature-card">
-                            <h3>Theme</h3>
-                            <p class="micro">Choose a space that feels calming.</p>
-                            <p>Customize colors and appearance to create an environment that helps you feel safe,
-                                relaxed, and comfortable every time you open the app.</p>
-                        </article>
-                        <article class="feature-card">
-                            <h3>Daily Journal</h3>
-                            <p class="micro">Track thoughts, moods, and progress.</p>
-                            <p>Quick journal entries help you recognize patterns, celebrate victories, and better
-                                understand what influences your mood over time.</p>
-                        </article>
-                        <article class="feature-card">
-                            <h3>Coping Tools</h3>
-                            <p class="micro">Support when you need it most.</p>
-                            <p>Save personalized grounding exercises, breathing techniques, reminders, and calming
-                                activities so they are always just one tap away during stressful moments.</p>
-                        </article>
-                        <article class="feature-card">
-                            <h3>Virtual Pet Motivation</h3>
-                            <p class="micro">Small habits. Big encouragement.</p>
-                            <p>Take care of your virtual companion by taking care of yourself. Completing healthy habits
-                                helps your pet grow while encouraging consistency through positive reinforcement.</p>
-                        </article>
-                    </div>
-
-                    <p class="app-summary">Three Sides brings mood awareness, coping support, journaling, and positive
-                        motivation together in one personal space—without making self-care feel clinical or
-                        overwhelming.</p>
-
-                    <div class="app-actions">
-                        <a class="pill"
-                            href="https://play.google.com/store/apps/details?id=io.github.cpriss1979.twa&amp;hl=en_US"
-                            target="_blank" rel="noopener">
-                            <span>Three Sides</span>
-                            <span class="tag">Android</span>
-                        </a>
-                        <a class="pill secondary" href="#contact" id="iosBtn">
-                            <span>iOS Coming Soon</span>
-                            <span class="tag">Get Notified</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="websites" class="section section-plum">
-            <div class="container">
-                <h2 class="section-heading">Websites I’ve built</h2>
-                <p class="section-subtitle">A few highlights from my client and personal work.</p>
-
-                <div class="two-col">
-                    <article class="project-card">
-                        <h3>Viki Scherer — Professional Author &amp; Speaker</h3>
-                        <p>WordPress site with speaking pages, products, testimonials, and a polished brand system.</p>
-                        <ul class="list">
-                            <li><span class="dot"></span><span>Clean navigation and mobile-first design</span></li>
-                            <li><span class="dot"></span><span>Speaking-event calls to action</span></li>
-                        </ul>
-                        <a class="inline-link" href="https://vikischerer.com/" target="_blank" rel="noopener">View site
-                            ↗</a>
-                    </article>
-
-                    <article class="project-card">
-                        <h3>Harvest Christian Center</h3>
-                        <p>WordPress site focused on beliefs, sermons, online tithing, and a welcoming layout that was
-                            simple for staff to maintain.</p>
-                        <ul class="list">
-                            <li><span class="dot"></span><span>Fast, accessible, mobile-first layout</span></li>
-                            <li><span class="dot"></span><span>Service times and location placed front and center</span>
-                            </li>
-                        </ul>
-                        <p class="note">Original build; the church team has since redesigned the site.</p>
-                    </article>
-
-                    <article class="project-card">
-                        <h3>Fit to Fab</h3>
-                        <p>A lightweight, mobile-first wellness mini-app for exploring food choices, tracking simple
-                            workouts, and logging personal progress.</p>
-                        <ul class="list">
-                            <li><span class="dot"></span><span>Calorie calculator written in JavaScript</span></li>
-                            <li><span class="dot"></span><span>No sign-in or backend required</span></li>
-                            <li><span class="dot"></span><span>Progress saved locally for privacy</span></li>
-                        </ul>
-                        <a class="inline-link" href="https://cpriss1979.github.io/fittofab.io/" target="_blank"
-                            rel="noopener">View site ↗</a>
-                        <p class="note">“Negative-calorie” foods are more accurately described as low-energy-density
-                            foods.</p>
-                    </article>
-
-                    <article class="project-card">
-                        <h3>Countdown Calculators</h3>
-                        <p>I’ve built dozens of personalized countdown calculators—simple, joyful tools that help my
-                            family track everything from major events to everyday moments they are excited for.</p>
-                    </article>
-                </div>
-            </div>
-        </section>
-
-        <section id="games" class="section section-dark">
-            <div class="container">
-                <h2 class="section-heading">Game Development</h2>
-                <p class="section-subtitle">I’ve released two small Unreal Engine games on itch.io and I am currently
-                    building Wonderlings.</p>
-
-                <div class="two-col">
-                    <article class="project-card">
-                        <h3>Indie Games — Unreal Engine</h3>
-                        <p>Two small released projects exploring focus, interaction, and play.</p>
-                        <a class="inline-link" href="https://cpriss.itch.io/" target="_blank" rel="noopener">View
-                            itch.io archive ↗</a>
-                    </article>
-                    <article class="project-card">
-                        <h3>Wonderlings</h3>
-                        <p>A peaceful nature-exploration game centered on restoration, discovery, collecting, animals,
-                            and hidden surprises—without combat.</p>
-                        <p class="note">Currently in active development in Unreal Engine.</p>
-                    </article>
-                </div>
-            </div>
-        </section>
-
-        <section id="early" class="section section-plum">
-            <div class="container">
-                <h2 class="section-heading">Earlier Projects</h2>
-                <p class="section-subtitle">The work that taught me the foundations of layout, hosting, problem-solving,
-                    and building for real users.</p>
-                <div class="two-col">
-                    <article class="project-card">
-                        <h3>Rick &amp; Crystal Show</h3>
-                        <p>My first live website—built for our YouTube channel. Simple, but it taught me the foundations
-                            of web layout and hosting.</p>
-                        <a class="inline-link" href="https://cpriss1979.github.io/rickandcrystalshow.io/"
-                            target="_blank" rel="noopener">View archived site ↗</a>
-                    </article>
-                    <article class="project-card">
-                        <h3>More Projects</h3>
-                        <p>I’ve built several other experiments, utilities, and practice projects as I continued
-                            learning.</p>
-                        <a class="inline-link" href="https://github.com/cpriss1979?tab=repositories" target="_blank"
-                            rel="noopener">View GitHub ↗</a>
-                    </article>
-                </div>
-            </div>
-        </section>
-
-        <section id="about" class="section section-dark">
-            <div class="container">
-                <h2 class="section-heading">About Glow Code Studio</h2>
-                <div class="about-list">
-                    <p>⭐ I build wellness apps such as <strong>Three Sides</strong> and <strong>Amygdala</strong>,
-                        designed around real emotions, practical tools, and everyday growth.</p>
-                    <p>⭐ I’ve built websites for organizations, professionals, and personal projects.</p>
-                    <p>⭐ I’ve released two indie games in Unreal Engine and am developing Wonderlings.</p>
-                    <p>⭐ More helpful applications and creative projects are on the way.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="contact" class="section section-plum">
-            <div class="container">
-                <h2 class="section-heading">Get in touch</h2>
-                <p class="section-subtitle">Have feedback, want to test, or just want to say hello? I’d love to hear
-                    from you.</p>
-
-                <div class="contact-grid">
-                    <div class="field-wrap">
-                        <label for="email">Your email address</label>
-                        <input id="email" name="email" type="email" placeholder="you@example.com"
-                            autocomplete="email" />
-                    </div>
-                    <div class="contact-actions">
-                        <button class="small-btn" id="notifyBtn" type="button">Notify me about iOS</button>
-                        <a class="small-btn secondary" href="mailto:@gmail.com">Email me</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="container footer-row">
-            <div>© <span id="year"></span> GCS</div>
-            <div class="foot-links">
-                <a href="privacy.html">Privacy</a>
-                <a href="terms.html">Terms</a>
-                <a href="#intro">Back to top ↑</a>
-            </div>
+          <article class="card">
+            <h3>Countdown Calculators</h3>
+            <p>
+              I’ve built dozens of personalized countdown calculators—simple, joyful tools
+              that help my family track everything from major events to everyday moments.
+            </p>
+          </article>
         </div>
-    </footer>
+      </div>
+    </section>
 
-    <script>
-        const menuBtn = document.getElementById('menuBtn');
-        const mobileMenu = document.getElementById('mobileMenu');
-        const year = document.getElementById('year');
-        const notifyBtn = document.getElementById('notifyBtn');
-        const emailInput = document.getElementById('email');
+    <section id="services" class="section section--dark">
+      <div class="container">
+        <div class="services-frame">
+          <h2 class="section-title">Services</h2>
+          <p class="section-subtitle">
+            Thoughtful digital work—from clean code to real-world setup.
+            I build things that work and help people use them with confidence.
+          </p>
 
-        if (year) year.textContent = new Date().getFullYear();
+          <div class="services-grid">
+            <article class="service-tile">
+              <div class="tile-top">
+                <h3>Websites &amp; Front-End Builds</h3>
+                <span class="chip">WordPress or Custom</span>
+              </div>
+              <p>Modern, mobile-friendly websites that are clear, fast, and easy to maintain.</p>
+              <ul>
+                <li>Small-business and personal websites</li>
+                <li>Redesigns, cleanups, and layout repairs</li>
+                <li>Accessibility, mobile, and performance improvements</li>
+              </ul>
+            </article>
 
-        if (menuBtn && mobileMenu) {
-            menuBtn.addEventListener('click', () => {
-                const open = mobileMenu.classList.toggle('open');
-                menuBtn.setAttribute('aria-expanded', String(open));
-            });
+            <article class="service-tile">
+              <div class="tile-top">
+                <h3>Custom Web Tools &amp; Apps</h3>
+                <span class="chip">HTML / CSS / JS</span>
+              </div>
+              <p>Purpose-built tools that solve real problems instead of relying on generic templates.</p>
+              <ul>
+                <li>Trackers, planners, calculators, and utilities</li>
+                <li>Installable PWA-ready experiences</li>
+                <li>Optional Firebase login and data storage</li>
+              </ul>
+            </article>
 
-            mobileMenu.addEventListener('click', (event) => {
-                if (event.target.closest('a')) {
-                    mobileMenu.classList.remove('open');
-                    menuBtn.setAttribute('aria-expanded', 'false');
-                }
-            });
+            <article class="service-tile">
+              <div class="tile-top">
+                <h3>IT Setup &amp; Ongoing Support</h3>
+                <span class="chip">Hardware • Software • Help</span>
+              </div>
+              <p>Clear, patient support for people who want technology set up correctly.</p>
+              <ul>
+                <li>Software installation and configuration</li>
+                <li>Computer, device, and peripheral setup</li>
+                <li>Walkthroughs, updates, and ongoing help</li>
+              </ul>
+            </article>
+          </div>
+
+          <div class="how-row" aria-label="How services work">
+            <div class="how">
+              <strong>1) Tell me what you need</strong><br>
+              Your goals, current setup, and comfort level with technology.
+            </div>
+
+            <div class="how">
+              <strong>2) Receive a simple plan</strong><br>
+              I explain the work, timeline, and next steps clearly.
+            </div>
+
+            <div class="how">
+              <strong>3) Build, set up, and support</strong><br>
+              I do not just deliver the project—I help you get it working.
+            </div>
+          </div>
+
+          <div class="services-actions">
+            <a class="btn-primary" href="services.html">View all services &amp; pricing</a>
+            <a class="btn-secondary" href="contact.html">Ask a question</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="games" class="section section--light">
+      <div class="container">
+        <h2 class="section-title">Game Development</h2>
+        <p class="section-subtitle">
+          I’ve released two small games on itch.io while exploring interaction, focus, and play in Unreal Engine.
+        </p>
+
+        <div class="card" style="margin-top: 20px;">
+          <h3>Indie Games — Unreal Engine</h3>
+          <p>Downloads are available through my itch.io page.</p>
+          <p style="margin-top: 12px;">
+            <a href="https://cpriss.itch.io/" target="_blank" rel="noopener">View archived site ↗</a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="early" class="section section--dark">
+      <div class="container">
+        <h2 class="section-title">Earlier Projects</h2>
+        <p class="section-subtitle">
+          Early work that helped me learn web layout, JavaScript, hosting, and project organization.
+        </p>
+
+        <div class="grid-2">
+          <article class="card">
+            <h3>Rick &amp; Crystal Show</h3>
+            <p>
+              My first live website, built for our YouTube channel.
+              It was simple, but it taught me the foundations of web layout and hosting.
+            </p>
+            <p style="margin-top: 12px;">
+              <a href="https://cpriss1979.github.io/rickandcrystalshow.io/" target="_blank" rel="noopener">
+                View archived site ↗
+              </a>
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>More Projects</h3>
+            <p>
+              I’ve built additional experiments, tools, and learning projects that are available in my GitHub
+              repositories.
+            </p>
+            <p style="margin-top: 12px;">
+              <a href="https://github.com/cpriss1979?tab=repositories" target="_blank" rel="noopener">
+                View GitHub ↗
+              </a>
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact-preview" class="section section--mid">
+      <div class="container">
+        <div class="contact-card">
+          <div>
+            <h2>Have a project or question?</h2>
+            <p>Tell me what you are working on, what is giving you trouble, or what you would like to build.</p>
+          </div>
+
+          <a class="cta" href="contact.html">Go to Contact Page</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-grid">
+      <div>© <span id="year"></span> Glow Code Studio</div>
+
+      <div class="foot-links">
+        <a href="services.html">Services</a>
+        <a href="contact.html">Contact</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="#intro">Back to top ↑</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const $ = (selector, root = document) => root.querySelector(selector);
+    const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selector));
+
+    (() => {
+      const year = $("#year");
+      if (year) {
+        year.textContent = String(new Date().getFullYear());
+      }
+    })();
+
+    (() => {
+      const sheet = $("#menuSheet");
+      const openButton = $("#menuBtn");
+      const closeButton = $("#closeMenu");
+
+      if (!sheet || !openButton || !closeButton) {
+        return;
+      }
+
+      const openMenu = () => {
+        sheet.classList.add("open");
+        sheet.setAttribute("aria-hidden", "false");
+        openButton.setAttribute("aria-expanded", "true");
+      };
+
+      const closeMenu = () => {
+        sheet.classList.remove("open");
+        sheet.setAttribute("aria-hidden", "true");
+        openButton.setAttribute("aria-expanded", "false");
+      };
+
+      openButton.addEventListener("click", openMenu);
+      closeButton.addEventListener("click", closeMenu);
+
+      sheet.addEventListener("click", (event) => {
+        if (event.target.closest("a")) {
+          closeMenu();
+        }
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && sheet.classList.contains("open")) {
+          closeMenu();
+        }
+      });
+    })();
+
+    (() => {
+      document.addEventListener("click", (event) => {
+        const anchor = event.target.closest('a[href^="#"]');
+
+        if (!anchor) {
+          return;
         }
 
-        if (notifyBtn) {
-            notifyBtn.addEventListener('click', () => {
-                const email = emailInput?.value.trim() || '';
-                const subject = encodeURIComponent('Notify me when Three Sides is available on iOS');
-                const body = encodeURIComponent(
-                    `Hi Crystal,
+        const id = anchor.getAttribute("href");
 
-Please let me know when the iOS version of Three Sides is ready.${email ? `\n\nMy email: ${email}` : ''}
-
-Thank you!`
-                );
-                window.location.href = `mailto:@gmail.com?subject=${subject}&body=${body}`;
-            });
+        if (!id || id === "#") {
+          return;
         }
 
-        document.querySelectorAll('a[href^="http"]').forEach((link) => {
-            link.target = '_blank';
-            link.rel = 'noopener';
+        const target = document.querySelector(id);
+
+        if (!target) {
+          return;
+        }
+
+        event.preventDefault();
+        target.scrollIntoView({
+          behavior: "smooth",
+          block: "start"
         });
-    </script>
+
+        history.replaceState(null, "", id);
+      });
+    })();
+
+    (() => {
+      $$('a[href^="http"]').forEach((anchor) => {
+        if (!anchor.hasAttribute("target")) {
+          anchor.setAttribute("target", "_blank");
+        }
+
+        if (!anchor.hasAttribute("rel")) {
+          anchor.setAttribute("rel", "noopener");
+        }
+      });
+    })();
+  </script>
 </body>
+
+</html>

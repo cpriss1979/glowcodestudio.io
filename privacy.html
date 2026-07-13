@@ -225,14 +225,47 @@
     gap: 6px;                                /* a touch tighter on small screens */
   }
 }
+
+/* ===================== logo to home =============== */
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  min-width:0;
+  text-decoration:none;
+  color: var(--text);
+}
+
+.brand:hover{
+  text-decoration:none;
+  filter: brightness(1.05);
+}
+
+.brand:focus-visible{
+  outline: 3px solid rgba(140, 208, 255, .55);
+  outline-offset: 4px;
+  border-radius: 12px;
+}
+
+  /* HEADER LOGO — keep small and crisp */
+  .brand .brand-logo{
+    width: clamp(28px, 2.6vw, 34px);
+    height: clamp(28px, 2.6vw, 34px);
+    border-radius: 50%;
+    display:inline-block;
+  }
+
   </style>
 </head>
 
 <body>
+  
   <!-- Header (left-aligned, almost black) -->
   <div class="header-band">
     <div class="header-inner">
       <nav class="top">
+        <a class="brand" href="./index.html" aria-label="Go to homepage">
+          <img class="brand-logo" src="GC.png" alt="Glow Code Studio" decoding="async">
         <a href="/">Home</a>
         <a href="/terms.html">Terms</a>
       </nav>
