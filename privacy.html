@@ -2,387 +2,1350 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Glow Code Studio — Privacy Policy</title>
-  <meta name="theme-color" content="#8357ff" />
+  <meta charset="utf-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+  <title>Privacy Policy | Glow Code Studio</title>
+
+  <meta name="description" content="Privacy policy for the Glow Code Studio website and its mini-tools.">
+
+  <meta name="theme-color" content="#040714">
 
   <style>
-    :root {
-      /* page + brand */
-      --page-bg: #0f172a;
-      /* same blue as Terms page background */
-      --header-bg: #0e0e17;
-      /* almost black – matches footer */
-      --footer-bg: #0e0e17;
-      --text: #e5e7eb;
-      --muted: #9aa0b3;
-      --accent: #2dd4bf;
+    /* =====================================================
+       COLORS AND GLOBAL SETTINGS
+       ===================================================== */
 
-      /* layout */
-      --maxw: 1080px;
-      --gap: 14px;
-      --safe-bottom: max(16px, env(safe-area-inset-bottom, 0px));
+    :root {
+      --navy: #040714;
+      --navy-soft: #070b1d;
+      --panel: #0a102b;
+      --panel-hover: #0e1638;
+
+      --white: #f8f9ff;
+      --soft-white: #dfe3f5;
+      --muted: #aeb7d2;
+
+      --pink: #ff3dbf;
+      --violet: #8b5cff;
+      --cyan: #20e7f2;
+      --blue: #319dff;
+
+      --line: rgba(151, 169, 224, 0.20);
+      --line-bright: rgba(32, 231, 242, 0.42);
+
+      --header-height: 78px;
+      --max-width: 1000px;
+      --radius: 22px;
+
+      --shadow:
+        0 24px 65px rgba(0, 0, 0, 0.40);
     }
+
+
+    /* =====================================================
+       RESET
+       ===================================================== */
 
     * {
-      box-sizing: border-box
+      box-sizing: border-box;
     }
 
-    html,
-    body {
-      height: 100%;
-      margin: 0
+    html {
+      min-height: 100%;
+      scroll-behavior: smooth;
     }
 
     body {
-      min-height: 100svh;
-      display: flex;
-      flex-direction: column;
-      background: var(--page-bg);
-      color: var(--text);
-      font: 500 16px/1.55 system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans";
+      margin: 0;
+      min-height: 100vh;
+      padding-top: var(--header-height);
+
+      overflow-x: hidden;
+
+      background:
+        radial-gradient(circle at 5% 15%,
+          rgba(255, 61, 191, 0.14),
+          transparent 26%),
+        radial-gradient(circle at 95% 38%,
+          rgba(32, 231, 242, 0.10),
+          transparent 28%),
+        linear-gradient(180deg,
+          #030511 0%,
+          #05091a 55%,
+          #030511 100%);
+
+      color: var(--white);
+
+      font-family:
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 1.7;
+
       -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body::before {
+      content: "";
+
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+
+      pointer-events: none;
+      opacity: 0.28;
+
+      background-image:
+        radial-gradient(rgba(153, 172, 230, 0.30) 0.7px,
+          transparent 0.7px);
+
+      background-size: 5px 5px;
     }
 
     a {
-      color: var(--accent);
-      text-decoration: none
-    }
-
-    a:hover {
-      text-decoration: underline
-    }
-
-    /* ===== Header (almost black, left-aligned links) ===== */
-    .header-band {
-      background: var(--header-bg)
-    }
-
-    .header-inner {
-      max-width: var(--maxw);
-      margin: 0 auto;
-      padding: 14px 22px;
-      /* even padding */
-    }
-
-    nav.top {
-      display: flex;
-      gap: 18px;
-      justify-content: flex-start;
-      /* left */
-      align-items: center;
-    }
-
-    nav.top a {
-      color: var(--text);
-      font: 600 16px/1.55 system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans";
+      color: var(--cyan);
       text-decoration: none;
     }
 
-    /* ===== Content: sections with full-bleed dividers ===== */
-    .content {
-      flex: 1;
-      /* push footer down */
+    a:hover {
+      text-decoration: underline;
     }
 
-    .panel {
-      max-width: var(--maxw);
-      margin: 0 auto;
-      padding: 0 22px;
-      /* page gutters */
+    img {
+      display: block;
+      max-width: 100%;
     }
 
-    .section {
-      padding: 18px 0;
-      /* vertical rhythm */
+
+    /* =====================================================
+       HEADER
+       ===================================================== */
+
+    header {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 1000;
+
+      min-height: var(--header-height);
+
+      border-bottom:
+        1px solid var(--line);
+
+      background:
+        rgba(4, 7, 20, 0.92);
+
+      backdrop-filter:
+        blur(16px) saturate(150%);
+
+      -webkit-backdrop-filter:
+        blur(16px) saturate(150%);
     }
 
-    /* full-bleed divider line ABOVE every section except the first */
-    .section+.section {
-      position: relative;
-    }
+    .header-container {
+      width:
+        min(calc(100% - 40px),
+          1120px);
 
-    .section+.section::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 50%;
-      width: 100vw;
-      /* stretch across the viewport */
-      transform: translateX(-50%);
-      height: 1px;
-      background: rgba(255, 255, 255, .10);
-    }
+      min-height: var(--header-height);
 
-    /* Headings & little blue dots (kept from your style) */
-    h1 {
-      margin: 0 0 10px 0;
-      font-size: 28px;
-      font-weight: 800;
-      letter-spacing: .2px;
-    }
+      margin-inline: auto;
 
-    .section-title {
-      margin: 0;
-      font-size: 20px;
-      font-weight: 700;
-    }
-
-    p {
-      margin: 6px 0
-    }
-
-    ul {
-      margin: 8px 0 0
-    }
-
-    .row {
       display: flex;
       align-items: center;
-      gap: 10px;
-      margin: 8px 0 6px;
+      justify-content: space-between;
+
+      gap: 24px;
     }
 
-    .dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 3px;
-      background: #4da3ff;
+    .brand {
+      display: inline-flex;
+      align-items: center;
+
+      gap: 12px;
+      min-width: 0;
+
+      text-decoration: none;
+    }
+
+    .brand:hover {
+      text-decoration: none;
+    }
+
+    .brand-logo {
+      width: 40px;
+      height: 40px;
+
+      flex: 0 0 40px;
+
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .brand-name {
+      color: var(--cyan);
+
+      font-size: 18px;
+      font-weight: 850;
+      line-height: 1;
+
+      white-space: nowrap;
+
+      text-shadow:
+        0 0 5px rgba(32, 231, 242, 0.95),
+        0 0 12px rgba(32, 231, 242, 0.62),
+        0 0 22px rgba(32, 231, 242, 0.32);
+    }
+
+    .header-links {
+      display: flex;
+      align-items: center;
+
+      gap: 12px;
+    }
+
+    .header-link {
+      min-height: 44px;
+
+      padding:
+        10px 18px;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      border:
+        1px solid rgba(174, 183, 210, 0.23);
+
+      border-radius: 999px;
+
+      background:
+        rgba(8, 13, 33, 0.72);
+
+      color: var(--soft-white);
+
+      font-size: 14px;
+      font-weight: 750;
+
+      transition:
+        color 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+    }
+
+    .header-link:hover {
+      transform:
+        translateY(-2px);
+
+      color: var(--cyan);
+
+      border-color:
+        rgba(32, 231, 242, 0.52);
+
+      background:
+        rgba(32, 231, 242, 0.08);
+
+      box-shadow:
+        0 0 25px rgba(32, 231, 242, 0.12);
+
+      text-decoration: none;
+    }
+
+    .brand:focus-visible,
+    .header-link:focus-visible {
+      outline:
+        3px solid rgba(32, 231, 242, 0.50);
+
+      outline-offset: 4px;
+    }
+
+
+    /* =====================================================
+       PAGE HERO
+       ===================================================== */
+
+    .privacy-hero {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+
+      min-height: 440px;
+
+      padding:
+        clamp(80px, 11vw, 125px) 20px 85px;
+
+      display: grid;
+      align-items: center;
+
+      border-bottom:
+        1px solid var(--line);
+    }
+
+    .privacy-hero::before {
+      content: "";
+
+      position: absolute;
+      z-index: -1;
+
+      width:
+        min(50vw, 530px);
+
+      aspect-ratio: 1;
+
+      top: 50%;
+      right:
+        clamp(-280px, -12vw, -110px);
+
+      translate:
+        0 -50%;
+
+      border:
+        2px solid transparent;
+
+      border-radius: 50%;
+
+      background:
+        linear-gradient(#07102a,
+          #07102a) padding-box,
+
+        linear-gradient(135deg,
+          var(--cyan),
+          var(--violet),
+          var(--pink)) border-box;
+
+      box-shadow:
+        0 0 60px rgba(32, 231, 242, 0.10),
+        inset 0 0 80px rgba(139, 92, 255, 0.08);
+
+      opacity: 0.72;
+    }
+
+    .hero-container {
+      width:
+        min(100%,
+          var(--max-width));
+
+      margin-inline: auto;
+    }
+
+    .eyebrow {
+      margin:
+        0 0 14px;
+
+      color: #b8c4ec;
+
+      font-size: 13px;
+      font-weight: 800;
+
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 750px;
+
+      margin: 0;
+
+      color: var(--white);
+
+      font-size:
+        clamp(3rem,
+          7vw,
+          5.7rem);
+
+      font-weight: 900;
+      line-height: 0.96;
+
+      letter-spacing: -0.055em;
+    }
+
+    .gradient-word {
       display: inline-block;
+
+      color: transparent;
+
+      background:
+        linear-gradient(100deg,
+          var(--pink),
+          var(--violet),
+          var(--cyan));
+
+      background-clip: text;
+      -webkit-background-clip: text;
     }
 
-    /* ===== Footer (matches header color) ===== */
-    footer {
-      background: var(--footer-bg);
-      border-top: 1px solid rgba(255, 255, 255, .06);
+    .hero-copy {
+      max-width: 720px;
+
+      margin:
+        25px 0 0;
+
+      color: var(--muted);
+
+      font-size:
+        clamp(1.05rem,
+          2vw,
+          1.2rem);
+
+      line-height: 1.8;
+    }
+
+    .updated {
+      margin:
+        20px 0 0;
+
+      color: #8f9ab8;
+
+      font-size: 14px;
+    }
+
+
+    /* =====================================================
+       PRIVACY CONTENT
+       ===================================================== */
+
+    .privacy-content {
+      padding:
+        clamp(65px, 9vw, 105px) 20px;
+    }
+
+    .content-container {
+      width:
+        min(100%,
+          var(--max-width));
+
+      margin-inline: auto;
+    }
+
+    .policy-panel {
+      position: relative;
+      overflow: hidden;
+
+      border:
+        1px solid var(--line);
+
+      border-radius:
+        var(--radius);
+
+      background:
+        linear-gradient(145deg,
+          rgba(13, 20, 53, 0.96),
+          rgba(5, 9, 26, 0.97));
+
+      box-shadow:
+        var(--shadow);
+    }
+
+    .policy-panel::before {
+      content: "";
+
+      position: absolute;
+      inset: 0 0 auto;
+
+      height: 3px;
+
+      background:
+        linear-gradient(90deg,
+          var(--pink),
+          var(--violet),
+          var(--cyan));
+    }
+
+    .policy-section {
+      padding:
+        clamp(28px,
+          5vw,
+          48px);
+    }
+
+    .policy-section+.policy-section {
+      border-top:
+        1px solid var(--line);
+    }
+
+    .section-heading {
+      margin-bottom: 16px;
+
+      display: flex;
+      align-items: center;
+
+      gap: 14px;
+    }
+
+    .section-number {
+      width: 38px;
+      height: 38px;
+
+      flex: 0 0 38px;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      border:
+        1px solid rgba(32, 231, 242, 0.35);
+
+      border-radius: 50%;
+
+      background:
+        rgba(32, 231, 242, 0.07);
+
+      color: var(--cyan);
+
+      font-size: 13px;
+      font-weight: 850;
+
+      box-shadow:
+        0 0 20px rgba(32, 231, 242, 0.08);
+    }
+
+    h2 {
+      margin: 0;
+
+      color: var(--white);
+
+      font-size:
+        clamp(1.35rem,
+          3vw,
+          1.75rem);
+
+      line-height: 1.2;
+    }
+
+    .policy-section p {
+      max-width: 780px;
+
+      margin:
+        10px 0 0;
+
       color: var(--muted);
     }
 
-    .footer-inner {
-      max-width: var(--maxw);
-      margin: 0 auto;
-      padding: 14px 22px;
-      padding-bottom: calc(var(--gap) + var(--safe-bottom));
-      display: grid;
-      grid-template-columns: 1fr auto;
-      align-items: center;
-      gap: 18px;
+    .policy-section strong {
+      color: var(--soft-white);
     }
 
-    .foot-right {
+    .policy-section ul {
+      max-width: 820px;
+
+      margin:
+        14px 0 0;
+
+      padding-left: 24px;
+
+      color: var(--muted);
+    }
+
+    .policy-section li {
+      margin:
+        9px 0;
+
+      padding-left: 6px;
+    }
+
+    .policy-section li::marker {
+      color: var(--cyan);
+    }
+
+    .code {
+      padding:
+        2px 7px;
+
+      border:
+        1px solid rgba(139, 92, 255, 0.28);
+
+      border-radius: 7px;
+
+      background:
+        rgba(139, 92, 255, 0.10);
+
+      color: #d7c9ff;
+
+      font-family:
+        ui-monospace,
+        SFMono-Regular,
+        Menlo,
+        Monaco,
+        Consolas,
+        monospace;
+
+      font-size: 0.9em;
+    }
+
+    .email-link,
+    .external-link {
+      display: inline-flex;
+      align-items: center;
+
+      gap: 5px;
+
+      color: var(--cyan);
+
+      font-weight: 700;
+    }
+
+    .email-link:hover,
+    .external-link:hover {
+      color: #8ff8ff;
+    }
+
+
+    /* =====================================================
+       CONTACT PANEL
+       ===================================================== */
+
+    .contact-panel {
+      margin-top: 32px;
+
+      padding:
+        clamp(32px,
+          6vw,
+          58px);
+
+      border:
+        1px solid rgba(139, 92, 255, 0.34);
+
+      border-radius:
+        var(--radius);
+
+      background:
+        radial-gradient(circle at 100% 0%,
+          rgba(32, 231, 242, 0.12),
+          transparent 38%),
+        radial-gradient(circle at 0% 100%,
+          rgba(255, 61, 191, 0.14),
+          transparent 42%),
+        linear-gradient(145deg,
+          #0d1435,
+          #070b21);
+
+      box-shadow:
+        var(--shadow);
+    }
+
+    .contact-panel .eyebrow {
+      margin-bottom: 12px;
+    }
+
+    .contact-panel h2 {
+      max-width: 700px;
+
+      font-size:
+        clamp(2rem,
+          5vw,
+          3.7rem);
+
+      letter-spacing: -0.04em;
+    }
+
+    .contact-panel p {
+      max-width: 680px;
+
+      margin:
+        17px 0 0;
+
+      color: var(--muted);
+    }
+
+    .contact-actions {
+      margin-top: 26px;
+
       display: flex;
-      gap: 14px;
+      flex-wrap: wrap;
+
+      gap: 13px;
+    }
+
+    .button {
+      min-height: 52px;
+
+      padding:
+        13px 23px;
+
+      display: inline-flex;
       align-items: center;
-      flex-wrap: wrap
+      justify-content: center;
+
+      border:
+        1px solid transparent;
+
+      border-radius: 999px;
+
+      font-weight: 850;
+
+      transition:
+        transform 0.2s ease,
+        filter 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
     }
 
-    .back-link {
-      color: var(--accent);
-      font-weight: 700
+    .button:hover {
+      transform:
+        translateY(-2px);
+
+      text-decoration: none;
     }
 
-    .small {
-      font-size: 14px
+    .button.primary {
+      background:
+        linear-gradient(100deg,
+          var(--pink),
+          var(--violet),
+          var(--blue));
+
+      color: white;
+
+      box-shadow:
+        0 15px 36px rgba(139, 92, 255, 0.30);
     }
 
-    .muted {
-      color: var(--muted)
+    .button.primary:hover {
+      filter:
+        brightness(1.08);
+
+      box-shadow:
+        0 18px 44px rgba(139, 92, 255, 0.38);
     }
 
-    @media (max-width:700px) {
-      .footer-inner {
-        grid-template-columns: 1fr;
-        gap: 10px
+    .button.secondary {
+      border-color:
+        rgba(174, 183, 210, 0.24);
+
+      background:
+        rgba(3, 5, 17, 0.52);
+
+      color: var(--white);
+    }
+
+    .button.secondary:hover {
+      color: var(--cyan);
+
+      border-color:
+        rgba(32, 231, 242, 0.48);
+
+      background:
+        rgba(32, 231, 242, 0.07);
+    }
+
+
+    /* =====================================================
+       FOOTER
+       ===================================================== */
+
+    footer {
+      border-top:
+        1px solid var(--line);
+
+      background:
+        rgba(3, 5, 17, 0.90);
+    }
+
+    .footer-container {
+      width:
+        min(calc(100% - 40px),
+          1120px);
+
+      min-height: 90px;
+
+      margin-inline: auto;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 20px;
+
+      color: var(--muted);
+
+      font-size: 14px;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+
+      gap: 20px;
+    }
+
+    .footer-links a {
+      color: var(--muted);
+    }
+
+    .footer-links a:hover {
+      color: var(--cyan);
+    }
+
+
+    /* =====================================================
+       TABLET AND MOBILE
+       ===================================================== */
+
+    @media (max-width: 780px) {
+      .privacy-hero::before {
+        width: 480px;
+        right: -375px;
+        opacity: 0.48;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .header-container {
+        width:
+          min(calc(100% - 28px),
+            1120px);
       }
 
-      .foot-right {
-        justify-content: space-between
+      .header-links {
+        gap: 8px;
+      }
+
+      .header-link {
+        min-height: 40px;
+
+        padding:
+          8px 13px;
+
+        font-size: 13px;
+      }
+
+      .terms-link {
+        display: none;
+      }
+
+      .privacy-hero {
+        min-height: 390px;
+
+        padding:
+          68px 16px 65px;
+      }
+
+      .privacy-content {
+        padding:
+          58px 16px 72px;
+      }
+
+      .policy-section {
+        padding:
+          30px 21px;
+      }
+
+      .section-heading {
+        align-items: flex-start;
+      }
+
+      .contact-panel {
+        padding:
+          34px 23px;
+      }
+
+      .contact-actions {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .button {
+        width: 100%;
+      }
+
+      .footer-container {
+        min-height: 130px;
+
+        padding:
+          26px 0;
+
+        align-items: flex-start;
+        flex-direction: column;
+        justify-content: center;
       }
     }
 
-    /* Stack footer content so Back to Home sits UNDER the help line */
-.footer-inner{
-  display: flex;
-  flex-direction: column;   /* stack */
-  align-items: flex-start;
-  gap: 8px;                 /* tight vertical spacing */
-}
+    @media (max-width: 410px) {
+      .brand-name {
+        font-size: 16px;
+      }
 
-/* Tighten spacing between "Need help?" and email, allow wrapping nicely */
-.foot-right{
-  display: flex;
-  gap: 8px;                 /* was 14px — bring closer */
-  align-items: center;
-  flex-wrap: wrap;          /* wrap on small screens without huge gaps */
-}
+      .header-link {
+        padding:
+          8px 12px;
+      }
+    }
 
-/* On mobile, make sure they don't spread apart */
-@media (max-width:700px){
-  .foot-right{
-    justify-content: flex-start !important; /* override any space-between */
-    gap: 6px;                                /* a touch tighter on small screens */
-  }
-}
 
-/* ===================== logo to home =============== */
-.brand{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  min-width:0;
-  text-decoration:none;
-  color: var(--text);
-}
+    /* =====================================================
+       REDUCED MOTION
+       ===================================================== */
 
-.brand:hover{
-  text-decoration:none;
-  filter: brightness(1.05);
-}
+    @media (prefers-reduced-motion: reduce) {
 
-.brand:focus-visible{
-  outline: 3px solid rgba(140, 208, 255, .55);
-  outline-offset: 4px;
-  border-radius: 12px;
-}
-
-  /* HEADER LOGO — keep small and crisp */
-  .brand .brand-logo{
-    width: clamp(28px, 2.6vw, 34px);
-    height: clamp(28px, 2.6vw, 34px);
-    border-radius: 50%;
-    display:inline-block;
-  }
-
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
   </style>
 </head>
 
+
 <body>
-  
-  <!-- Header (left-aligned, almost black) -->
-  <div class="header-band">
-    <div class="header-inner">
-      <nav class="top">
-        <a class="brand" href="./index.html" aria-label="Go to homepage">
-          <img class="brand-logo" src="GC.png" alt="Glow Code Studio" decoding="async">
-        <a href="/">Home</a>
-        <a href="/terms.html">Terms</a>
+
+  <!-- ===================================================
+       HEADER
+       =================================================== -->
+
+  <header>
+    <div class="header-container">
+
+      <a class="brand" href="index.html" aria-label="Glow Code Studio home">
+        <img class="brand-logo" src="GC.png" alt="Glow Code Studio logo">
+
+        <span class="brand-name">
+          Glow Code Studio
+        </span>
+      </a>
+
+
+      <nav class="header-links" aria-label="Privacy page navigation">
+        <a class="header-link terms-link" href="terms.html">
+          Terms
+        </a>
+
+        <a class="header-link" href="index.html">
+          Home
+        </a>
       </nav>
+
     </div>
-  </div>
+  </header>
 
-  <!-- Content -->
-  <main class="content">
-    <div class="panel">
-      <section class="section">
-        <h1>Privacy Policy</h1>
-        <p>This policy covers <strong>glowcodestudio.com</strong> and any mini-tools hosted on this site (the “Site”).
-          It does
-          <strong>not</strong> apply to other websites or apps unless this page explicitly says so.
+
+  <!-- ===================================================
+       PRIVACY HERO
+       =================================================== -->
+
+  <main>
+
+    <section class="privacy-hero">
+      <div class="hero-container">
+
+        <p class="eyebrow">
+          Your information matters
         </p>
-      </section>
 
-      <section class="section">
-        <div class="row"><span class="dot" aria-hidden="true"></span>
-          <h2 class="section-title">Who we are</h2>
-        </div>
-        <p>Glow Code Studio (“we”, “us”).</p>
-      </section>
+        <h1>
+          Privacy without the
+          <span class="gradient-word">
+            mystery.
+          </span>
+        </h1>
 
-      <section class="section">
-        <div class="row"><span class="dot" aria-hidden="true"></span>
-          <h2 class="section-title">Contact</h2>
-        </div>
-        <p><a href="mailto:glowcodestudio@gmail.com">glowcodestudio@gmail.com</a></p>
-      </section>
+        <p class="hero-copy">
+          This policy explains what Glow Code Studio collects,
+          what stays on your device, and the choices you have
+          when using this website.
+        </p>
 
-      <section class="section">
-        <div class="row"><span class="dot" aria-hidden="true"></span>
-          <h2 class="section-title">Scope</h2>
-        </div>
-        <ul>
-          <li><strong>Included:</strong> Pages and mini-tools hosted under <span class="code">glowcodestudio.com</span>.
-          </li>
-          <li><strong>Not included:</strong> Third-party sites we link to (e.g., GitHub, Google Play, itch.io). Check
-            their policies.</li>
-          <li><strong>Three Sides app:</strong> uses its <em>own</em> privacy policy. See:
-            <a href="https://cpriss1979.github.io/3Sides.io/privacy.html" target="_blank" rel="noopener">Three Sides
-              Privacy Policy ↗</a>
-          </li>
-        </ul>
-      </section>
+        <p class="updated">
+          Last updated: July 19, 2026
+        </p>
 
-      <section class="section">
-        <div class="row"><span class="dot" aria-hidden="true"></span>
-          <h2 class="section-title">What we collect on this Site</h2>
-        </div>
-        <ul>
-          <li><strong>No account required.</strong> Browsing the Site does not require registration.</li>
-          <li><strong>No server-side personal data storage.</strong> We don’t run a backend that stores your entries.
-          </li>
-          <li><strong>Local-only data for mini-tools.</strong> Some pages may save settings or progress to your device
-            (e.g., <span class="code">localStorage</span>).</li>
-          <li><strong>No analytics or ad trackers by default.</strong> We don’t load Google Analytics or ads on this
-            Site.</li>
-          <li><strong>If you email us,</strong> we receive what you send and use it only to respond.</li>
-        </ul>
-      </section>
-
-      <section class="section">
-        <div class="row"><span class="dot" aria-hidden="true"></span>
-          <h2 class="section-title">Future changes</h2>
-        </div>
-        <p>If we add optional features (e.g., sign-in or cloud sync) to the Site, we’ll update this page before launch
-          and explain what’s collected, why, and your choices.</p>
-      </section>
-
-      <section class="section">
-        <div class="row"><span class="dot" aria-hidden="true"></span>
-          <h2 class="section-title">Your choices</h2>
-        </div>
-        <ul>
-          <li><strong>Delete local data:</strong> Clear site data/storage in your browser to remove local settings and
-            entries.</li>
-          <li><strong>Contact us:</strong> Ask questions or request deletion of anything you sent us directly (e.g.,
-            email).</li>
-        </ul>
-      </section>
-
-      <section class="section">
-        <div class="row"><span class="dot" aria-hidden="true"></span>
-          <h2 class="section-title">Children</h2>
-        </div>
-        <p>The Site is for general audiences and not directed to children under 13. If a child provided personal
-          information via email, contact us and we’ll delete it.</p>
-      </section>
-
-      <section class="section">
-        <div class="row"><span class="dot" aria-hidden="true"></span>
-          <h2 class="section-title">Children</h2>
-        </div>
-        <p>The Site is for general audiences and not directed to children under 13. If a child provided personal
-          information via email, contact us and we’ll delete it.</p>
-      </section>
-
-    <section class="section">
-      <div class="row"><span class="dot" aria-hidden="true"></span>
-        <h2 class="section-title">Contact</h2>
       </div>
-      <p>Questions about these Terms? Email: <a href="mailto:glowcodestudio@gmail.com">glowcodestudio@gmail.com</a>.</p>
     </section>
+
+
+    <!-- =================================================
+         PRIVACY POLICY
+         ================================================= -->
+
+    <section class="privacy-content">
+      <div class="content-container">
+
+        <div class="policy-panel">
+
+          <!-- Introduction -->
+
+          <section class="policy-section">
+
+            <div class="section-heading">
+              <span class="section-number">
+                01
+              </span>
+
+              <h2>
+                About this policy
+              </h2>
+            </div>
+
+            <p>
+              This policy covers
+              <strong>glowcodestudio.com</strong>
+              and any mini-tools hosted on this website
+              (the “Site”).
+            </p>
+
+            <p>
+              It does <strong>not</strong> apply to other
+              websites or applications unless this page
+              explicitly says so.
+            </p>
+
+          </section>
+
+
+          <!-- Who we are -->
+
+          <section class="policy-section">
+
+            <div class="section-heading">
+              <span class="section-number">
+                02
+              </span>
+
+              <h2>
+                Who we are
+              </h2>
+            </div>
+
+            <p>
+              Glow Code Studio (“we,” “us,” or “our”) is an
+              independent digital studio operated by Crystal
+              Roberts.
+            </p>
+
+            <p>
+              You can contact Glow Code Studio at
+              <a class="email-link" href="mailto:glowcodestudio@gmail.com">
+                glowcodestudio@gmail.com
+              </a>.
+            </p>
+
+          </section>
+
+
+          <!-- Scope -->
+
+          <section class="policy-section">
+
+            <div class="section-heading">
+              <span class="section-number">
+                03
+              </span>
+
+              <h2>
+                Scope
+              </h2>
+            </div>
+
+            <ul>
+              <li>
+                <strong>Included:</strong>
+                pages and mini-tools hosted under
+                <span class="code">
+                  glowcodestudio.com
+                </span>.
+              </li>
+
+              <li>
+                <strong>Not included:</strong>
+                third-party websites we link to, including
+                GitHub, Google Play, and itch.io. Please review
+                those websites’ individual privacy policies.
+              </li>
+
+              <li>
+                <strong>Three Sides:</strong>
+                the Three Sides application uses its own
+                privacy policy.
+
+                <a class="external-link" href="https://cpriss1979.github.io/3Sides.io/privacy.html" target="_blank"
+                  rel="noopener noreferrer">
+                  View the Three Sides Privacy Policy ↗
+                </a>
+              </li>
+            </ul>
+
+          </section>
+
+
+          <!-- What is collected -->
+
+          <section class="policy-section">
+
+            <div class="section-heading">
+              <span class="section-number">
+                04
+              </span>
+
+              <h2>
+                What we collect on this Site
+              </h2>
+            </div>
+
+            <ul>
+              <li>
+                <strong>No account is required.</strong>
+                Browsing this Site does not require you to
+                register or create an account.
+              </li>
+
+              <li>
+                <strong>No server-side storage of entries.</strong>
+                Glow Code Studio does not currently operate a
+                backend that stores information entered into
+                the Site’s mini-tools.
+              </li>
+
+              <li>
+                <strong>Local-only information.</strong>
+                Some pages may store settings or progress on
+                your device using browser technology such as
+                <span class="code">localStorage</span>.
+              </li>
+
+              <li>
+                <strong>No advertising trackers.</strong>
+                The Site does not currently display advertising
+                or intentionally load advertising trackers.
+              </li>
+
+              <li>
+                <strong>Messages you send.</strong>
+                If you contact Glow Code Studio by email or
+                through a project inquiry, we receive the
+                information you choose to provide and use it to
+                respond to you.
+              </li>
+            </ul>
+
+          </section>
+
+
+          <!-- Local data -->
+
+          <section class="policy-section">
+
+            <div class="section-heading">
+              <span class="section-number">
+                05
+              </span>
+
+              <h2>
+                Information stored on your device
+              </h2>
+            </div>
+
+            <p>
+              Some mini-tools may save preferences, settings,
+              or progress directly inside your browser. This
+              information remains on your device unless a
+              particular tool clearly explains otherwise.
+            </p>
+
+            <p>
+              You can remove locally stored information by
+              clearing the website’s cookies and site storage
+              through your browser settings.
+            </p>
+
+          </section>
+
+
+          <!-- Choices -->
+
+          <section class="policy-section">
+
+            <div class="section-heading">
+              <span class="section-number">
+                06
+              </span>
+
+              <h2>
+                Your choices
+              </h2>
+            </div>
+
+            <ul>
+              <li>
+                <strong>Delete local information:</strong>
+                clear the Site’s data or storage in your
+                browser to remove locally saved settings and
+                entries.
+              </li>
+
+              <li>
+                <strong>Ask a question:</strong>
+                contact us if you would like more information
+                about how the Site handles information.
+              </li>
+
+              <li>
+                <strong>Request deletion:</strong>
+                you may request deletion of personal
+                information you sent directly to Glow Code
+                Studio, such as information contained in an
+                email or project inquiry.
+              </li>
+            </ul>
+
+          </section>
+
+
+          <!-- Children -->
+
+          <section class="policy-section">
+
+            <div class="section-heading">
+              <span class="section-number">
+                07
+              </span>
+
+              <h2>
+                Children’s privacy
+              </h2>
+            </div>
+
+            <p>
+              The Site is intended for general audiences and
+              is not directed to children under 13.
+            </p>
+
+            <p>
+              If you believe a child provided personal
+              information directly to Glow Code Studio, please
+              contact us so that information can be deleted.
+            </p>
+
+          </section>
+
+
+          <!-- Future changes -->
+
+          <section class="policy-section">
+
+            <div class="section-heading">
+              <span class="section-number">
+                08
+              </span>
+
+              <h2>
+                Future features and changes
+              </h2>
+            </div>
+
+            <p>
+              If Glow Code Studio adds optional features such
+              as account sign-in, cloud storage, or cloud
+              synchronization, this policy will be updated to
+              explain what information is collected, why it is
+              needed, and the choices available to you.
+            </p>
+
+            <p>
+              We may also update this policy when the Site or
+              applicable requirements change. The latest
+              version will be posted on this page with an
+              updated date.
+            </p>
+
+          </section>
+
+        </div>
+
+
+        <!-- ===============================================
+             CONTACT PANEL
+             =============================================== -->
+
+        <section class="contact-panel">
+
+          <p class="eyebrow">
+            Questions about privacy?
+          </p>
+
+          <h2>
+            Clear answers are part of the experience.
+          </h2>
+
+          <p>
+            If you have a question about this policy or
+            information you sent to Glow Code Studio, please
+            get in touch.
+          </p>
+
+          <div class="contact-actions">
+
+            <a class="button primary"
+              href="mailto:glowcodestudio@gmail.com?subject=Glow%20Code%20Studio%20Privacy%20Question">
+              Email Glow Code Studio ↗
+            </a>
+
+            <a class="button secondary" href="index.html">
+              Back to Home
+            </a>
+
+          </div>
+
+        </section>
+
+      </div>
+    </section>
+
   </main>
 
-  <!-- Footer -->
-<footer>
-  <div class="footer-inner">
-    <a class="back-link" href="/" aria-label="Back to Home">← Back to Home</a>
-  </div>
-</footer>
+
+  <!-- ===================================================
+       FOOTER
+       =================================================== -->
+
+  <footer>
+    <div class="footer-container">
+
+      <div>
+        © <span id="year"></span> Glow Code Studio
+      </div>
+
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="index.html">
+          Home
+        </a>
+
+        <a href="services.html">
+          Services
+        </a>
+
+        <a href="portfolio.html">
+          Portfolio
+        </a>
+
+        <a href="terms.html">
+          Terms
+        </a>
+      </nav>
+
+    </div>
+  </footer>
+
 
   <script>
-    /* no JS needed */
+    /* Automatically keeps the footer year current */
+
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
   </script>
+
 </body>
 
 </html>

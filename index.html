@@ -2,44 +2,52 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
+
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
   <title>Glow Code Studio</title>
 
   <meta name="description"
-    content="Glow Code Studio creates wellness apps, meaningful websites, custom web tools, IT support, and indie games.">
-  <meta name="theme-color" content="#2b0df2">
+    content="Glow Code Studio creates wellness apps, meaningful websites, custom web tools, IT support solutions, and Unreal Engine experiences.">
 
-  <meta property="og:title" content="Glow Code Studio">
-  <meta property="og:description" content="Wellness apps, websites, custom web tools, IT support, and indie games.">
-  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#040714">
+
 
   <style>
+    /* =====================================================
+       COLOR VARIABLES
+       ===================================================== */
+
     :root {
-      --bg: #0d0a1a;
-      --surface-dark: #0f0b17;
-      --surface-light: #33264f;
-      --surface-mid: #211735;
+      --navy: #040714;
+      --panel: #080d21;
+      --panel-light: #0d1430;
+      --card: #111735;
 
-      --text: #f3f5fa;
-      --muted: #b7afcf;
-      --soft: #d7cff7;
+      --white: #f8f9ff;
+      --muted: #aeb7d2;
+      --soft: #d4d9ec;
 
-      --brand: #8357ff;
-      --brand-blue: #8cd0ff;
-      --brand-pink: #e7b5ea;
-      --brand-teal: #2dd4bf;
+      --pink: #ff3dbf;
+      --violet: #8b5cff;
+      --cyan: #20e7f2;
 
-      --card-bg: #3a2768;
-      --card-border: rgba(255, 255, 255, 0.10);
+      --line: rgba(152, 167, 212, 0.22);
+      --shadow: 0 18px 45px rgba(0, 0, 0, 0.4);
 
-      --header-bg: rgba(43, 13, 242, 0.76);
-      --shadow: 0 14px 34px rgba(0, 0, 0, 0.32);
-      --radius: 18px;
+      --radius: 20px;
       --max-width: 1120px;
-      --header-height: 74px;
-      --safe-bottom: max(16px, env(safe-area-inset-bottom, 0px));
+      --header-height: 78px;
+
+      --safe-bottom:
+        max(16px, env(safe-area-inset-bottom, 0px));
     }
+
+
+    /* =====================================================
+       GLOBAL STYLES
+       ===================================================== */
 
     * {
       box-sizing: border-box;
@@ -53,20 +61,53 @@
       margin: 0;
       min-height: 100%;
       padding-top: var(--header-height);
+      overflow-x: hidden;
+
+      color: var(--white);
+
       background:
-        radial-gradient(1000px 700px at 10% -10%, rgba(131, 87, 255, 0.16), transparent 60%),
-        radial-gradient(900px 600px at 110% 0%, rgba(45, 212, 191, 0.09), transparent 55%),
-        var(--bg);
-      color: var(--text);
-      font: 500 16px/1.6 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+        radial-gradient(900px 650px at 0% 10%,
+          rgba(255, 61, 191, 0.11),
+          transparent 60%),
+        radial-gradient(900px 650px at 100% 5%,
+          rgba(32, 231, 242, 0.09),
+          transparent 58%),
+        var(--navy);
+
+      font:
+        500 16px/1.65 system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+    }
+
+    body::before {
+      content: "";
+
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+
+      pointer-events: none;
+      opacity: 0.15;
+
+      background-image:
+        radial-gradient(rgba(255, 255, 255, 0.13) 0.6px,
+          transparent 0.6px);
+
+      background-size: 5px 5px;
     }
 
     img {
+      display: block;
       max-width: 100%;
     }
 
     a {
-      color: var(--brand-teal);
+      color: var(--cyan);
       text-decoration: none;
     }
 
@@ -74,13 +115,13 @@
       text-decoration: underline;
     }
 
-    button,
-    input {
+    button {
       font: inherit;
     }
 
     [id] {
-      scroll-margin-top: calc(var(--header-height) + 16px);
+      scroll-margin-top:
+        calc(var(--header-height) + 18px);
     }
 
     .container {
@@ -89,1212 +130,1333 @@
     }
 
     .section {
-      padding: 56px 0;
+      padding:
+        clamp(64px, 9vw, 110px) 0;
     }
 
-    .section--dark {
-      background: var(--surface-dark);
+    .section-dark {
+      background:
+        rgba(5, 8, 23, 0.82);
     }
 
-    .section--light {
-      background: var(--surface-light);
+    .section-panel {
+      background:
+        rgba(8, 13, 33, 0.92);
+
+      border-top:
+        1px solid var(--line);
+
+      border-bottom:
+        1px solid var(--line);
     }
 
-    .section--mid {
-      background: var(--surface-mid);
+    .eyebrow {
+      margin: 0 0 14px;
+
+      color: #b8c4ec;
+
+      font-size: 12px;
+      font-weight: 750;
+
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
     }
 
     .section-title {
-      margin: 0 0 10px;
-      font-size: clamp(1.75rem, 3vw, 2.4rem);
-      line-height: 1.15;
+      margin: 0;
+
+      font-size:
+        clamp(2rem, 5vw, 3.7rem);
+
+      line-height: 1.05;
+      letter-spacing: -0.04em;
     }
 
     .section-subtitle {
-      max-width: 70ch;
-      margin: 0;
+      max-width: 700px;
+      margin: 16px 0 0;
+
       color: var(--muted);
+      font-size: 1.05rem;
     }
 
-    .muted {
-      color: var(--muted);
-    }
 
-    /* Header */
+    /* =====================================================
+       HEADER AND NAVIGATION
+       ===================================================== */
+
     header {
       position: fixed;
-      inset: 0 0 auto 0;
+      inset: 0 0 auto;
       z-index: 1000;
-      background: var(--header-bg);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(12px) saturate(140%);
-      -webkit-backdrop-filter: blur(12px) saturate(140%);
+
+      background:
+        rgba(4, 7, 20, 0.92);
+
+      border-bottom:
+        1px solid var(--line);
+
+      backdrop-filter:
+        blur(16px) saturate(150%);
+
+      -webkit-backdrop-filter:
+        blur(16px) saturate(150%);
     }
 
     .nav {
       min-height: var(--header-height);
+
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 18px;
+
+      gap: 20px;
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 11px;
+
+      gap: 12px;
+
       min-width: 0;
     }
 
     .brand-logo {
-      width: 34px;
-      height: 34px;
+      width: 40px;
+      height: 40px;
+
+      flex: 0 0 auto;
+
       border-radius: 50%;
       object-fit: cover;
-      flex: 0 0 auto;
     }
 
-    .brand h1 {
-      margin: 0;
-      white-space: nowrap;
+    .brand-name {
+      color: var(--cyan);
+
       font-size: 18px;
-      letter-spacing: 0.2px;
+      font-weight: 800;
+
+      white-space: nowrap;
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 16px;
+
+      gap: 24px;
     }
 
     .nav-links a {
-      color: var(--text);
-      opacity: 0.82;
+      color: #dfe3f5;
       font-size: 14px;
     }
 
-    .nav-links a:hover,
-    .nav-links a.active {
-      opacity: 1;
+    .nav-links a:hover {
+      color: var(--cyan);
       text-decoration: none;
     }
 
-    /* Buttons */
-    .cta,
-    .btn-primary,
-    .btn-secondary {
+
+    /* =====================================================
+       BUTTONS
+       ===================================================== */
+
+    .button {
+      min-height: 46px;
+      padding: 12px 20px;
+
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
-      min-height: 44px;
-      padding: 11px 16px;
+
+      gap: 9px;
+
+      border: 1px solid transparent;
       border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      font-weight: 750;
-      text-decoration: none;
+
+      font-weight: 800;
       cursor: pointer;
-      transition: transform 0.16s ease, filter 0.16s ease, box-shadow 0.16s ease;
+
+      transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        border-color 0.18s ease;
     }
 
-    .cta,
-    .btn-primary {
-      background: linear-gradient(135deg, #6ca8ff 0%, #8cd0ff 60%, #c5e2ff 100%);
-      color: #0a0f1a;
-      box-shadow: 0 8px 24px rgba(108, 168, 255, 0.30);
-    }
-
-    .cta.secondary,
-    .btn-secondary {
-      background: linear-gradient(135deg, #d8a5ff, #f4cfff);
-      color: #0a0f1a;
-      box-shadow: 0 8px 22px rgba(216, 165, 255, 0.24);
-    }
-
-    .cta:hover,
-    .btn-primary:hover,
-    .btn-secondary:hover {
-      transform: translateY(-1px);
-      filter: brightness(1.03);
+    .button:hover {
+      transform: translateY(-2px);
       text-decoration: none;
     }
 
-    .cta.small {
-      min-height: 38px;
-      padding: 8px 12px;
-      font-size: 14px;
+    .button-primary {
+      color: #ffffff;
+
+      background:
+        linear-gradient(100deg,
+          #f435aa,
+          #9058ff 55%,
+          #2c9dff);
+
+      box-shadow:
+        0 10px 32px rgba(255, 61, 191, 0.22),
+        0 8px 26px rgba(32, 231, 242, 0.11);
     }
 
-    .tag {
-      padding: 2px 8px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.86);
-      color: #0a0f1a;
-      font-size: 12px;
-      white-space: nowrap;
+    .button-secondary {
+      color: var(--white);
+
+      background:
+        rgba(255, 255, 255, 0.035);
+
+      border-color: var(--line);
     }
 
-    /* Mobile menu */
-    .menu-btn {
+    .button-secondary:hover {
+      color: var(--cyan);
+
+      border-color:
+        rgba(32, 231, 242, 0.5);
+    }
+
+    .menu-button {
       display: none;
+
+      min-height: 42px;
+      padding: 9px 17px;
     }
 
-    .sheet {
+
+    /* =====================================================
+       MOBILE MENU
+       ===================================================== */
+
+    .mobile-menu {
       position: fixed;
-      inset: auto 0 0 0;
+      inset: auto 0 0;
       z-index: 1100;
-      padding: 22px 20px calc(22px + var(--safe-bottom));
-      background: rgba(11, 11, 18, 0.98);
-      border-top: 1px solid rgba(255, 255, 255, 0.10);
+
+      padding:
+        24px 20px calc(24px + var(--safe-bottom));
+
+      background:
+        rgba(4, 7, 20, 0.99);
+
+      border-top:
+        1px solid var(--line);
+
       transform: translateY(100%);
-      transition: transform 0.25s ease;
+
+      transition:
+        transform 0.25s ease;
     }
 
-    .sheet.open {
+    .mobile-menu.open {
       transform: translateY(0);
     }
 
-    .sheet nav {
-      margin-top: 28px;
+    .mobile-menu nav {
+      display: grid;
+
+      gap: 5px;
+      margin-top: 34px;
     }
 
-    .sheet nav a {
-      display: block;
+    .mobile-menu nav a {
       padding: 12px 2px;
-      color: var(--text);
+      color: var(--white);
     }
 
-    .sheet .close {
+    .close-menu {
       position: absolute;
-      top: 10px;
-      right: 14px;
+
+      top: 12px;
+      right: 16px;
     }
 
-    /* Intro / About */
-    .intro-copy {
-      margin: 0;
-      color: var(--muted);
-      font-size: 14px;
-    }
 
-    .about-list {
-      display: grid;
-      gap: 14px;
-      margin-top: 20px;
-    }
+    /* =====================================================
+       HERO
+       ===================================================== */
 
-    .about-item {
-      display: flex;
-      gap: 12px;
-      align-items: flex-start;
-    }
-
-    .about-item span:first-child {
-      flex: 0 0 auto;
-    }
-
-    .about-item p {
-      margin: 0;
-    }
-
-    /* App sections */
-    .app-section {
+    .hero {
       position: relative;
       overflow: hidden;
-    }
 
-    .app-section::before {
-      content: "";
-      position: absolute;
-      inset: -200px -100px auto;
-      height: 500px;
-      pointer-events: none;
+      min-height:
+        calc(100vh - var(--header-height));
+
+      display: grid;
+      align-items: center;
+
       background:
-        radial-gradient(circle at 20% 20%, rgba(140, 208, 255, 0.12), transparent 45%),
-        radial-gradient(circle at 80% 20%, rgba(231, 181, 234, 0.12), transparent 45%);
+        radial-gradient(circle at 8% 68%,
+          rgba(255, 61, 191, 0.16),
+          transparent 34%),
+        radial-gradient(circle at 90% 45%,
+          rgba(32, 231, 242, 0.11),
+          transparent 31%);
     }
 
-    .app-shell {
-      position: relative;
+    .hero-grid {
+      padding:
+        clamp(74px, 11vw, 140px) 0;
+
       display: grid;
-      grid-template-columns: minmax(260px, 0.8fr) minmax(0, 1.45fr);
-      gap: clamp(28px, 5vw, 64px);
-      align-items: start;
+
+      grid-template-columns:
+        minmax(0, 1fr) minmax(330px, 0.8fr);
+
+      align-items: center;
+
+      gap:
+        clamp(40px, 8vw, 110px);
     }
 
-    .app-identity {
-      position: sticky;
-      top: calc(var(--header-height) + 28px);
-      text-align: center;
-    }
-
-    .app-title {
-      margin: 0 0 18px;
-      color: var(--brand-pink);
-      font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-      font-size: clamp(2rem, 4vw, 3.2rem);
-      line-height: 1;
-      letter-spacing: -0.02em;
-    }
-
-    .app-icon-wrap {
-      width: min(100%, 300px);
-      aspect-ratio: 1;
-      margin: 0 auto;
-      overflow: hidden;
-      border-radius: 28px;
-      background: linear-gradient(145deg, #4a2fb4, #2a1b48);
-      box-shadow:
-        0 18px 34px rgba(0, 0, 0, 0.34),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.07);
-    }
-
-    .app-icon {
-      width: 100%;
-      height: 100%;
-      display: block;
-      object-fit: cover;
-    }
-
-    .app-kicker {
-      margin: 16px 0 0;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .app-content>p:first-child {
-      margin-top: 0;
-    }
-
-    .app-description {
-      margin-bottom: 22px;
-      color: var(--soft);
-      font-size: 1.02rem;
-    }
-
-    .feature-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
-    }
-
-    .feature-card,
-    .card {
-      position: relative;
-      overflow: hidden;
-      padding: 18px;
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-    }
-
-    .feature-card::before,
-    .card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), transparent 40%);
-    }
-
-    .feature-card h3,
-    .card h3 {
-      position: relative;
-      margin: 0 0 5px;
-      color: #f4edff;
-      font-size: 18px;
-    }
-
-    .feature-card .feature-lead {
-      position: relative;
-      margin: 0 0 7px;
-      color: #ffffff;
-      font-weight: 750;
-    }
-
-    .feature-card p,
-    .card p {
-      position: relative;
+    .hero h1 {
+      max-width: 720px;
       margin: 0;
-      color: var(--soft);
+
+      font-size:
+        clamp(3.3rem, 8vw, 6.7rem);
+
+      line-height: 0.91;
+      letter-spacing: -0.065em;
     }
 
-    .app-summary {
-      margin: 22px 0 0;
+    .hero h1 span {
+      color: transparent;
+
+      background:
+        linear-gradient(90deg,
+          var(--pink),
+          var(--violet) 52%,
+          var(--cyan));
+
+      background-clip: text;
+      -webkit-background-clip: text;
+    }
+
+    .hero-copy {
+      max-width: 620px;
+      margin: 28px 0 0;
+
       color: var(--muted);
+
+      font-size:
+        clamp(1.05rem, 2vw, 1.25rem);
     }
 
-    .app-actions {
+    .hero-actions {
       display: flex;
       flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 18px;
+
+      gap: 13px;
+      margin-top: 34px;
     }
 
-    /* Cards / projects */
-    .grid-2 {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
-      margin-top: 20px;
-    }
+    .hero-orb {
+      position: relative;
 
-    .list {
-      display: grid;
-      gap: 9px;
-      margin: 12px 0 0;
-      padding: 0;
-      list-style: none;
-    }
+      width: min(100%, 400px);
+      aspect-ratio: 1;
 
-    .list li {
-      display: flex;
-      gap: 10px;
-      align-items: flex-start;
-      color: var(--text);
-    }
+      margin-inline: auto;
+      padding: 2px;
 
-    .dot {
-      width: 8px;
-      height: 8px;
-      margin-top: 8px;
-      flex: 0 0 auto;
       border-radius: 50%;
-      background: var(--brand-teal);
+
+      background:
+        conic-gradient(from 220deg,
+          var(--cyan),
+          #6f8dff,
+          #ffffff,
+          var(--pink),
+          var(--violet),
+          var(--cyan));
+
+      box-shadow:
+        -24px -16px 65px rgba(255, 61, 191, 0.19),
+        30px 22px 65px rgba(32, 231, 242, 0.18);
+
+      animation:
+        breathe 7s ease-in-out infinite;
     }
 
-    .note {
-      margin-top: 8px !important;
-      color: var(--soft) !important;
+    .hero-orb::after {
+      content: "GC";
+
+      position: absolute;
+      inset: 2px;
+
+      display: grid;
+      place-items: center;
+
+      color:
+        rgba(248, 249, 255, 0.92);
+
+      background:
+        radial-gradient(circle at 35% 35%,
+          #12183a,
+          #030716 72%);
+
+      border-radius: 50%;
+
+      font-size:
+        clamp(4rem, 10vw, 7rem);
+
+      font-weight: 750;
+      letter-spacing: -0.08em;
+    }
+
+
+    /* =====================================================
+       ABOUT
+       ===================================================== */
+
+    .about-grid {
+      display: grid;
+
+      grid-template-columns:
+        0.8fr 1.2fr;
+
+      gap:
+        clamp(38px, 8vw, 100px);
+    }
+
+    .about-copy {
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .about-copy p:first-child {
+      margin-top: 0;
+
+      color: var(--white);
+      font-size: 1.25rem;
+    }
+
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+
+      gap: 9px;
+      margin-top: 24px;
+    }
+
+    .skill {
+      padding: 8px 12px;
+
+      color: #c9d0e8;
+
+      background:
+        rgba(255, 255, 255, 0.025);
+
+      border:
+        1px solid var(--line);
+
+      border-radius: 999px;
+
       font-size: 12px;
     }
 
-    /* Services */
-    .services-frame {
-      position: relative;
-      padding: 24px;
-      overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.10);
-      border-radius: 24px;
-      background: rgba(15, 11, 23, 0.48);
-      box-shadow: 0 18px 46px rgba(0, 0, 0, 0.38);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-    }
 
-    .services-frame::before {
-      content: "";
-      position: absolute;
-      inset: -120px -80px;
-      pointer-events: none;
-      background:
-        radial-gradient(700px 420px at 10% 20%, rgba(140, 208, 255, 0.16), transparent 60%),
-        radial-gradient(600px 380px at 90% 25%, rgba(216, 165, 255, 0.16), transparent 60%);
-    }
+    /* =====================================================
+       FEATURED WORK
+       ===================================================== */
 
-    .services-frame>* {
-      position: relative;
-    }
-
-    .services-grid,
-    .how-row {
+    .projects-grid {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 14px;
-      margin-top: 18px;
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 18px;
+      margin-top: 34px;
     }
 
-    .service-tile {
-      padding: 17px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 18px;
-      background: rgba(63, 42, 114, 0.38);
-      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.28);
+    .project-card,
+    .service-card,
+    .contact-card {
+      position: relative;
+      overflow: hidden;
+
+      background:
+        linear-gradient(145deg,
+          rgba(18, 24, 58, 0.98),
+          rgba(9, 13, 34, 0.98));
+
+      border:
+        1px solid var(--line);
+
+      border-radius: var(--radius);
+
+      box-shadow: var(--shadow);
     }
 
-    .tile-top {
+    .project-card {
+      min-height: 340px;
+      padding: 24px;
+
       display: flex;
+      flex-direction: column;
       align-items: flex-start;
-      justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 8px;
     }
 
-    .tile-top h3 {
-      margin: 0;
-      font-size: 18px;
+    .project-card::before {
+      content: "";
+
+      position: absolute;
+      inset: 0 0 auto;
+
+      height: 3px;
+
+      background:
+        linear-gradient(90deg,
+          var(--pink),
+          var(--violet),
+          var(--cyan));
     }
 
-    .chip {
-      padding: 4px 9px;
-      border: 1px solid rgba(255, 255, 255, 0.14);
+    .project-status {
+      display: inline-flex;
+
+      padding: 6px 10px;
+
+      color: var(--cyan);
+
+      background:
+        rgba(32, 231, 242, 0.06);
+
+      border:
+        1px solid rgba(32, 231, 242, 0.38);
+
       border-radius: 999px;
-      background: rgba(0, 0, 0, 0.20);
-      color: var(--soft);
-      font-size: 11px;
-      white-space: nowrap;
+
+      font-size: 10px;
+      font-weight: 800;
+
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
     }
 
-    .service-tile p {
+    .project-status.development {
+      color: #d8caff;
+
+      background:
+        rgba(139, 92, 255, 0.08);
+
+      border-color:
+        rgba(139, 92, 255, 0.42);
+    }
+
+    .project-card h3 {
+      margin: 22px 0 10px;
+      font-size: 1.55rem;
+    }
+
+    .project-card p {
+      flex-grow: 1;
+
+      margin: 0 0 24px;
+
+      color: var(--muted);
+    }
+
+    .project-card a {
+      font-weight: 750;
+    }
+
+    .portfolio-action {
+      margin-top: 32px;
+      text-align: center;
+    }
+
+
+    /* =====================================================
+       SERVICES
+       ===================================================== */
+
+    .services-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 18px;
+      margin-top: 34px;
+    }
+
+    .service-card {
+      padding: 24px;
+    }
+
+    .service-card h3 {
       margin: 0 0 10px;
-      color: var(--soft);
+      font-size: 1.2rem;
     }
 
-    .service-tile ul {
+    .service-card p {
       margin: 0;
-      padding-left: 18px;
-      color: var(--soft);
-    }
-
-    .service-tile li {
-      margin: 6px 0;
-    }
-
-    .how {
-      padding: 13px 14px;
-      border: 1px dashed rgba(255, 255, 255, 0.18);
-      border-radius: 16px;
-      background: rgba(0, 0, 0, 0.16);
-      color: var(--soft);
+      color: var(--muted);
     }
 
     .services-actions {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 18px;
+
+      gap: 12px;
+      margin-top: 30px;
     }
 
-    /* Contact preview */
+
+    /* =====================================================
+       CONTACT
+       ===================================================== */
+
     .contact-card {
-      display: flex;
+      padding:
+        clamp(28px, 6vw, 60px);
+
+      display: grid;
+
+      grid-template-columns:
+        1fr auto;
+
       align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-      padding: 22px;
-      border-radius: 20px;
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      box-shadow: var(--shadow);
+
+      gap: 34px;
     }
 
     .contact-card h2 {
-      margin: 0 0 6px;
+      margin: 0;
+
+      font-size:
+        clamp(2rem, 5vw, 3.5rem);
+
+      line-height: 1.05;
+      letter-spacing: -0.04em;
     }
 
     .contact-card p {
-      margin: 0;
+      max-width: 650px;
+      margin: 16px 0 0;
+
       color: var(--muted);
     }
 
-    /* Footer */
+    .contact-actions {
+      display: flex;
+      flex-wrap: wrap;
+
+      gap: 12px;
+    }
+
+
+    /* =====================================================
+       FOOTER
+       ===================================================== */
+
     footer {
-      border-top: 1px solid rgba(255, 255, 255, 0.07);
-      background: var(--bg);
       color: var(--muted);
+      background: #040714;
+
+      border-top:
+        1px solid var(--line);
     }
 
     .footer-grid {
-      min-height: 76px;
+      min-height: 86px;
       padding-bottom: var(--safe-bottom);
+
       display: flex;
       align-items: center;
       justify-content: space-between;
+
       gap: 20px;
     }
 
-    .foot-links {
+    .footer-links {
       display: flex;
       flex-wrap: wrap;
-      gap: 14px;
+
+      gap: 16px;
     }
 
-    .foot-links a {
+    .footer-links a {
       color: var(--muted);
     }
 
-    .sr-only {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap;
-      border: 0;
+
+    /* =====================================================
+       ANIMATION
+       ===================================================== */
+
+    @keyframes breathe {
+      50% {
+        filter: brightness(1.12);
+        transform: scale(1.012);
+      }
     }
 
-    @media (max-width: 980px) {
+
+    /* =====================================================
+       TABLET AND MOBILE
+       ===================================================== */
+
+    @media (max-width: 900px) {
       .nav-links {
         display: none;
       }
 
-      .menu-btn {
+      .menu-button {
         display: inline-flex;
       }
 
-      .app-shell {
-        grid-template-columns: 1fr;
-      }
-
-      .app-identity {
-        position: static;
-      }
-
-      .app-icon-wrap {
-        width: min(70vw, 290px);
-      }
-
-      .services-grid,
-      .how-row {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (max-width: 720px) {
-      .section {
-        padding: 40px 0;
-      }
-
-      .feature-grid,
-      .grid-2 {
-        grid-template-columns: 1fr;
-      }
-
+      .hero-grid,
+      .about-grid,
       .contact-card {
-        align-items: flex-start;
-        flex-direction: column;
+        grid-template-columns: 1fr;
       }
 
-      .footer-grid {
-        padding: 20px 0 calc(20px + var(--safe-bottom));
-        align-items: flex-start;
-        flex-direction: column;
+      .hero-grid {
+        padding-top: 90px;
+      }
+
+      .hero-orb {
+        width: min(72vw, 350px);
+      }
+
+      .projects-grid,
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .project-card {
+        min-height: auto;
       }
     }
 
-    @media (max-width: 460px) {
+    @media (max-width: 560px) {
       .container {
-        width: min(100% - 24px, var(--max-width));
+        width:
+          min(100% - 24px, var(--max-width));
       }
 
-      .brand h1 {
+      .brand-name {
         font-size: 16px;
       }
 
-      .app-actions {
+      .hero h1 {
+        font-size:
+          clamp(3.1rem, 15vw, 4.7rem);
+      }
+
+      .hero-actions,
+      .services-actions,
+      .contact-actions {
         flex-direction: column;
       }
 
-      .app-actions .cta,
-      .services-actions a {
+      .hero-actions .button,
+      .services-actions .button,
+      .contact-actions .button {
         width: 100%;
       }
-    }
 
-    @supports (padding: env(safe-area-inset-top)) {
-      header {
-        padding-top: env(safe-area-inset-top);
-      }
+      .footer-grid {
+        padding:
+          24px 0 calc(24px + var(--safe-bottom));
 
-      body {
-        padding-top: calc(var(--header-height) + env(safe-area-inset-top));
-      }
-
-      [id] {
-        scroll-margin-top: calc(var(--header-height) + env(safe-area-inset-top) + 16px);
+        flex-direction: column;
+        align-items: flex-start;
       }
     }
 
-    header{
-    background:#2b165d;
-}
+
+    /* =====================================================
+       ACCESSIBILITY
+       ===================================================== */
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration:
+          0.01ms !important;
+
+        animation-iteration-count:
+          1 !important;
+
+        transition-duration:
+          0.01ms !important;
+      }
+    }
   </style>
 </head>
 
+
 <body>
+  <!-- ===================================================
+       HEADER
+       =================================================== -->
+
   <header>
     <div class="container nav">
-      <a class="brand" href="#intro" aria-label="Glow Code Studio home">
-        <img class="brand-logo" src="App_Icon.png" alt="" decoding="async">
-        <h1>Glow Code Studio</h1>
+
+      <a class="brand" href="#home" aria-label="Glow Code Studio home">
+        <img class="brand-logo" src="GC.png" alt="Glow Code Studio logo">
+
+        <span class="brand-name">
+          Glow Code Studio
+        </span>
       </a>
 
       <nav class="nav-links" aria-label="Main navigation">
         <a href="#about">About</a>
-        <a href="#three-sides">Three Sides</a>
-        <a href="#amygdala">Amygdala</a>
-        <a href="#web">Websites</a>
-        <a href="#services">Services</a>
-        <a href="#games">Games</a>
-        <a href="#early">Earlier Projects</a>
-        <a href="contact.html">Contact</a>
+
+        <a href="#featured-work">
+          Featured Work
+        </a>
+
+        <a href="#services">
+          Services
+        </a>
+
+        <a href="portfolio.html">
+          Portfolio    
+        </a>
+
+        <a href="contact.html">
+          Contact
+        </a>
       </nav>
 
-      <button class="cta small menu-btn" id="menuBtn" type="button" aria-haspopup="true" aria-controls="menuSheet"
+
+      <button class="button button-primary menu-button" id="menuButton" type="button" aria-controls="mobileMenu"
         aria-expanded="false">
         Menu
       </button>
+
     </div>
   </header>
 
-  <div class="sheet" id="menuSheet" aria-hidden="true">
-    <button class="cta small secondary close" id="closeMenu" type="button" aria-label="Close menu">✕</button>
+
+  <!-- ===================================================
+       MOBILE MENU
+       =================================================== -->
+
+  <aside class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <button class="button button-secondary close-menu" id="closeMenu" type="button" aria-label="Close menu">
+      ✕
+    </button>
+
+
     <nav aria-label="Mobile navigation">
       <a href="#about">About</a>
-      <a href="#three-sides">Three Sides</a>
-      <a href="#amygdala">Amygdala</a>
-      <a href="#web">Websites</a>
-      <a href="#services">Services</a>
-      <a href="#games">Games</a>
-      <a href="#early">Earlier Projects</a>
-      <a href="contact.html">Contact</a>
+
+      <a href="#featured-work">
+        Featured Work
+      </a>
+
+      <a href="#services">
+        Services
+      </a>
+
+      <a href="portfolio.html">
+        Portfolio
+      </a>
+
+      <a href="contact.html">
+        Contact
+      </a>
     </nav>
-  </div>
+  </aside>
+
 
   <main>
-    <section id="intro" class="section section--dark">
-      <div class="container">
-        <p class="intro-copy">
-          <strong>Creator Bio:</strong>
-          Glow Code Studio is an independent developer creating wellness apps,
-          meaningful websites, custom web tools, IT support solutions, and Unreal Engine games.
-          Home of Three Sides, Amygdala, and future digital projects designed to support real life,
-          real emotions, and growth. Three Sides is now available in the Google Play Store.
-        </p>
+    <!-- =================================================
+         HERO
+         ================================================= -->
+
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+
+        <div>
+          <p class="eyebrow">
+            Independent Digital Studio
+          </p>
+
+
+          <h1>
+            Beautiful software that
+            <span>glows.</span>
+          </h1>
+
+
+          <p class="hero-copy">
+            Glow Code Studio creates thoughtful wellness apps,
+            meaningful websites, custom web tools, and imaginative
+            interactive experiences built with care.
+          </p>
+
+
+          <div class="hero-actions">
+
+            <a class="button button-primary" href="portfolio.html">
+              View My Portfolio ↗
+            </a>
+
+
+            <a class="button button-secondary" href="#services">
+              Explore Services
+            </a>
+
+          </div>
+        </div>
+
+
+        <div class="hero-orb" aria-hidden="true"></div>
+
       </div>
     </section>
 
-    <section id="about" class="section section--light">
+
+    <!-- =================================================
+         ABOUT
+         ================================================= -->
+
+    <section class="section section-panel" id="about">
+      <div class="container about-grid">
+
+        <div>
+          <p class="eyebrow">
+            About Glow Code
+          </p>
+
+          <h2 class="section-title">
+            Technology should feel human.
+          </h2>
+        </div>
+
+
+        <div class="about-copy">
+
+          <p>
+            Glow Code Studio is the independent creative
+            practice of Crystal Roberts—a developer, designer,
+            and persistent problem-solver.
+          </p>
+
+
+          <p>
+            I create welcoming digital experiences that are
+            useful, understandable, and designed around real
+            people. My work includes wellness applications,
+            client websites, custom tools, IT support, and
+            Unreal Engine projects.
+          </p>
+
+
+          <div class="skills-list" aria-label="Skills and technologies">
+            <span class="skill">HTML &amp; CSS</span>
+            <span class="skill">JavaScript</span>
+            <span class="skill">Firebase</span>
+            <span class="skill">WordPress</span>
+            <span class="skill">Responsive Design</span>
+            <span class="skill">Unreal Engine 5</span>
+            <span class="skill">GitHub</span>
+            <span class="skill">IT Support</span>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- =================================================
+         FEATURED WORK
+         ================================================= -->
+
+    <section class="section section-dark" id="featured-work">
       <div class="container">
-        <h2 class="section-title">About Glow Code Studio</h2>
+
+        <p class="eyebrow">
+          Featured Work
+        </p>
+
+
+        <h2 class="section-title">
+          Projects built with purpose.
+        </h2>
+
+
         <p class="section-subtitle">
-          I build practical, meaningful digital experiences with a focus on clarity, encouragement, and real-world
-          usefulness.
+          A few highlights from Glow Code Studio. Visit the
+          complete portfolio for detailed features, development
+          notes, websites, games, and earlier work.
         </p>
 
-        <div class="about-list">
-          <div class="about-item">
-            <span aria-hidden="true">⭐️</span>
-            <p>
-              I build wellness apps like <strong>Three Sides</strong> and <strong>Amygdala</strong>.
-              Together, they are designed to help people manage stress, anxiety, and difficult emotions with practical
-              tools,
-              motivation, and hope.
-            </p>
-          </div>
 
-          <div class="about-item">
-            <span aria-hidden="true">⭐️</span>
-            <p>
-              I’ve built several websites, including one for a church and one for a professional author and speaker.
-            </p>
-          </div>
+        <div class="projects-grid">
 
-          <div class="about-item">
-            <span aria-hidden="true">⭐️</span>
-            <p>
-              I create custom web tools, calculators, trackers, and lightweight applications using HTML, CSS,
-              JavaScript,
-              Firebase, and WordPress.
-            </p>
-          </div>
+          <!-- THREE SIDES -->
 
-          <div class="about-item">
-            <span aria-hidden="true">⭐️</span>
-            <p>
-              I’ve also released two small indie games in Unreal Engine, with larger projects such as Wonderlings in
-              development.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
+          <article class="project-card">
 
-    <section id="three-sides" class="section section--dark app-section">
-      <div class="container app-shell">
-        <div class="app-identity">
-          <h2 class="app-title">THREE SIDES</h2>
-
-          <div class="app-icon-wrap">
-            <img class="app-icon" src="threeSides.png" alt="Three Sides app icon">
-          </div>
-
-          <p class="app-kicker">Wellness, reflection, and gentle motivation.</p>
-        </div>
-
-        <div class="app-content">
-          <p class="app-description">
-            Three Sides is a wellness companion designed around the highs, lows, and balance of emotional life.
-            It combines journaling, personalized coping tools, and a virtual pet to make self-care feel more
-            encouraging,
-            consistent, and manageable.
-          </p>
-
-          <div class="feature-grid" aria-label="Three Sides features">
-            <article class="feature-card">
-              <h3>Theme</h3>
-              <p class="feature-lead">Choose a space that feels calming.</p>
-              <p>
-                Customize colors and appearance to create an environment that helps you feel safe, relaxed,
-                and comfortable every time you open the app.
-              </p>
-            </article>
-
-            <article class="feature-card">
-              <h3>Daily Journal</h3>
-              <p class="feature-lead">Track thoughts, moods, and progress.</p>
-              <p>
-                Quick journal entries help you recognize patterns, celebrate victories,
-                and better understand what influences your emotions over time.
-              </p>
-            </article>
-
-            <article class="feature-card">
-              <h3>Coping Tools</h3>
-              <p class="feature-lead">Support when you need it most.</p>
-              <p>
-                Save personalized grounding exercises, reminders, calming activities,
-                and coping strategies so they are always easy to find.
-              </p>
-            </article>
-
-            <article class="feature-card">
-              <h3>Virtual Pet Motivation</h3>
-              <p class="feature-lead">Small habits. Big encouragement.</p>
-              <p>
-                Take care of your virtual companion by taking care of yourself.
-                Completing healthy habits helps your pet grow while encouraging consistency through positive
-                reinforcement.
-              </p>
-            </article>
-          </div>
-
-          <p class="app-summary">
-            Three Sides turns small acts of self-care into visible progress, helping users build supportive routines
-            without making wellness feel like another chore.
-          </p>
-
-          <div class="app-actions">
-            <a class="cta"
-              href="https://play.google.com/store/apps/details?id=io.github.cpriss1979.twa&utm_source=na_Med"
-              target="_blank" rel="noopener">
-              <span>Get it on Google Play</span>
-              <span class="tag">Android</span>
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="amygdala" class="section section--light app-section">
-      <div class="container app-shell">
-        <div class="app-identity">
-          <h2 class="app-title">AMYGDALA</h2>
-
-          <div class="app-icon-wrap">
-            <img class="app-icon" src="amygdala.png" alt="Amygdala app icon">
-          </div>
-
-          <p class="app-kicker">Calming support for difficult moments.</p>
-        </div>
-
-        <div class="app-content">
-          <p class="app-description">
-            Amygdala is a personal anxiety companion designed to make overwhelming moments feel more manageable.
-            Instead of burying users in information, it offers focused exercises, calming tools, hope,
-            and practical support that can be reached quickly.
-          </p>
-
-          <div class="feature-grid" aria-label="Amygdala features">
-            <article class="feature-card">
-              <h3>Panicky</h3>
-              <p class="feature-lead">Ground yourself when anxiety spikes.</p>
-              <p>
-                A guided reset exercise helps slow the moment down, reconnect you with your surroundings,
-                and make intense anxiety feel more manageable.
-              </p>
-            </article>
-
-            <article class="feature-card">
-              <h3>Hope</h3>
-              <p class="feature-lead">Encouragement when you feel low or numb.</p>
-              <p>
-                Carefully selected Bible verses offer comfort, reassurance, and a reminder that difficult moments
-                do not last forever.
-              </p>
-            </article>
-
-            <article class="feature-card">
-              <h3>Thoughts</h3>
-              <p class="feature-lead">Create order when your mind feels crowded.</p>
-              <p>
-                A simple organizing exercise helps separate racing thoughts, identify what needs attention,
-                and bring greater clarity to the moment.
-              </p>
-            </article>
-
-            <article class="feature-card">
-              <h3>Breathe</h3>
-              <p class="feature-lead">Slow your breathing and calm your body.</p>
-              <p>
-                Guided breathing helps ease physical tension, settle the nervous system,
-                and return your focus to the present.
-              </p>
-            </article>
-
-            <article class="feature-card">
-              <h3>Coping Tools</h3>
-              <p class="feature-lead">Keep helpful strategies close.</p>
-              <p>
-                Save personal reminders, grounding activities, calming ideas,
-                and techniques that work specifically for you.
-              </p>
-            </article>
-
-            <article class="feature-card">
-              <h3>Emergency Contacts</h3>
-              <p class="feature-lead">Reach support without searching for it.</p>
-              <p>
-                Keep trusted friends, family members, and important support resources ready
-                for the moments when asking for help feels hardest.
-              </p>
-            </article>
-          </div>
-
-          <p class="app-summary">
-            Anxiety does not have to control the entire day. Amygdala brings practical calming tools,
-            grounding exercises, faith-based encouragement, and personal support into one focused companion.
-          </p>
-
-          <div class="app-actions">
-            <a class="cta" href="https://cpriss1979.github.io/amygdala.io/" target="_blank" rel="noopener">
-              <span>Open Amygdala</span>
-              <span class="tag">Web App</span>
-            </a>
-
-            <span class="cta secondary" aria-label="Amygdala mobile apps coming soon">
-              <span>Mobile Release</span>
-              <span class="tag">Coming Soon</span>
+            <span class="project-status">
+              Available on Google Play
             </span>
-          </div>
+
+
+            <h3>Three Sides</h3>
+
+
+            <p>
+              A wellness companion combining mood journaling,
+              personalized coping tools, and virtual-pet
+              motivation.
+            </p>
+
+
+            <a href="https://play.google.com/store/apps/details?id=io.github.cpriss1979.twa" target="_blank"
+              rel="noopener">
+              View Three Sides ↗
+            </a>
+
+          </article>
+
+
+          <!-- AMYGDALA -->
+
+          <article class="project-card">
+
+            <span class="project-status">
+              Web App Available
+            </span>
+
+
+            <h3>Amygdala</h3>
+
+
+            <p>
+              A focused anxiety-support application with
+              grounding, guided breathing, encouragement,
+              and personal coping tools.
+            </p>
+
+
+            <a href="https://cpriss1979.github.io/amygdala.io/" target="_blank" rel="noopener">
+              Open Amygdala ↗
+            </a>
+
+          </article>
+
+
+          <!-- WONDERLINGS -->
+
+          <article class="project-card">
+
+            <span class="project-status development">
+              In Development
+            </span>
+
+
+            <h3>Wonderlings</h3>
+
+
+            <p>
+              A peaceful Unreal Engine experience centered on
+              nature, restoration, exploration, animals, and
+              discovery.
+            </p>
+
+
+            <a href="portfolio.html">
+              Learn About Wonderlings ↗
+            </a>
+
+          </article>
+
+        </div>
+
+
+        <div class="portfolio-action">
+
+          <a class="button button-primary" href="portfolio.html">
+            Explore My Complete Portfolio ↗
+          </a>
+
         </div>
       </div>
     </section>
 
-    <section id="web" class="section section--mid">
+
+    <!-- =================================================
+         SERVICES
+         ================================================= -->
+
+    <section class="section section-panel" id="services">
       <div class="container">
-        <h2 class="section-title">Websites I’ve Built</h2>
-        <p class="section-subtitle">A few highlights from client and personal work.</p>
 
-        <div class="grid-2">
-          <article class="card">
-            <h3>Viki Scherer — Professional Author &amp; Speaker</h3>
-            <p>
-              A WordPress site with speaking pages, products, testimonials, and a polished brand system.
-            </p>
-            <ul class="list">
-              <li><span class="dot"></span><span>Clean navigation and mobile-first design</span></li>
-              <li><span class="dot"></span><span>Speaking-event calls to action</span></li>
-            </ul>
-            <p style="margin-top: 12px;">
-              <a href="https://vikischerer.com/" target="_blank" rel="noopener">View site ↗</a>
-            </p>
-          </article>
-
-          <article class="card">
-            <h3>Harvest Christian Center</h3>
-            <p>
-              A welcoming WordPress site focused on beliefs, sermons, online giving,
-              and simple content editing for church staff.
-            </p>
-            <ul class="list">
-              <li><span class="dot"></span><span>Fast, accessible, and mobile-first</span></li>
-              <li><span class="dot"></span><span>Service times and location placed front and center</span></li>
-            </ul>
-            <p class="note">The church team has since redesigned the site.</p>
-          </article>
-
-          <article class="card">
-            <h3>Flab to Fab</h3>
-            <p>
-              A lightweight, mobile-first wellness mini-app for exploring food choices,
-              simple workouts, calorie estimates, and personal progress.
-            </p>
-            <ul class="list">
-              <li><span class="dot"></span><span>Calorie calculator built in JavaScript</span></li>
-              <li><span class="dot"></span><span>Accessible mobile navigation</span></li>
-              <li><span class="dot"></span><span>Progress stored locally for privacy</span></li>
-            </ul>
-            <p style="margin-top: 12px;">
-              <a href="https://cpriss1979.github.io/fittofab.io/" target="_blank" rel="noopener">
-                View site ↗
-              </a>
-            </p>
-            <p class="note">
-              “Negative-calorie” foods are more accurately described as low-energy-density foods.
-            </p>
-          </article>
-
-          <article class="card">
-            <h3>Countdown Calculators</h3>
-            <p>
-              I’ve built dozens of personalized countdown calculators—simple, joyful tools
-              that help my family track everything from major events to everyday moments.
-            </p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="services" class="section section--dark">
-      <div class="container">
-        <div class="services-frame">
-          <h2 class="section-title">Services</h2>
-          <p class="section-subtitle">
-            Thoughtful digital work—from clean code to real-world setup.
-            I build things that work and help people use them with confidence.
-          </p>
-
-          <div class="services-grid">
-            <article class="service-tile">
-              <div class="tile-top">
-                <h3>Websites &amp; Front-End Builds</h3>
-                <span class="chip">WordPress or Custom</span>
-              </div>
-              <p>Modern, mobile-friendly websites that are clear, fast, and easy to maintain.</p>
-              <ul>
-                <li>Small-business and personal websites</li>
-                <li>Redesigns, cleanups, and layout repairs</li>
-                <li>Accessibility, mobile, and performance improvements</li>
-              </ul>
-            </article>
-
-            <article class="service-tile">
-              <div class="tile-top">
-                <h3>Custom Web Tools &amp; Apps</h3>
-                <span class="chip">HTML / CSS / JS</span>
-              </div>
-              <p>Purpose-built tools that solve real problems instead of relying on generic templates.</p>
-              <ul>
-                <li>Trackers, planners, calculators, and utilities</li>
-                <li>Installable PWA-ready experiences</li>
-                <li>Optional Firebase login and data storage</li>
-              </ul>
-            </article>
-
-            <article class="service-tile">
-              <div class="tile-top">
-                <h3>IT Setup &amp; Ongoing Support</h3>
-                <span class="chip">Hardware • Software • Help</span>
-              </div>
-              <p>Clear, patient support for people who want technology set up correctly.</p>
-              <ul>
-                <li>Software installation and configuration</li>
-                <li>Computer, device, and peripheral setup</li>
-                <li>Walkthroughs, updates, and ongoing help</li>
-              </ul>
-            </article>
-          </div>
-
-          <div class="how-row" aria-label="How services work">
-            <div class="how">
-              <strong>1) Tell me what you need</strong><br>
-              Your goals, current setup, and comfort level with technology.
-            </div>
-
-            <div class="how">
-              <strong>2) Receive a simple plan</strong><br>
-              I explain the work, timeline, and next steps clearly.
-            </div>
-
-            <div class="how">
-              <strong>3) Build, set up, and support</strong><br>
-              I do not just deliver the project—I help you get it working.
-            </div>
-          </div>
-
-          <div class="services-actions">
-            <a class="btn-primary" href="services.html">View all services &amp; pricing</a>
-            <a class="btn-secondary" href="contact.html">Ask a question</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="games" class="section section--light">
-      <div class="container">
-        <h2 class="section-title">Game Development</h2>
-        <p class="section-subtitle">
-          I’ve released two small games on itch.io while exploring interaction, focus, and play in Unreal Engine.
+        <p class="eyebrow">
+          Services
         </p>
 
-        <div class="card" style="margin-top: 20px;">
-          <h3>Indie Games — Unreal Engine</h3>
-          <p>Downloads are available through my itch.io page.</p>
-          <p style="margin-top: 12px;">
-            <a href="https://cpriss.itch.io/" target="_blank" rel="noopener">View archived site ↗</a>
-          </p>
-        </div>
-      </div>
-    </section>
 
-    <section id="early" class="section section--dark">
-      <div class="container">
-        <h2 class="section-title">Earlier Projects</h2>
+        <h2 class="section-title">
+          Thoughtful digital work and real support.
+        </h2>
+
+
         <p class="section-subtitle">
-          Early work that helped me learn web layout, JavaScript, hosting, and project organization.
+          I build useful technology and help people understand,
+          maintain, and confidently use what I create.
         </p>
 
-        <div class="grid-2">
-          <article class="card">
-            <h3>Rick &amp; Crystal Show</h3>
+
+        <div class="services-grid">
+
+          <article class="service-card">
+
+            <h3>
+              Websites &amp; Front-End Builds
+            </h3>
+
+
             <p>
-              My first live website, built for our YouTube channel.
-              It was simple, but it taught me the foundations of web layout and hosting.
+              Modern, mobile-friendly websites, redesigns,
+              repairs, accessibility improvements, and
+              WordPress support.
             </p>
-            <p style="margin-top: 12px;">
-              <a href="https://cpriss1979.github.io/rickandcrystalshow.io/" target="_blank" rel="noopener">
-                View archived site ↗
-              </a>
-            </p>
+
           </article>
 
-          <article class="card">
-            <h3>More Projects</h3>
+
+          <article class="service-card">
+
+            <h3>
+              Custom Web Tools &amp; Apps
+            </h3>
+
+
             <p>
-              I’ve built additional experiments, tools, and learning projects that are available in my GitHub
-              repositories.
+              Trackers, calculators, planners, utilities, and
+              lightweight applications built around a specific
+              need.
             </p>
-            <p style="margin-top: 12px;">
-              <a href="https://github.com/cpriss1979?tab=repositories" target="_blank" rel="noopener">
-                View GitHub ↗
-              </a>
-            </p>
+
           </article>
+
+
+          <article class="service-card">
+
+            <h3>
+              IT Setup &amp; Ongoing Support
+            </h3>
+
+
+            <p>
+              Clear, patient help with software, computers,
+              devices, setup, troubleshooting, updates, and
+              walkthroughs.
+            </p>
+
+          </article>
+
+        </div>
+
+
+        <div class="services-actions">
+
+          <a class="button button-primary" href="services.html">
+            View Services &amp; Pricing
+          </a>
+
+
+          <a class="button button-secondary" href="contact.html">
+            Ask a Question
+          </a>
+
         </div>
       </div>
     </section>
 
-    <section id="contact-preview" class="section section--mid">
+
+    <!-- =================================================
+         CONTACT
+         ================================================= -->
+
+    <section class="section section-dark" id="contact">
       <div class="container">
+
         <div class="contact-card">
+
           <div>
-            <h2>Have a project or question?</h2>
-            <p>Tell me what you are working on, what is giving you trouble, or what you would like to build.</p>
+            <p class="eyebrow">
+              Let’s Create Something
+            </p>
+
+
+            <h2>
+              Have an idea that deserves to glow?
+            </h2>
+
+
+            <p>
+              I’m open to thoughtful projects, creative
+              collaborations, IT support work, and new
+              professional opportunities.
+            </p>
           </div>
 
-          <a class="cta" href="contact.html">Contact Us</a>
+
+          <div class="contact-actions">
+
+            <a class="button button-primary" href="mailto:glowcodestudio@gmail.com">
+              Email Me
+            </a>
+
+
+            <a class="button button-secondary" href="https://github.com/cpriss1979" target="_blank" rel="noopener">
+              View GitHub
+            </a>
+
+          </div>
         </div>
       </div>
     </section>
   </main>
 
+
+  <!-- ===================================================
+       FOOTER
+       =================================================== -->
+
   <footer>
     <div class="container footer-grid">
-      <div>© <span id="year"></span> Glow Code Studio</div>
 
-      <div class="foot-links">
-        <a href="services.html">Services</a>
-        <a href="contact.html">Contact</a>
-        <a href="privacy.html">Privacy</a>
-        <a href="terms.html">Terms</a>
-        <a href="#intro">Back to top ↑</a>
-      </div>
+      <p>
+        © <span id="year"></span> Glow Code Studio
+      </p>
+
+
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="services.html">
+          Services
+        </a>
+
+        <a href="contact.html">
+          Contact
+        </a>
+
+        <a href="privacy.html">
+          Privacy
+        </a>
+
+        <a href="terms.html">
+          Terms
+        </a>
+
+        <a href="#home">
+          Back to Top ↑
+        </a>
+      </nav>
+
     </div>
   </footer>
 
+
   <script>
-    const $ = (selector, root = document) => root.querySelector(selector);
-    const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selector));
+    /* =====================================================
+       MOBILE MENU
+       ===================================================== */
 
-    (() => {
-      const year = $("#year");
-      if (year) {
-        year.textContent = String(new Date().getFullYear());
-      }
-    })();
+    const menuButton =
+      document.getElementById("menuButton");
 
-    (() => {
-      const sheet = $("#menuSheet");
-      const openButton = $("#menuBtn");
-      const closeButton = $("#closeMenu");
+    const closeMenuButton =
+      document.getElementById("closeMenu");
 
-      if (!sheet || !openButton || !closeButton) {
-        return;
-      }
+    const mobileMenu =
+      document.getElementById("mobileMenu");
 
-      const openMenu = () => {
-        sheet.classList.add("open");
-        sheet.setAttribute("aria-hidden", "false");
-        openButton.setAttribute("aria-expanded", "true");
-      };
 
-      const closeMenu = () => {
-        sheet.classList.remove("open");
-        sheet.setAttribute("aria-hidden", "true");
-        openButton.setAttribute("aria-expanded", "false");
-      };
+    function openMenu() {
+      mobileMenu.classList.add("open");
 
-      openButton.addEventListener("click", openMenu);
-      closeButton.addEventListener("click", closeMenu);
+      mobileMenu.setAttribute(
+        "aria-hidden",
+        "false"
+      );
 
-      sheet.addEventListener("click", (event) => {
-        if (event.target.closest("a")) {
+      menuButton.setAttribute(
+        "aria-expanded",
+        "true"
+      );
+    }
+
+
+    function closeMenu() {
+      mobileMenu.classList.remove("open");
+
+      mobileMenu.setAttribute(
+        "aria-hidden",
+        "true"
+      );
+
+      menuButton.setAttribute(
+        "aria-expanded",
+        "false"
+      );
+    }
+
+
+    menuButton.addEventListener(
+      "click",
+      openMenu
+    );
+
+
+    closeMenuButton.addEventListener(
+      "click",
+      closeMenu
+    );
+
+
+    mobileMenu
+      .querySelectorAll("a")
+      .forEach((link) => {
+        link.addEventListener(
+          "click",
+          closeMenu
+        );
+      });
+
+
+    document.addEventListener(
+      "keydown",
+      (event) => {
+        if (event.key === "Escape") {
           closeMenu();
         }
-      });
+      }
+    );
 
-      document.addEventListener("keydown", (event) => {
-        if (event.key === "Escape" && sheet.classList.contains("open")) {
-          closeMenu();
-        }
-      });
-    })();
 
-    (() => {
-      document.addEventListener("click", (event) => {
-        const anchor = event.target.closest('a[href^="#"]');
+    /* =====================================================
+       AUTOMATIC COPYRIGHT YEAR
+       ===================================================== */
 
-        if (!anchor) {
-          return;
-        }
-
-        const id = anchor.getAttribute("href");
-
-        if (!id || id === "#") {
-          return;
-        }
-
-        const target = document.querySelector(id);
-
-        if (!target) {
-          return;
-        }
-
-        event.preventDefault();
-        target.scrollIntoView({
-          behavior: "smooth",
-          block: "start"
-        });
-
-        history.replaceState(null, "", id);
-      });
-    })();
-
-    (() => {
-      $$('a[href^="http"]').forEach((anchor) => {
-        if (!anchor.hasAttribute("target")) {
-          anchor.setAttribute("target", "_blank");
-        }
-
-        if (!anchor.hasAttribute("rel")) {
-          anchor.setAttribute("rel", "noopener");
-        }
-      });
-    })();
+    document
+      .getElementById("year")
+      .textContent =
+      new Date().getFullYear();
   </script>
 </body>
 
